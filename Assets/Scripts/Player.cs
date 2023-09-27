@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _gravity = 9.81f;
     [SerializeField]
-    private float _sensitivity = 0.7f;
+    private float _sensitivity = 1f;
     [SerializeField]
     public bool _hasPistol = false;
 
