@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -15,25 +17,29 @@ public class Player : MonoBehaviour
     [SerializeField]
     public bool _hasPistol = false;
     [SerializeField]
-    public bool isPressed = false;
+    public bool _isPressed = false;
+    [SerializeField]
+    public int _mouseCounter = 0;
 
     // Start is called before the first frame update
     void Start()
     {
         _controler = GetComponent<CharacterController>();
-       
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isPressed == true)
+        
+        if (_isPressed == true)
         {
             hiddenCursor();
             movements();
             rotations();
-        } 
-       
+            mouseClick();
+        }
+
     }
 
     //Hides the cursor when playing
@@ -67,5 +73,12 @@ public class Player : MonoBehaviour
         transform.localEulerAngles = rotation;
     }
 
+    void mouseClick()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            _mouseCounter += 1;
+        }
+    }
 
 }

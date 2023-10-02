@@ -15,7 +15,7 @@ public class Start_Screen : MonoBehaviour
         Player player = GameObject.Find("Player").GetComponent<Player>();
         if (player != null)
         {
-            player.isPressed = true;
+            player._isPressed = true;
         }
         
     }
