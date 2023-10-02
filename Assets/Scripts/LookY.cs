@@ -16,8 +16,18 @@ public class LookY : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float xRotation = transform.localEulerAngles.x - (Input.GetAxis("Mouse Y") * _sensitivity);
-        Vector3 rotation = new Vector3(xRotation, transform.localEulerAngles.y, transform.localEulerAngles.z);
-        transform.localEulerAngles = rotation;
+        Player player = GameObject.Find("Player").GetComponent<Player>();
+        if (player != null)
+        {
+            if(player.isPressed == true)
+            {
+                float xRotation = transform.localEulerAngles.x - (Input.GetAxis("Mouse Y") * _sensitivity);
+                Vector3 rotation = new Vector3(xRotation, transform.localEulerAngles.y, transform.localEulerAngles.z);
+                transform.localEulerAngles = rotation;
+            }
+        }
+
+
+        
     }
 }

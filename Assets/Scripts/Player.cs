@@ -14,26 +14,33 @@ public class Player : MonoBehaviour
     private float _sensitivity = 1f;
     [SerializeField]
     public bool _hasPistol = false;
+    [SerializeField]
+    public bool isPressed = false;
 
     // Start is called before the first frame update
     void Start()
     {
         _controler = GetComponent<CharacterController>();
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-        hiddenCursor();
-        movements();
-        rotations();
+        if (isPressed == true)
+        {
+            hiddenCursor();
+            movements();
+            rotations();
+        } 
+       
     }
 
     //Hides the cursor when playing
     void hiddenCursor() 
     {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Cursor.visible = true;
