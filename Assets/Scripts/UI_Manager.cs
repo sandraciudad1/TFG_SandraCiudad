@@ -4,19 +4,58 @@ using UnityEngine;
 
 public class UI_Manager : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject _pistol;
-    [SerializeField]
-    private GameObject _bg;
 
-    public void visibleBackground()
+    [SerializeField]
+    private GameObject _weapon;
+    [SerializeField]
+    private GameObject _reason;
+    [SerializeField]
+    private GameObject _place;
+    [SerializeField]
+    private GameObject _killer;
+    [SerializeField]
+    private GameObject _date;
+
+    [SerializeField]
+    private GameObject _bgweapon;
+    [SerializeField]
+    private GameObject _bgreason;
+    [SerializeField]
+    private GameObject _bgplace;
+    [SerializeField]
+    private GameObject _bgkiller;
+    [SerializeField]
+    private GameObject _bgdate;
+
+
+    public void weaponCollected()
     {
-        _bg.SetActive(true);
+        _weapon.SetActive(true);
+        _bgweapon.SetActive(true);
     }
 
-    public void pistolCollected()
+    public void reasonCollected()
     {
-        _pistol.SetActive(true);
+        _reason.SetActive(true);
+        _bgreason.SetActive(true);
+    }
+
+    public void placeCollected()
+    {
+        _place.SetActive(true);
+        _bgplace.SetActive(true);
+    }
+
+    public void killerCollected()
+    {
+        _killer.SetActive(true);
+        _bgkiller.SetActive(true);
+    }
+
+    public void dateCollected()
+    {
+        _date.SetActive(true);
+        _bgdate.SetActive(true);
     }
 
 }
