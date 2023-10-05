@@ -25,7 +25,14 @@ public class Player : MonoBehaviour
     public bool _haskiller = false;
     [SerializeField]
     public bool _hasdate = false;
-    
+
+    [SerializeField]
+    public bool _finishStroop = false;
+
+
+    [SerializeField]
+    public bool _doingTest = false;
+
     //[SerializeField]
     //public bool _hasPistol = false;
     [SerializeField]
@@ -44,9 +51,9 @@ public class Player : MonoBehaviour
     void Update()
     {
         
-        if (_isPressed == true)
+        if (_isPressed == true && _doingTest == false)
         {
-            hiddenCursor();
+            //hiddenCursor();
             movements();
             rotations();
             mouseClick();
