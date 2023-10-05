@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Stroop_test : MonoBehaviour
-{
+{   
+    [SerializeField]
     public GameObject canvasStroop;
+
+    [SerializeField]
+    private GameObject imagen;
 
 
     public void finishStroop()
@@ -24,5 +28,18 @@ public class Stroop_test : MonoBehaviour
         }
         Destroy(this.gameObject);
 
+    }
+
+
+    public void imageChanging()
+    {
+        imagen.SetActive(true);
+        StartCoroutine(change());
+    }
+
+    IEnumerator change()
+    {
+        yield return new WaitForSeconds(5.0f);
+        imagen.SetActive(false);
     }
 }
