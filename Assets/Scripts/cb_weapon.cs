@@ -24,10 +24,10 @@ public class cb_weapon : MonoBehaviour
                     player._doingTest = true;
                     _stroop_test.SetActive(true);
                     
-                    Stroop_test stroop_test = GameObject.Find("Stroop_test").GetComponent<Stroop_test>();
+                    Stroop_test stroop_test = GameObject.Find("StroopTest").GetComponent<Stroop_test>();
                     if (stroop_test != null)
                     {
-                        stroop_test.imageChanging();
+                        stroop_test.image1changing();
                     }
 
                 }
