@@ -12,137 +12,112 @@ public class Stroop_test : MonoBehaviour
     public GameObject canvasStroop;
 
     [SerializeField]
-    private GameObject imagen;
-
-    [SerializeField]
     private Button next_btn;
+    [SerializeField]
+    private Button finish_btn;
 
     public TextMeshProUGUI color1_txt;
     public TextMeshProUGUI color2_txt;
     public TextMeshProUGUI color3_txt;
 
+    public TextMeshProUGUI title_color1_txt;
+    public TextMeshProUGUI title_color2_txt;
+    public TextMeshProUGUI title_color3_txt;
+
     public TMP_Dropdown color1_dd;
     public TMP_Dropdown color2_dd;
     public TMP_Dropdown color3_dd;
 
+    public int count = 0;
 
 
     private void Start()
     {
         next_btn.gameObject.SetActive(false);
         File.Delete("C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Stroop_results.txt");
-        
     }
 
     private void Update()
     {
         if (color1_dd.value != 0 && color2_dd.value != 0 && color3_dd.value != 0)
         {
-            next_btn.gameObject.SetActive(true);
+            if(count <= 10)
+            {
+                next_btn.gameObject.SetActive(true);
+            } else
+            {
+                finish_btn.gameObject.SetActive(true);
+            }
+            
         } else
         {
             next_btn.gameObject.SetActive(false);
         }
     }
 
+    //Method for edit labels with color selectec in each dropdown
     public void selectColors()
     {
         color1_dd.onValueChanged.AddListener(delegate
         {
-            color1_changed(color1_dd);
+            if (color1_dd.value == 1)
+            {
+                color1_txt.text = "ROJO";
+            } else if (color1_dd.value == 2)
+            {
+                color1_txt.text = "AMARILLO";
+            }
+            else if (color1_dd.value == 3)
+            {
+                color1_txt.text = "VERDE";
+            } else if (color1_dd.value == 4)
+            {
+                color1_txt.text = "AZUL";
+            }
         });
 
         color2_dd.onValueChanged.AddListener(delegate
         {
-            color2_changed(color2_dd);
+            if (color2_dd.value == 1)
+            {
+                color2_txt.text = "ROJO";
+            }
+            else if (color2_dd.value == 2)
+            {
+                color2_txt.text = "AMARILLO";
+            }
+            else if (color2_dd.value == 3)
+            {
+                color2_txt.text = "VERDE";
+            }
+            else if (color2_dd.value == 4)
+            {
+                color2_txt.text = "AZUL";
+            }
         });
 
         color3_dd.onValueChanged.AddListener(delegate
         {
-            color3_changed(color3_dd);
+            if (color3_dd.value == 1)
+            {
+                color3_txt.text = "ROJO";
+            }
+            else if (color3_dd.value == 2)
+            {
+                color3_txt.text = "AMARILLO";
+            }
+            else if (color3_dd.value == 3)
+            {
+                color3_txt.text = "VERDE";
+            }
+            else if (color3_dd.value == 4)
+            {
+                color3_txt.text = "AZUL";
+            }
         });        
     }
 
-
-    public void color1_changed(TMP_Dropdown sender)
-    {
-        if(sender.value == 1)
-        {
-            color1_txt.text = "ROJO";
-            color1_txt.color = Color.red;
-        } else if (sender.value == 2)
-        {
-            color1_txt.text = "AMARILLO";
-            color1_txt.color = Color.yellow;
-        } else if (sender.value == 3)
-        {
-            color1_txt.text = "VERDE";
-            color1_txt.color = Color.green;
-        } else if (sender.value == 4)
-        {
-            color1_txt.text = "AZUL";
-            color1_txt.color = Color.blue;
-        } else
-        {
-            color1_txt.text = " ";
-        }
-    }
-
-    public void color2_changed(TMP_Dropdown sender)
-    {
-        if (sender.value == 1)
-        {
-            color2_txt.text = "ROJO";
-            color2_txt.color = Color.red;
-        }
-        else if (sender.value == 2)
-        {
-            color2_txt.text = "AMARILLO";
-            color2_txt.color = Color.yellow;
-        }
-        else if (sender.value == 3)
-        {
-            color2_txt.text = "VERDE";
-            color2_txt.color = Color.green;
-        }
-        else if (sender.value == 4)
-        {
-            color2_txt.text = "AZUL";
-            color2_txt.color = Color.blue;
-        } else
-        {
-            color2_txt.text = " ";
-        }
-    }
-
-    public void color3_changed(TMP_Dropdown sender)
-    {
-        if (sender.value == 1)
-        {
-            color3_txt.text = "ROJO";
-            color3_txt.color = Color.red;
-        }
-        else if (sender.value == 2)
-        {
-            color3_txt.text = "AMARILLO";
-            color3_txt.color = Color.yellow;
-        }
-        else if (sender.value == 3)
-        {
-            color3_txt.text = "VERDE";
-            color3_txt.color = Color.green;
-        }
-        else if (sender.value == 4)
-        {
-            color3_txt.text = "AZUL";
-            color3_txt.color = Color.blue;
-        } else
-        {
-            color3_txt.text = " ";
-        }
-    }
-
-
+    //Method for finish test
     public void finishStroop()
     {
         canvasStroop.SetActive(false);
@@ -159,43 +134,101 @@ public class Stroop_test : MonoBehaviour
             ui_manager.weaponCollected();
         }
         Destroy(this.gameObject);
-
     }
 
+
+    //Method for restore default values in dropdown and labels
     public void defaultValues()
     {
         color1_dd.gameObject.SetActive(false);
         color2_dd.gameObject.SetActive(false);
-        color3_dd.gameObject.SetActive(false);
-        
+        color3_dd.gameObject.SetActive(false);   
         color1_txt.text = " ";
         color2_txt.text = " ";
         color3_txt.text = " ";
-        imagen.SetActive(true);
+        title_color1_txt.gameObject.SetActive(true);
+        title_color2_txt.gameObject.SetActive(true);
+        title_color3_txt.gameObject.SetActive(true);
     }
 
+    //Method for saving test results in .txt file
     public void saveTestsResults()
     {
         string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Stroop_results.txt";
-        string texto = color1_txt.text + ", " + color2_txt.text + ", " + color3_txt.text;
-        File.AppendAllLines(path, new String[] { texto });
-
-
-        /*TextWriter write = new StreamWriter("C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Stroop_results.txt");
-        write.WriteLine("\n" +color1_txt.text + ", " + color2_txt.text + ", " + color3_txt.text);
-        write.Close();*/
+        string text = color1_txt.text + ", " + color2_txt.text + ", " + color3_txt.text;
+        File.AppendAllLines(path, new String[] { text });
     }
 
-    public void image1changing()
+    public void testOptions()
     {
-        defaultValues();
-        StartCoroutine(change());
+        if(count == 1)
+        {
+            title_color1_txt.text = "AZUL"; title_color1_txt.color = Color.green;
+            title_color2_txt.text = "AZUL"; title_color2_txt.color = Color.red;
+            title_color3_txt.text = "VERDE"; title_color3_txt.color = Color.yellow;
+        } else if (count == 2)
+        {
+            title_color1_txt.text = "AZUL"; title_color1_txt.color = Color.yellow;
+            title_color2_txt.text = "AZUL"; title_color2_txt.color = Color.green;
+            title_color3_txt.text = "ROJO"; title_color3_txt.color = Color.blue;
+        } else if (count == 3)
+        {
+            title_color1_txt.text = "AMARILLO"; title_color1_txt.color = Color.blue;
+            title_color2_txt.text = "VERDE"; title_color2_txt.color = Color.red;
+            title_color3_txt.text = "AMARILLO"; title_color3_txt.color = Color.red;
+        } else if (count == 4)
+        {
+            title_color1_txt.text = "ROJO"; title_color1_txt.color = Color.yellow;
+            title_color2_txt.text = "VERDE"; title_color2_txt.color = Color.yellow;
+            title_color3_txt.text = "AZUL"; title_color3_txt.color = Color.yellow;
+        } else if (count == 5)
+        {
+            title_color1_txt.text = "AZUL"; title_color1_txt.color = Color.red;
+            title_color2_txt.text = "ROJO"; title_color2_txt.color = Color.green;
+            title_color3_txt.text = "AMARILLO"; title_color3_txt.color = Color.red;
+        } else if (count == 6)
+        {
+            title_color1_txt.text = "VERDE"; title_color1_txt.color = Color.yellow;
+            title_color2_txt.text = "AMARILLO"; title_color2_txt.color = Color.blue;
+            title_color3_txt.text = "ROJO"; title_color3_txt.color = Color.yellow;
+        } else if (count == 7)
+        {
+            title_color1_txt.text = "AMARILLO"; title_color1_txt.color = Color.red;
+            title_color2_txt.text = "ROJO"; title_color2_txt.color = Color.yellow;
+            title_color3_txt.text = "AMARILLO"; title_color3_txt.color = Color.blue;
+        } else if (count == 8)
+        {
+            title_color1_txt.text = "AZUL"; title_color1_txt.color = Color.green;
+            title_color2_txt.text = "VERDE"; title_color2_txt.color = Color.blue;
+            title_color3_txt.text = "AZUL"; title_color3_txt.color = Color.green;
+        } else if (count == 9)
+        {
+            title_color1_txt.text = "ROJO"; title_color1_txt.color = Color.green;
+            title_color2_txt.text = "AZUL"; title_color2_txt.color = Color.yellow;
+            title_color3_txt.text = "ROJO"; title_color3_txt.color = Color.green;
+
+        } else if (count == 10)
+        {
+            title_color1_txt.text = "VERDE"; title_color1_txt.color = Color.blue;
+            title_color2_txt.text = "AMARILLO"; title_color2_txt.color = Color.red;
+            title_color3_txt.text = "VERDE"; title_color3_txt.color = Color.blue;
+
+        }
+    }
+
+    public void loadTest()
+    {
+        
     }
 
     public void next_btn_click()
     {
         saveTestsResults();
-        image1changing();
+        //loadTest();
+        count += 1;
+        defaultValues();
+        testOptions();
+        StartCoroutine(change());
     }
 
     IEnumerator change()
@@ -205,7 +238,9 @@ public class Stroop_test : MonoBehaviour
         //Reset dropdown values for button desactivation
         color1_dd.value = 0; color2_dd.value = 0; color3_dd.value = 0;
         
-        imagen.SetActive(false);
+        title_color1_txt.gameObject.SetActive(false);
+        title_color2_txt.gameObject.SetActive(false);
+        title_color3_txt.gameObject.SetActive(false);
         selectColors();
         color1_dd.gameObject.SetActive(true);
         color2_dd.gameObject.SetActive(true);

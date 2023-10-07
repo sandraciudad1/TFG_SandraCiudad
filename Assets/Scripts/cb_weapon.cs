@@ -27,7 +27,7 @@ public class cb_weapon : MonoBehaviour
                     Stroop_test stroop_test = GameObject.Find("StroopTest").GetComponent<Stroop_test>();
                     if (stroop_test != null)
                     {
-                        stroop_test.image1changing();
+                        stroop_test.next_btn_click();
                     }
 
                 }
