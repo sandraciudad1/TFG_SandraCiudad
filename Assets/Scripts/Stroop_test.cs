@@ -12,8 +12,6 @@ public class Stroop_test : MonoBehaviour
     public GameObject canvasStroop;
 
     [SerializeField]
-    private Button next_btn;
-    [SerializeField]
     private Button finish_btn;
 
     public TextMeshProUGUI color1_txt;
@@ -28,32 +26,38 @@ public class Stroop_test : MonoBehaviour
     public TMP_Dropdown color2_dd;
     public TMP_Dropdown color3_dd;
 
-    public int count = 0;
+    
+    private int count;
 
+
+    public TextMeshProUGUI terminar;
 
     private void Start()
     {
-        next_btn.gameObject.SetActive(false);
-        File.Delete("C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Stroop_results.txt");
+        
+        count = 1;
+        
     }
 
     private void Update()
     {
-        if (color1_dd.value != 0 && color2_dd.value != 0 && color3_dd.value != 0)
+        if (count > 10)
         {
-            if(count <= 10)
-            {
-                next_btn.gameObject.SetActive(true);
-            } else
-            {
-                finish_btn.gameObject.SetActive(true);
-            }
-            
-        } else
-        {
-            next_btn.gameObject.SetActive(false);
+            title_color1_txt.gameObject.SetActive(false);
+            title_color2_txt.gameObject.SetActive(false);
+            title_color3_txt.gameObject.SetActive(false);
+            terminar.gameObject.SetActive(true);
+            finish_btn.gameObject.SetActive(true);
         }
+        else if (count <= 10 && (color1_dd.value != 0 && color2_dd.value != 0 && color3_dd.value != 0))
+        {
+            saveTestsResults();
+            nextTest();
+        }
+
     }
+
+    
 
     //Method for edit labels with color selectec in each dropdown
     public void selectColors()
@@ -149,6 +153,7 @@ public class Stroop_test : MonoBehaviour
         title_color1_txt.gameObject.SetActive(true);
         title_color2_txt.gameObject.SetActive(true);
         title_color3_txt.gameObject.SetActive(true);
+        color1_dd.value = 0; color2_dd.value = 0; color3_dd.value = 0;
     }
 
     //Method for saving test results in .txt file
@@ -161,7 +166,7 @@ public class Stroop_test : MonoBehaviour
 
     public void testOptions()
     {
-        if(count == 1)
+        if (count == 1)
         {
             title_color1_txt.text = "AZUL"; title_color1_txt.color = Color.green;
             title_color2_txt.text = "AZUL"; title_color2_txt.color = Color.red;
@@ -216,35 +221,22 @@ public class Stroop_test : MonoBehaviour
         }
     }
 
-    public void loadTest()
+    public void nextTest()
     {
-        
-    }
-
-    public void next_btn_click()
-    {
-        saveTestsResults();
-        //loadTest();
-        count += 1;
+        count = count + 1;
         defaultValues();
         testOptions();
         StartCoroutine(change());
     }
-
     IEnumerator change()
     {
         yield return new WaitForSeconds(5.0f);
-
-        //Reset dropdown values for button desactivation
-        color1_dd.value = 0; color2_dd.value = 0; color3_dd.value = 0;
-        
         title_color1_txt.gameObject.SetActive(false);
         title_color2_txt.gameObject.SetActive(false);
         title_color3_txt.gameObject.SetActive(false);
-        selectColors();
         color1_dd.gameObject.SetActive(true);
         color2_dd.gameObject.SetActive(true);
         color3_dd.gameObject.SetActive(true);
-
+        selectColors();
     }
 }

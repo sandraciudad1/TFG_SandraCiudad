@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
-using System.Threading;
 
 public class cb_weapon : MonoBehaviour
 {
@@ -23,11 +23,11 @@ public class cb_weapon : MonoBehaviour
                     _weapon.SetActive(false);
                     player._doingTest = true;
                     _stroop_test.SetActive(true);
-                    
+                    File.Delete("C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Stroop_results.txt");
                     Stroop_test stroop_test = GameObject.Find("StroopTest").GetComponent<Stroop_test>();
                     if (stroop_test != null)
                     {
-                        stroop_test.next_btn_click();
+                        stroop_test.nextTest();
                     }
 
                 }
