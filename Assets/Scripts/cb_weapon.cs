@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class cb_weapon : MonoBehaviour
 {
-
     [SerializeField]
     private GameObject _stroop_test;
     [SerializeField]
     private GameObject _weapon;
 
+    //Check if cb_weapon us colliding with player
     private void OnTriggerStay(Collider other)
     {
         if (other.tag == "Player")
@@ -23,7 +23,10 @@ public class cb_weapon : MonoBehaviour
                     _weapon.SetActive(false);
                     player._doingTest = true;
                     _stroop_test.SetActive(true);
-                    File.Delete("C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Stroop_results.txt");
+
+                    File.Delete("C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Stroop/Results.txt");
+                    File.Delete("C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Stroop/Time.txt");
+                    
                     Stroop_test stroop_test = GameObject.Find("StroopTest").GetComponent<Stroop_test>();
                     if (stroop_test != null)
                     {

@@ -10,7 +10,6 @@ public class Stroop_test : MonoBehaviour
 {   
     [SerializeField]
     public GameObject canvasStroop;
-
     [SerializeField]
     private Button finish_btn;
 
@@ -28,20 +27,22 @@ public class Stroop_test : MonoBehaviour
 
     
     private int count;
-
+    private DateTime tiempo1 = DateTime.Now, tiempo2;
 
     public TextMeshProUGUI terminar;
 
+
+    //initialize variable count
     private void Start()
     {
-        
         count = 1;
-        
     }
 
+
+    //checks if there are more tests to continue or not
     private void Update()
     {
-        if (count > 10)
+        if (count > 3)
         {
             title_color1_txt.gameObject.SetActive(false);
             title_color2_txt.gameObject.SetActive(false);
@@ -49,15 +50,13 @@ public class Stroop_test : MonoBehaviour
             terminar.gameObject.SetActive(true);
             finish_btn.gameObject.SetActive(true);
         }
-        else if (count <= 10 && (color1_dd.value != 0 && color2_dd.value != 0 && color3_dd.value != 0))
+        else if (count <= 3 && (color1_dd.value != 0 && color2_dd.value != 0 && color3_dd.value != 0))
         {
             saveTestsResults();
             nextTest();
         }
-
     }
 
-    
 
     //Method for edit labels with color selectec in each dropdown
     public void selectColors()
@@ -121,6 +120,7 @@ public class Stroop_test : MonoBehaviour
         });        
     }
 
+
     //Method for finish test
     public void finishStroop()
     {
@@ -131,6 +131,7 @@ public class Stroop_test : MonoBehaviour
         {
             player._doingTest = false;
         }
+        Destroy(this.gameObject);
 
         UI_Manager ui_manager = GameObject.Find("Inventry").GetComponent<UI_Manager>();
         if (ui_manager != null)
@@ -138,6 +139,11 @@ public class Stroop_test : MonoBehaviour
             ui_manager.weaponCollected();
         }
         Destroy(this.gameObject);
+
+        tiempo2 = DateTime.Now;
+        string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Stroop/Time.txt";
+        string text = (tiempo2 - tiempo1).Hours + " horas " + (tiempo2 - tiempo1).Minutes + " minutos " + (tiempo2 - tiempo1).Seconds + " segundos";
+        File.AppendAllLines(path, new String[] { text });
     }
 
 
@@ -156,14 +162,17 @@ public class Stroop_test : MonoBehaviour
         color1_dd.value = 0; color2_dd.value = 0; color3_dd.value = 0;
     }
 
+
     //Method for saving test results in .txt file
     public void saveTestsResults()
     {
-        string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Stroop_results.txt";
+        string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Stroop/Results.txt";
         string text = color1_txt.text + ", " + color2_txt.text + ", " + color3_txt.text;
         File.AppendAllLines(path, new String[] { text });
     }
 
+
+    //method that defines all tests labels and colors
     public void testOptions()
     {
         if (count == 1)
@@ -221,6 +230,7 @@ public class Stroop_test : MonoBehaviour
         }
     }
 
+    //method to change test
     public void nextTest()
     {
         count = count + 1;
@@ -228,6 +238,9 @@ public class Stroop_test : MonoBehaviour
         testOptions();
         StartCoroutine(change());
     }
+
+
+    //coroutine that show test for 5 seconds and then hide 
     IEnumerator change()
     {
         yield return new WaitForSeconds(5.0f);
