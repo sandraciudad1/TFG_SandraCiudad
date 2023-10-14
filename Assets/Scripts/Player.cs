@@ -21,10 +21,12 @@ public class Player : MonoBehaviour
     public bool _hasreason = false;
     [SerializeField]
     public bool _hasplace = false;
-    [SerializeField]
-    public bool _haskiller = false;
+    //[SerializeField]
+    //public bool _haskiller = false;
     [SerializeField]
     public bool _hasdate = false;
+    [SerializeField]
+    public bool _hasextra = false;
 
     [SerializeField]
     public bool _finishStroop = false;

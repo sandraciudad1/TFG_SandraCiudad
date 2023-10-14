@@ -17,6 +17,8 @@ public class UI_Manager : MonoBehaviour
     private GameObject _killer;
     [SerializeField]
     private GameObject _date;
+    [SerializeField]
+    private GameObject _extra;
 
     [SerializeField]
     private GameObject _bgweapon;
@@ -28,6 +30,8 @@ public class UI_Manager : MonoBehaviour
     private GameObject _bgkiller;
     [SerializeField]
     private GameObject _bgdate;
+    [SerializeField]
+    private GameObject _bgextra;
 
     public void weaponCollected()
     {
@@ -47,10 +51,16 @@ public class UI_Manager : MonoBehaviour
         _bgplace.SetActive(true);
     }
 
-    public void killerCollected()
+    /*public void killerCollected()
     {
         _killer.SetActive(true);
         _bgkiller.SetActive(true);
+    }*/
+
+    public void extraCollected()
+    {
+        _extra.SetActive(true);
+        _bgextra.SetActive(true);
     }
 
     public void dateCollected()
