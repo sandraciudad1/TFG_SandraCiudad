@@ -19,6 +19,12 @@ public class Start_Screen : MonoBehaviour
     private Image _clipboardImage;
     [SerializeField]
     private Image _newspaper;
+    [SerializeField]
+    private GameObject _killer;
+    [SerializeField]
+    private GameObject _bgKiller;
+    [SerializeField]
+    private GameObject _textDialog;
 
     public TextMeshProUGUI text1;
     public TextMeshProUGUI text2;
@@ -33,9 +39,13 @@ public class Start_Screen : MonoBehaviour
         count = 0;
 
         _startBtn.SetActive(false);
-        _introBackground.SetActive(true);
+        //show player info
+        _killer.SetActive(true);
+        _bgKiller.SetActive(true);
+        _textDialog.SetActive(true);
+        /*_introBackground.SetActive(true);
         _newspaper.gameObject.SetActive(true);
-        _arrowButton.gameObject.SetActive(true);
+        _arrowButton.gameObject.SetActive(true);*/
     }
 
 
@@ -77,11 +87,21 @@ public class Start_Screen : MonoBehaviour
             _arrowButton.gameObject.SetActive(false);
             _introBackground.gameObject.SetActive(false);
             _introBackground.SetActive(false);
-            Player player = GameObject.Find("Player").GetComponent<Player>();
-            if (player != null)
-            {
-                player._isPressed = true;
-            }
+
+            //show player info
+            _killer.SetActive(true);
+            _bgKiller.SetActive(true);
+            _textDialog.SetActive(true);
+        }
+    }
+
+    private void okClick()
+    {
+        _textDialog.SetActive(false);
+        Player player = GameObject.Find("Player").GetComponent<Player>();
+        if (player != null)
+        {
+            player._isPressed = true;
         }
     }
 
