@@ -5,28 +5,23 @@ using TMPro;
 
 public class typewriterUI : MonoBehaviour
 {
-	Text _text;
 	TMP_Text _tmpProText;
 	string writer;
 
-	[SerializeField] float delayBeforeStart = 0f;
-	[SerializeField] float timeBtwChars = 0.1f;
-	[SerializeField] string leadingChar = "";
-	[SerializeField] bool leadingCharBeforeDelay = false;
+	[SerializeField] 
+	float delayBeforeStart = 0f;
+	[SerializeField] 
+	float timeBtwChars = 0.1f;
+	[SerializeField] 
+	string leadingChar = "";
+	[SerializeField] 
+	bool leadingCharBeforeDelay = false;
+	[SerializeField]
+	public bool _finishWritting = false;
 
-	// Use this for initialization
 	void Start()
 	{
-		_text = GetComponent<Text>()!;
 		_tmpProText = GetComponent<TMP_Text>()!;
-
-		if (_text != null)
-		{
-			writer = _text.text;
-			_text.text = "";
-
-			StartCoroutine("TypeWriterText");
-		}
 
 		if (_tmpProText != null)
 		{
@@ -37,31 +32,9 @@ public class typewriterUI : MonoBehaviour
 		}
 	}
 
-	IEnumerator TypeWriterText()
-	{
-		_text.text = leadingCharBeforeDelay ? leadingChar : "";
-
-		yield return new WaitForSeconds(delayBeforeStart);
-
-		foreach (char c in writer)
-		{
-			if (_text.text.Length > 0)
-			{
-				_text.text = _text.text.Substring(0, _text.text.Length - leadingChar.Length);
-			}
-			_text.text += c;
-			_text.text += leadingChar;
-			yield return new WaitForSeconds(timeBtwChars);
-		}
-
-		if (leadingChar != "")
-		{
-			_text.text = _text.text.Substring(0, _text.text.Length - leadingChar.Length);
-		}
-	}
-
 	IEnumerator TypeWriterTMP()
 	{
+		Debug.Log("en typewriterTMP al principio " + _finishWritting);
 		_tmpProText.text = leadingCharBeforeDelay ? leadingChar : "";
 
 		yield return new WaitForSeconds(delayBeforeStart);
@@ -71,7 +44,7 @@ public class typewriterUI : MonoBehaviour
 			if (_tmpProText.text.Length > 0)
 			{
 				_tmpProText.text = _tmpProText.text.Substring(0, _tmpProText.text.Length - leadingChar.Length);
-			}
+			} 
 			_tmpProText.text += c;
 			_tmpProText.text += leadingChar;
 			yield return new WaitForSeconds(timeBtwChars);
@@ -80,6 +53,20 @@ public class typewriterUI : MonoBehaviour
 		if (leadingChar != "")
 		{
 			_tmpProText.text = _tmpProText.text.Substring(0, _tmpProText.text.Length - leadingChar.Length);
+		}
+        else
+        {
+			_finishWritting = true;
+			typewriterUI typewriter = GameObject.Find("Introduction").GetComponent<typewriterUI>();
+			if (typewriter != null)
+            {
+				typewriter._finishWritting = true;
+            }
+			Start_Screen startScreen = GameObject.Find("Start_Screen").GetComponent<Start_Screen>();
+			if (startScreen != null)
+            {
+				startScreen.checkFinish();
+            }
 		}
 	}
 }
