@@ -12,6 +12,10 @@ public class Stroop_test : MonoBehaviour
     public GameObject canvasStroop;
     [SerializeField]
     private Button finish_btn;
+    [SerializeField]
+    private GameObject _weaponCard;
+    [SerializeField]
+    private GameObject _confirm_btn;
 
     public TextMeshProUGUI color1_txt;
     public TextMeshProUGUI color2_txt;
@@ -42,7 +46,7 @@ public class Stroop_test : MonoBehaviour
     //checks if there are more tests to continue or not
     private void Update()
     {
-        if (count > 3)
+        if (count > 10)
         {
             title_color1_txt.gameObject.SetActive(false);
             title_color2_txt.gameObject.SetActive(false);
@@ -50,7 +54,7 @@ public class Stroop_test : MonoBehaviour
             terminar.gameObject.SetActive(true);
             finish_btn.gameObject.SetActive(true);
         }
-        else if (count <= 3 && (color1_dd.value != 0 && color2_dd.value != 0 && color3_dd.value != 0))
+        else if (count <= 10 && (color1_dd.value != 0 && color2_dd.value != 0 && color3_dd.value != 0))
         {
             saveTestsResults();
             nextTest();
@@ -120,11 +124,30 @@ public class Stroop_test : MonoBehaviour
         });        
     }
 
+    public void confirm_btn_click()
+    {
+        _weaponCard.SetActive(false);
+    }
+
+    public void show_weapon_card()
+    {
+        _weaponCard.SetActive(true);
+        _confirm_btn.SetActive(true);
+        confirm_btn_click();
+    }
+
+    public void test_introduction()
+    {
+
+    }
 
     //Method for finish test
     public void finishStroop()
     {
         canvasStroop.SetActive(false);
+
+        //mostrar arma
+        show_weapon_card();
 
         Player player = GameObject.Find("Player").GetComponent<Player>();
         if (player != null)
