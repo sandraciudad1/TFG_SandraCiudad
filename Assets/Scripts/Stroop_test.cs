@@ -7,15 +7,13 @@ using System.IO;
 using System;
 
 public class Stroop_test : MonoBehaviour
-{   
+{
     [SerializeField]
-    public GameObject canvasStroop;
+    public GameObject _canvasStroop;
+    [SerializeField]
+    public GameObject _background;
     [SerializeField]
     private Button finish_btn;
-    [SerializeField]
-    private GameObject _weaponCard;
-    [SerializeField]
-    private GameObject _confirm_btn;
 
     public TextMeshProUGUI color1_txt;
     public TextMeshProUGUI color2_txt;
@@ -32,8 +30,7 @@ public class Stroop_test : MonoBehaviour
     
     private int count;
     private DateTime tiempo1 = DateTime.Now, tiempo2;
-
-    public TextMeshProUGUI terminar;
+    public bool _hasfinish_stoop;
 
 
     //initialize variable count
@@ -46,15 +43,14 @@ public class Stroop_test : MonoBehaviour
     //checks if there are more tests to continue or not
     private void Update()
     {
-        if (count > 10)
+        if (count > 1)
         {
             title_color1_txt.gameObject.SetActive(false);
             title_color2_txt.gameObject.SetActive(false);
             title_color3_txt.gameObject.SetActive(false);
-            terminar.gameObject.SetActive(true);
             finish_btn.gameObject.SetActive(true);
         }
-        else if (count <= 10 && (color1_dd.value != 0 && color2_dd.value != 0 && color3_dd.value != 0))
+        else if (count <= 1 && (color1_dd.value != 0 && color2_dd.value != 0 && color3_dd.value != 0))
         {
             saveTestsResults();
             nextTest();
@@ -124,30 +120,17 @@ public class Stroop_test : MonoBehaviour
         });        
     }
 
-    public void confirm_btn_click()
-    {
-        _weaponCard.SetActive(false);
-    }
 
-    public void show_weapon_card()
-    {
-        _weaponCard.SetActive(true);
-        _confirm_btn.SetActive(true);
-        confirm_btn_click();
-    }
-
-    public void test_introduction()
-    {
-
-    }
 
     //Method for finish test
     public void finishStroop()
     {
-        canvasStroop.SetActive(false);
-
-        //mostrar arma
-        show_weapon_card();
+        show_cards show = GameObject.Find("Cards").GetComponent<show_cards>();
+        if(show != null)
+        {
+            show.show_weapon_card();
+        }
+        //_hasfinish_stoop = true;
 
         Player player = GameObject.Find("Player").GetComponent<Player>();
         if (player != null)
@@ -167,6 +150,10 @@ public class Stroop_test : MonoBehaviour
         string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Stroop/Time.txt";
         string text = (tiempo2 - tiempo1).Hours + " horas " + (tiempo2 - tiempo1).Minutes + " minutos " + (tiempo2 - tiempo1).Seconds + " segundos";
         File.AppendAllLines(path, new String[] { text });
+
+        _canvasStroop.SetActive(false);
+        //_background.SetActive(false);
+        //finish_btn.gameObject.SetActive(false);
     }
 
 

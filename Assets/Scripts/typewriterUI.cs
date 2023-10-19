@@ -34,7 +34,6 @@ public class typewriterUI : MonoBehaviour
 
 	IEnumerator TypeWriterTMP()
 	{
-		Debug.Log("en typewriterTMP al principio " + _finishWritting);
 		_tmpProText.text = leadingCharBeforeDelay ? leadingChar : "";
 
 		yield return new WaitForSeconds(delayBeforeStart);
@@ -57,6 +56,7 @@ public class typewriterUI : MonoBehaviour
         else
         {
 			_finishWritting = true;
+
 			//Para la introducción al juego
 			typewriterUI typewriter = GameObject.Find("Introduction").GetComponent<typewriterUI>();
 			if (typewriter != null)
@@ -69,17 +69,6 @@ public class typewriterUI : MonoBehaviour
 				startScreen.checkFinish();
             }
 
-			//Para explicar el test de stroop
-			typewriterUI typewriter2 = GameObject.Find("test_intros").GetComponent<typewriterUI>();
-			if (typewriter2 != null)
-			{
-				typewriter2._finishWritting = true;
-			}
-			stroop_explanation stroop_Explanation = GameObject.Find("test_intros").GetComponent<stroop_explanation>();
-			if (stroop_Explanation != null)
-			{
-				stroop_Explanation.checkFinish();
-			}
 		}
 	}
 }

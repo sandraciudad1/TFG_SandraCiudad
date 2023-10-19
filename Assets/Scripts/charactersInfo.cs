@@ -41,9 +41,17 @@ public class charactersInfo : MonoBehaviour
         Player player = GameObject.Find("Player").GetComponent<Player>();
         if (player != null)
         {
-            player._isPressed = false;
-            _background.SetActive(true);
-            _buttonsCharacters.SetActive(true);
+            if (player._isPressed == false || player._doingTest == true)
+            {
+
+            } else
+            {
+                _background.SetActive(true);
+                _buttonsCharacters.SetActive(true);
+                player._isPressed = false;
+            }
+            
+
         }
         
     }

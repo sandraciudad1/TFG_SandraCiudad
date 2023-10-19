@@ -39,6 +39,22 @@ public class UI_Manager : MonoBehaviour
         _bgweapon.SetActive(true);
     }
 
+    public void weaponClicked()
+    {
+        Player player = GameObject.Find("Player").GetComponent<Player>();
+        if (player != null)
+        {
+            player._isPressed = false;
+            show_cards show = GameObject.Find("Cards").GetComponent<show_cards>();
+            if (show != null)
+            {
+                show.show_weapon_card();
+            }
+        }
+
+        
+    }
+
     public void reasonCollected()
     {
         _reason.SetActive(true);
