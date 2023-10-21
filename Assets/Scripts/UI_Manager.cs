@@ -33,6 +33,47 @@ public class UI_Manager : MonoBehaviour
     [SerializeField]
     private GameObject _bgextra;
 
+    [SerializeField]
+    private GameObject msg_canvas;
+    [SerializeField]
+    private GameObject error_window;
+    [SerializeField]
+    private GameObject error_test;
+    [SerializeField]
+    private Button ok_errorMsg_btn;
+
+    public bool possible;
+
+
+    public void check()
+    {
+        Player player = GameObject.Find("Player").GetComponent<Player>();
+        if (player != null)
+        {
+            if (player._isPressed == false)
+            {
+                Debug.Log("en el is pressed");
+                possible = false;
+                msg_canvas.SetActive(true);
+                error_window.SetActive(true);
+                ok_errorMsg_btn.gameObject.SetActive(true);
+            }
+            else if (player._doingTest == true)
+            {
+                Debug.Log("en el doing test");
+                possible = false;
+                msg_canvas.SetActive(true);
+                error_test.SetActive(true);
+                ok_errorMsg_btn.gameObject.SetActive(true);
+            }
+            else
+            {
+                Debug.Log("en el possible = true");
+                possible = true;
+            }
+        }
+    }
+
     public void weaponCollected()
     {
         _weapon.SetActive(true);
@@ -41,18 +82,15 @@ public class UI_Manager : MonoBehaviour
 
     public void weaponClicked()
     {
-        Player player = GameObject.Find("Player").GetComponent<Player>();
-        if (player != null)
+        check();
+        if(possible == true)
         {
-            player._isPressed = false;
             show_cards show = GameObject.Find("Cards").GetComponent<show_cards>();
             if (show != null)
             {
                 show.show_weapon_card();
             }
         }
-
-        
     }
 
     public void reasonCollected()

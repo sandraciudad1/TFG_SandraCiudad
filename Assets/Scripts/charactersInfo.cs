@@ -29,6 +29,15 @@ public class charactersInfo : MonoBehaviour
     [SerializeField]
     private Sprite Alessandro;
 
+    [SerializeField]
+    private GameObject msg_canvas;
+    [SerializeField]
+    private GameObject error_window;
+    [SerializeField]
+    private GameObject error_test;
+    [SerializeField]
+    private Button ok_errorMsg_btn;
+
     public TextMeshProUGUI name;
     public TextMeshProUGUI relation;
     public TextMeshProUGUI description;
@@ -41,10 +50,19 @@ public class charactersInfo : MonoBehaviour
         Player player = GameObject.Find("Player").GetComponent<Player>();
         if (player != null)
         {
-            if (player._isPressed == false || player._doingTest == true)
+            if (player._isPressed == false)
             {
-
-            } else
+                msg_canvas.SetActive(true);
+                error_window.SetActive(true);
+                ok_errorMsg_btn.gameObject.SetActive(true);
+            } 
+            else if (player._doingTest == true)
+            {
+                msg_canvas.SetActive(true);
+                error_test.SetActive(true);
+                ok_errorMsg_btn.gameObject.SetActive(true);
+            } 
+            else
             {
                 _background.SetActive(true);
                 _buttonsCharacters.SetActive(true);
@@ -55,6 +73,15 @@ public class charactersInfo : MonoBehaviour
         }
         
     }
+
+    public void errorMsg_btn_click()
+    {
+        msg_canvas.SetActive(false);
+        error_window.SetActive(false);
+        error_test.SetActive(false);
+        ok_errorMsg_btn.gameObject.SetActive(false);
+    }
+
 
     public void close_btn_info()
     {

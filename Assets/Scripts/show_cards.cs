@@ -16,6 +16,8 @@ public class show_cards : MonoBehaviour
     [SerializeField]
     private Button _confirm_btn;
 
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +28,8 @@ public class show_cards : MonoBehaviour
     {
         
     }
+
+    
 
     public void confirm_btn_click()
     {
@@ -41,7 +45,13 @@ public class show_cards : MonoBehaviour
 
     public void show_weapon_card()
     {
+        Player player = GameObject.Find("Player").GetComponent<Player>();
+        if (player != null)
+        {
+            player._isPressed = false;
+        }
         _weaponCard.gameObject.SetActive(true);
         _confirm_btn.gameObject.SetActive(true);
+
     }
 }
