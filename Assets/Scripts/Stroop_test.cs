@@ -14,6 +14,8 @@ public class Stroop_test : MonoBehaviour
     public GameObject _background;
     [SerializeField]
     private Button finish_btn;
+    [SerializeField]
+    private Image bar_fill;
 
     public TextMeshProUGUI color1_txt;
     public TextMeshProUGUI color2_txt;
@@ -33,6 +35,7 @@ public class Stroop_test : MonoBehaviour
     public bool _hasfinish_stoop;
 
 
+
     //initialize variable count
     private void Start()
     {
@@ -43,19 +46,20 @@ public class Stroop_test : MonoBehaviour
     //checks if there are more tests to continue or not
     private void Update()
     {
-        if (count > 1)
+        if (count > 10)
         {
             title_color1_txt.gameObject.SetActive(false);
             title_color2_txt.gameObject.SetActive(false);
             title_color3_txt.gameObject.SetActive(false);
             finish_btn.gameObject.SetActive(true);
         }
-        else if (count <= 1 && (color1_dd.value != 0 && color2_dd.value != 0 && color3_dd.value != 0))
+        else if (count <= 10 && (color1_dd.value != 0 && color2_dd.value != 0 && color3_dd.value != 0))
         {
             saveTestsResults();
             nextTest();
         }
     }
+
 
 
     //Method for edit labels with color selectec in each dropdown
@@ -182,6 +186,13 @@ public class Stroop_test : MonoBehaviour
     }
 
 
+    public void UpdateProgress()
+    {
+        float amount = (float)count / 10;
+        bar_fill.fillAmount = amount;
+    }
+
+
     //method that defines all tests labels and colors
     public void testOptions()
     {
@@ -240,9 +251,12 @@ public class Stroop_test : MonoBehaviour
         }
     }
 
+
+    
     //method to change test
     public void nextTest()
     {
+        UpdateProgress();
         count = count + 1;
         defaultValues();
         testOptions();

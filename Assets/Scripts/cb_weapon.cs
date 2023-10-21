@@ -48,7 +48,6 @@ public class cb_weapon : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.C))
             {
-                //count = 0;
                 Player player = other.GetComponent<Player>();
                 if (player != null)
                 {
@@ -56,8 +55,6 @@ public class cb_weapon : MonoBehaviour
                     player._doingTest = true;
 
                     _bg_explanation.SetActive(true);
-                    //count = 1;
-                    //nextText();
                     selecText();
                 }
             }
