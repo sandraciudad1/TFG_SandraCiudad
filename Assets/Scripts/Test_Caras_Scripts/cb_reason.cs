@@ -86,7 +86,7 @@ public class cb_reason : MonoBehaviour
             text1.gameObject.SetActive(true);
 
         }
-        else if (count == 2)
+        /*else if (count == 2)
         {
             text2.gameObject.SetActive(true);
 
@@ -120,19 +120,21 @@ public class cb_reason : MonoBehaviour
         else if (count == 7)
         {
             text7.gameObject.SetActive(true);
-        }
-        else if (count > 7)
+        }*/
+        else if (count > 1)
         {
             defaultValues();
             _arrowButton_caras.gameObject.SetActive(false);
             _bg_explanation.SetActive(false);
             _canvas_test.SetActive(true);
 
-            
+            File.Delete("C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Caras/Results.txt");
+            File.Delete("C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Caras/Time.txt");
+
             Caras_test caras = GameObject.Find("CarasTest").GetComponent<Caras_test>();
             if (caras != null)
             {
-                caras.Start();
+                caras.nextTest();
             }
         }
     }
