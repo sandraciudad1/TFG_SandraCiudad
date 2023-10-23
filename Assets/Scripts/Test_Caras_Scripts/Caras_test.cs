@@ -282,11 +282,11 @@ public class Caras_test : MonoBehaviour
 
     public void finishStroop()
     {
-        /*show_cards show = GameObject.Find("Cards").GetComponent<show_cards>();
+        show_cards show = GameObject.Find("Cards").GetComponent<show_cards>();
         if (show != null)
         {
-            show.show_weapon_card();
-        }*/
+            show.show_reason_card();
+        }
 
         Player player = GameObject.Find("Player").GetComponent<Player>();
         if (player != null)

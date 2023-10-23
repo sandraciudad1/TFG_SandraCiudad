@@ -110,8 +110,8 @@ public class charactersInfo : MonoBehaviour
         description.text = "Xavier es un licenciado en negocios y finanzas que trabaja en una gran empresa con prestigio a nivel " +
                             "internacional. Sus grandes logros empresariales le han permitido generar grandes ingresos. " +
                             "\n\n Es una persona muy influyente y está involucrado en organizaciones benéficas. Es conocido por " +
-                            "ser muy solidario y le encanta pasar tiempo en familia. En su tiempo libre juega al golf y colecciona " +
-                            "botellas de vino de todo el mundo.";
+                            "ser muy solidario y le encanta pasar tiempo en familia. En su tiempo libre es cortador de jamón y " +
+                            "colecciona botellas de vino de todo el mundo.";
         image.sprite = Xavier;
     }
 
@@ -140,8 +140,8 @@ public class charactersInfo : MonoBehaviour
         description.text = "Giovanni es el hijo mayor de Xavier y Bianca. Es una persona con grandes aspiraciones, y sus dos pasiones " +
                             "son el arte y la moda. Actualmente trabaja en una conocida galería de arte mientras presenta su propia " +
                             "colección de moda en pasarelas de todo el mundo." +
-                            "\n\n Se caracteriza por ser una persona muy aventurera, por lo que en su tiempo libre le encanta viajar a " +
-                            "la naturaleza y hacer deportes de riesgo.";
+                            "\n\n Se caracteriza por ser una persona muy aventurera, por lo que en su tiempo libre le encanta explorar " +
+                            "la naturaleza y hacer acampadas.";
         image.sprite = Giovanni;
     }
 
@@ -153,10 +153,10 @@ public class charactersInfo : MonoBehaviour
         relation.text = "Hija de la víctima";
         relation.color = Color.black;
         description.text = "Emma es la hija pequeña de Xavier y Bianca. Desde muy pequeña ha mostrado un alto nivel de inteligencia, " +
-                            "destacando en áreas como las matemáticas o la música. Es una persona muy analítica y perfeccionista, por lo que " +
-                            "cree que ha nacido para ser criminóloga." +
-                            "\n\n Tiene un carácter muy introvertido, y no le gusta mucho establecer relaciones con los demás. Dedica todo su " +
-                            "tiempo libre a aprender cosas nuevas y ver series de crimen y misterio.";
+                            "destacando en áreas como las matemáticas o la música. Es una persona muy descuidada, sobre todo en lo relacionado " +
+                            "con los estudios, lo que ocasiona alguna que otra discusión con sus padres." +
+                            "\n\n Tiene un carácter extrovertido y, en ocasiones, un poco violento. Dedica todo su tiempo libre a salir con " +
+                            "sus amigas y a las redes sociales.";
         image.sprite = Emma;
     }
 
@@ -168,7 +168,7 @@ public class charactersInfo : MonoBehaviour
         relation.text = "Limpiadora de la víctima";
         relation.color = Color.black;
         description.text = "Gertrud es una señora de avanzada edad, que durante toda su vida ha trabajado en la mansión de los Walton como " +
-                            "encargada de la limpieza y el mantenimiento del hogar." +
+                            "encargada de la limpieza y en ocasiones ayudante de cocina." +
                             "\n\n Es una persona muy espiritual y reservada, que se caracteriza por su gran vinculación con la iglesia. En " +
                             "su tiempo libre participa en actividades religiosas y grupos de oración, además de cuidar de sus numerosas mascotas.";
         image.sprite = Gertrud;
@@ -184,8 +184,7 @@ public class charactersInfo : MonoBehaviour
         description.text = "Gustavo es un hombre de familia humilde que trabaja desde hace 15 años en la mansión de los Walton como cocinero. " +
                             "Los largos turnos de trabajo lo obligan a hospedarse allí, por lo que tiene una muy buena relación con la familia, " +
                             "especialmente con Emma y Giovanni, que los considera hijos." +
-                            "\n\n Es un apasionado de las colecciones, por lo que se dedica a coleccionar todo tipo de cosas, desde monedas y " +
-                            "sellos hasta animales disecados.";
+                            "\n\n Es un apasionado de las colecciones, por lo que se dedica a coleccionar todo tipo de cosas.";
         image.sprite = Gustavo;
     }
 
@@ -199,7 +198,7 @@ public class charactersInfo : MonoBehaviour
         description.text = "Alessandro es un jóven de 27 años que ha trabajado toda su vida como portero en distintas discotecas, aunque " +
                             "recientemente ha sido contratado por la familia Walton para supervisar y mantener la seguridad en la mansión." +
                             "\n\n Mantiene una relación amorosa con Giovanni desde hace 2 años, aunque Xavier y Emma no son capaces de aceptarla. " +
-                            "En su tiempo libre, le apasiona escuchar música clásica y hacer deporte.";
+                            "En su tiempo libre, le apasiona hacer deporte y practicar técnicas de defensa personal.";
         image.sprite = Alessandro;
     }
 

@@ -52,7 +52,6 @@ public class UI_Manager : MonoBehaviour
         {
             if (player._isPressed == false)
             {
-                Debug.Log("en el is pressed");
                 possible = false;
                 msg_canvas.SetActive(true);
                 error_window.SetActive(true);
@@ -60,7 +59,6 @@ public class UI_Manager : MonoBehaviour
             }
             else if (player._doingTest == true)
             {
-                Debug.Log("en el doing test");
                 possible = false;
                 msg_canvas.SetActive(true);
                 error_test.SetActive(true);
@@ -68,7 +66,6 @@ public class UI_Manager : MonoBehaviour
             }
             else
             {
-                Debug.Log("en el possible = true");
                 possible = true;
             }
         }
@@ -99,17 +96,25 @@ public class UI_Manager : MonoBehaviour
         _bgreason.SetActive(true);
     }
 
+    public void reasonClicked()
+    {
+        check();
+        if (possible == true)
+        {
+            show_cards show = GameObject.Find("Cards").GetComponent<show_cards>();
+            if (show != null)
+            {
+                show.show_reason_card();
+            }
+        }
+    }
+
     public void placeCollected()
     {
         _place.SetActive(true);
         _bgplace.SetActive(true);
     }
 
-    /*public void killerCollected()
-    {
-        _killer.SetActive(true);
-        _bgkiller.SetActive(true);
-    }*/
 
     public void extraCollected()
     {
