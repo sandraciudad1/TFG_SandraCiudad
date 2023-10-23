@@ -101,8 +101,8 @@ public class Caras_test : MonoBehaviour
 
     [SerializeField]
     private float timerTime;
-
-    private int minutes, seconds, cents;
+    public int min, seg = 15, intervalo = 1;
+    public float nextTime = 0;
 
     public Image image1;
     public Image image2;
@@ -121,9 +121,14 @@ public class Caras_test : MonoBehaviour
     private int count;
     private DateTime tiempo1 = DateTime.Now, tiempo2;
 
+    public bool allowed;
+    public bool im1, im2, im3, im4;
+
     public void Start()
     {
         count = 1;
+        allowed = false;
+        im1 = false; im2 = false; im3 = false; im4 = false;
     }
 
 
@@ -147,22 +152,56 @@ public class Caras_test : MonoBehaviour
         }
         else if (count <= 10 && (image1_dd.value != 0 && image2_dd.value != 0 && image3_dd.value != 0 && image4_dd.value != 0))
         {
-            //StartCoroutine(wait_next());
-            saveTestsResults();
-            timerTime -= Time.deltaTime * 10;
-            if (timerTime == 0)
+            
+            checkAllowed();
+            if (allowed == true)
             {
-                nextTest();
+                if (Time.time >= nextTime)
+                {
+                    nextTime += intervalo;
+                    seg -= 1;
+                }
+
+                if (seg < 0)
+                {
+                    seg = 0;
+                }
+
+                if (seg == 0 && min >= 1)
+                {
+                    min -= 1;
+                    seg = 60;
+                }
+
+                if (min == 0 && seg == 0)
+                {
+                    nextTest();
+                    allowed = false;
+                    seg = 15;
+                    nextTime = 0;
+                }
             }
+            
+
             
         }
     }
 
+    public void checkAllowed()
+    {
+        if (im1 == true && im2 == true && im3 == true && im4 == true){
+            allowed = true;
+        } else
+        {
+            allowed = false;
+        }
+    }
 
     public void selectColors()
     {
         image1_dd.onValueChanged.AddListener(delegate
         {
+            im1 = true;
             if (image1_dd.value == 1)
             {
                 red_cross1.transform.position = new Vector3(375, 300, 0);
@@ -182,6 +221,7 @@ public class Caras_test : MonoBehaviour
 
         image2_dd.onValueChanged.AddListener(delegate
         {
+            im2 = true;
             if (image2_dd.value == 1)
             {
                 red_cross2.transform.position = new Vector3(730, 300, 0);
@@ -201,6 +241,7 @@ public class Caras_test : MonoBehaviour
 
         image3_dd.onValueChanged.AddListener(delegate
         {
+            im3 = true;
             if (image3_dd.value == 1)
             {
                 red_cross3.transform.position = new Vector3(370, 125, 0);
@@ -220,6 +261,7 @@ public class Caras_test : MonoBehaviour
 
         image4_dd.onValueChanged.AddListener(delegate
         {
+            im4 = true;
             if (image4_dd.value == 1)
             {
                 red_cross4.transform.position = new Vector3(730, 125, 0);
@@ -270,18 +312,10 @@ public class Caras_test : MonoBehaviour
 
     public void defaultValues()
     {
-        /*image1.gameObject.SetActive(false);
-        image2.gameObject.SetActive(false);
-        image3.gameObject.SetActive(false);
-        image4.gameObject.SetActive(false);*/
         red_cross1.gameObject.SetActive(false);
         red_cross2.gameObject.SetActive(false);
         red_cross3.gameObject.SetActive(false);
         red_cross4.gameObject.SetActive(false);
-        /*image1_dd.gameObject.SetActive(false);
-        image2_dd.gameObject.SetActive(false);
-        image3_dd.gameObject.SetActive(false);
-        image4_dd.gameObject.SetActive(false);*/
         image1_dd.value = 0; image2_dd.value = 0; image3_dd.value = 0; image4_dd.value = 0;
     }
 
@@ -289,8 +323,11 @@ public class Caras_test : MonoBehaviour
     public void saveTestsResults()
     {
         string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Caras/Results.txt";
-        string text = image1_dd.value + ", " + image2_dd.value + ", " + image3_dd.value + ", " + image4_dd.value;
-        File.AppendAllLines(path, new String[] { text });
+        if (count > 0)
+        {
+            string text = image1_dd.value + ", " + image2_dd.value + ", " + image3_dd.value + ", " + image4_dd.value;
+            File.AppendAllLines(path, new String[] { text });
+        }
     }
 
     public void UpdateProgress()
@@ -378,22 +415,13 @@ public class Caras_test : MonoBehaviour
 
     public void nextTest()
     {
-        StartCoroutine(wait_next());
+        saveTestsResults();
         UpdateProgress();
         count = count + 1;
-        //defaultValues();
+        defaultValues();
         testOptions();
         selectColors();
     }
 
-    IEnumerator wait_next()
-    {
-        //saveTestsResults();
-        yield return new WaitForSeconds(1.0f);
-        //nextTest();
-
-        //defaultValues();
-        
-    }
 
 }
