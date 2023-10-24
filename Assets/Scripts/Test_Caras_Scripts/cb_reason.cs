@@ -86,7 +86,7 @@ public class cb_reason : MonoBehaviour
             text1.gameObject.SetActive(true);
 
         }
-        /*else if (count == 2)
+        else if (count == 2)
         {
             text2.gameObject.SetActive(true);
 
@@ -120,7 +120,7 @@ public class cb_reason : MonoBehaviour
         else if (count == 7)
         {
             text7.gameObject.SetActive(true);
-        }*/
+        }
         else if (count > 1)
         {
             defaultValues();
