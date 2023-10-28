@@ -58,7 +58,6 @@ public class Player : MonoBehaviour
             //hiddenCursor();
             movements();
             rotations();
-            mouseClick();
         }
 
     }
@@ -94,12 +93,5 @@ public class Player : MonoBehaviour
         transform.localEulerAngles = rotation;
     }
 
-    void mouseClick()
-    {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            _mouseCounter += 1;
-        }
-    }
 
 }
