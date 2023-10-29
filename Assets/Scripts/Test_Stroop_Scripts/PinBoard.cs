@@ -53,6 +53,7 @@ public class PinBoard : MonoBehaviour
     {
         typewriter_stroop typewriter = GameObject.Find("pinboard").GetComponent<typewriter_stroop>();
         typewriter._finishWritting = true;
+
         checkFinish();
 
     }
