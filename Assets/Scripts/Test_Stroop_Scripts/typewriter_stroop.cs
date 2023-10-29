@@ -32,6 +32,7 @@ public class typewriter_stroop : MonoBehaviour
 		}
 	}
 
+
 	IEnumerator TypeWriterTMP()
 	{
 		_tmpProText.text = leadingCharBeforeDelay ? leadingChar : "";
@@ -59,16 +60,16 @@ public class typewriter_stroop : MonoBehaviour
 
 
 			//Para explicar el test de stroop
-			typewriter_stroop typewriter = GameObject.Find("test_intros").GetComponent<typewriter_stroop>();
+			typewriter_stroop typewriter = GameObject.Find("pinboard").GetComponent<typewriter_stroop>();
 			if (typewriter != null)
 			{
 				typewriter._finishWritting = true;
 			}
-			cb_weapon cb_Weapon = GameObject.Find("test_intros").GetComponent<cb_weapon>();
-			if (cb_Weapon != null)
-			{
+			PinBoard pinboard = GameObject.Find("pinboard").GetComponent<PinBoard>();
+			if (pinboard != null)
+            {
+				pinboard.checkFinish();
 
-				cb_Weapon.checkFinish();
 			}
 
 		}

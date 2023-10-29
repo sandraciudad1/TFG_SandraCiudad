@@ -41,7 +41,7 @@ public class cb_weapon : MonoBehaviour
     }
 
     //Check if cb_weapon us colliding with player
-    private void OnTriggerStay(Collider other)
+    /*private void OnTriggerStay(Collider other)
     {
         if (other.tag == "Player")
         {
@@ -138,5 +138,5 @@ public class cb_weapon : MonoBehaviour
         count += 1;
         selecText();
 
-    }
+    }*/
 }
