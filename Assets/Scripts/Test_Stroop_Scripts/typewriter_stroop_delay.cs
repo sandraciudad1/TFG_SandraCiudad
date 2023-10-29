@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class typewriter_stroop : MonoBehaviour
+public class typewriter_stroop_delay : MonoBehaviour
 {
 	TMP_Text _tmpProText;
 	string writer;
@@ -21,8 +21,8 @@ public class typewriter_stroop : MonoBehaviour
 
 
 
-	public void init()
-	{
+    public void init()
+    {
 		_tmpProText = GetComponent<TMP_Text>()!;
 
 		if (_tmpProText != null)

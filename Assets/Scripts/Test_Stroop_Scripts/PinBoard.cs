@@ -28,6 +28,7 @@ public class PinBoard : MonoBehaviour
     public TextMeshProUGUI stroop_example_3;
 
     public int count;
+    public bool skip;
 
     Vector3 final_pos = new Vector3(13.358f, 1.31f, -8.092f);
 
@@ -35,13 +36,31 @@ public class PinBoard : MonoBehaviour
     public void Start()
     {
         count = 1;
+        skip = false;
+    }
+
+
+    private void Update()
+    {
+        typewriter_stroop tw = GameObject.Find("pinboard").GetComponent<typewriter_stroop>();
+        typewriter_stroop_delay tw_d = GameObject.Find("pinboard").GetComponent<typewriter_stroop_delay>();
+        if(tw != null && tw_d != null)
+        {
+            tw_d.init();
+            /*if (skip == true)
+            {
+                tw.init();
+            }
+            else
+            {
+                tw_d.init();
+            }*/
+        }
         
     }
 
-    
     public void startIntroduction()
     {
-        Debug.Log("Count en startintroduction " + count);
         float step = Time.deltaTime;
         _pb_clean.transform.position = Vector3.MoveTowards(_pb_clean.transform.position, final_pos, step);
         _pb_clean.gameObject.SetActive(true);
@@ -53,14 +72,13 @@ public class PinBoard : MonoBehaviour
     {
         typewriter_stroop typewriter = GameObject.Find("pinboard").GetComponent<typewriter_stroop>();
         typewriter._finishWritting = true;
-
+        skip = true;
         checkFinish();
 
     }
 
     public void checkFinish()
     {
-        Debug.Log("Count en check finish " + count);
         typewriter_stroop typewriter = GameObject.Find("pinboard").GetComponent<typewriter_stroop>();
         if (typewriter != null && typewriter._finishWritting == true)
         {
@@ -72,7 +90,6 @@ public class PinBoard : MonoBehaviour
 
     public void selecText()
     {
-        Debug.Log("Count en select text " + count);
         if (count == 1)
         {
             text1.gameObject.SetActive(true);
@@ -125,7 +142,6 @@ public class PinBoard : MonoBehaviour
 
     public void defaultValues()
     {
-        Debug.Log("Count en default values " + count);
         text1.gameObject.SetActive(false);
         text2.gameObject.SetActive(false);
         text3.gameObject.SetActive(false);
@@ -136,12 +152,11 @@ public class PinBoard : MonoBehaviour
         stroop_example_2.gameObject.SetActive(false);
         stroop_example_3.gameObject.SetActive(false);
         _arrowButton.gameObject.SetActive(false);
-        
+        skip = false;
     }
 
     public void nextText()
     {
-        Debug.Log("Count en next text " + count);
         defaultValues();
         count += 1;
         selecText();
