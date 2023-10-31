@@ -14,8 +14,6 @@ public class PinBoard : MonoBehaviour
     private Button _arrowButton;
     [SerializeField]
     private GameObject _stroop_test;
-    [SerializeField]
-    private Button _skipButton;
 
     public TextMeshProUGUI text1;
     public TextMeshProUGUI text2;
@@ -40,41 +38,12 @@ public class PinBoard : MonoBehaviour
     }
 
 
-    private void Update()
-    {
-        typewriter_stroop tw = GameObject.Find("pinboard").GetComponent<typewriter_stroop>();
-        typewriter_stroop_delay tw_d = GameObject.Find("pinboard").GetComponent<typewriter_stroop_delay>();
-        if(tw != null && tw_d != null)
-        {
-            tw_d.init();
-            /*if (skip == true)
-            {
-                tw.init();
-            }
-            else
-            {
-                tw_d.init();
-            }*/
-        }
-        
-    }
-
     public void startIntroduction()
     {
         float step = Time.deltaTime;
         _pb_clean.transform.position = Vector3.MoveTowards(_pb_clean.transform.position, final_pos, step);
         _pb_clean.gameObject.SetActive(true);
         selecText();
-        _skipButton.gameObject.SetActive(true);
-    }
-
-    public void skip_pressed()
-    {
-        typewriter_stroop typewriter = GameObject.Find("pinboard").GetComponent<typewriter_stroop>();
-        typewriter._finishWritting = true;
-        skip = true;
-        checkFinish();
-
     }
 
     public void checkFinish()
@@ -124,7 +93,6 @@ public class PinBoard : MonoBehaviour
         else if (count > 6)
         {
             defaultValues();
-            _skipButton.gameObject.SetActive(false);
             _arrowButton.gameObject.SetActive(false);
             _pb_clean.gameObject.SetActive(false);
             _stroop_test.SetActive(true);

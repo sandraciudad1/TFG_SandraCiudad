@@ -16,12 +16,11 @@ public class typewriter_stroop : MonoBehaviour
 	string leadingChar = "";
 	[SerializeField]
 	bool leadingCharBeforeDelay = false;
-	[SerializeField]
+	
+
 	public bool _finishWritting = false;
 
-
-
-	public void init()
+	public void Start()
 	{
 		_tmpProText = GetComponent<TMP_Text>()!;
 
@@ -32,7 +31,6 @@ public class typewriter_stroop : MonoBehaviour
 			StartCoroutine("TypeWriterTMP");
 		}
 	}
-
 
 
 	IEnumerator TypeWriterTMP()
@@ -49,7 +47,18 @@ public class typewriter_stroop : MonoBehaviour
 			}
 			_tmpProText.text += c;
 			_tmpProText.text += leadingChar;
-			yield return new WaitForSeconds(timeBtwChars);
+			PinBoard pinboard = GameObject.Find("pinboard").GetComponent<PinBoard>();
+			if(pinboard != null)
+            {
+				
+				if (!Input.GetKeyDown(KeyCode.Space))
+
+				{
+					yield return new WaitForSeconds(timeBtwChars);
+				}
+            }
+			
+			
 		}
 
 		if (leadingChar != "")
