@@ -26,6 +26,7 @@ public class animationEffects : MonoBehaviour
     public bool continue_moving_player;
     public bool exit_init_player_mov;
     public bool finish_door_rotation;
+    public bool finish_introduction;
 
     //positions and rotations for stroop animation
     Vector3 target_pos_stroop = new Vector3(13.37f, 0.7f, -9.29f);
@@ -48,6 +49,7 @@ public class animationEffects : MonoBehaviour
         continue_moving_player = false;
         exit_init_player_mov = false;
         finish_door_rotation = false;
+        finish_introduction = false;
     }
 
     // Update is called once per frame
@@ -89,9 +91,11 @@ public class animationEffects : MonoBehaviour
                     
             }
 
-            if (finish_door_rotation == true)
+            if (finish_door_rotation == true && finish_introduction==false)
             {
-                start.show_info_message();
+                start._info_btn.SetActive(true);
+                start._killer.SetActive(true);
+                start._bgKiller.SetActive(true);
             }
         }
 

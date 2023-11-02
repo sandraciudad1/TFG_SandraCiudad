@@ -17,7 +17,7 @@ public class Start_Screen : MonoBehaviour
     private Button _arrowButton;
     [SerializeField]
     private Image _newspaper;
-    
+
     public GameObject _killer;
     public GameObject _bgKiller;
     public GameObject _textDialog;
@@ -27,6 +27,9 @@ public class Start_Screen : MonoBehaviour
     public TextMeshProUGUI text3;
     public TextMeshProUGUI text4;
     public TextMeshProUGUI text5;
+
+    public GameObject _info_btn;
+    public GameObject _info_msg;
 
     public int count;
     public bool init_animation;
@@ -38,6 +41,9 @@ public class Start_Screen : MonoBehaviour
         init_animation = false;
 
         _startBtn.SetActive(false);
+        _info_btn.SetActive(false);
+        _info_msg.SetActive(false);
+        
         //show player info
         /*_killer.SetActive(true);
         _bgKiller.SetActive(true);
@@ -45,6 +51,7 @@ public class Start_Screen : MonoBehaviour
         _introBackground.SetActive(true);
         _newspaper.gameObject.SetActive(true);
         _arrowButton.gameObject.SetActive(true);
+
     }
 
 
@@ -97,22 +104,52 @@ public class Start_Screen : MonoBehaviour
         }
     }
 
-    public void show_info_message()
+    public void Update()
     {
-        _killer.SetActive(true);
-        _bgKiller.SetActive(true);
-        _textDialog.SetActive(true);
+        animationEffects animation = GameObject.Find("Start_Screen").GetComponent<animationEffects>();
+        if (animation != null)
+        {
+            if(animation.finish_introduction == true)
+            {
+                _killer.SetActive(true);
+                _bgKiller.SetActive(true);
+                _info_btn.gameObject.SetActive(false);
+            }
+            
+        }
     }
 
-    public void okClick()
+    public void info_btn_click()
     {
-        _textDialog.SetActive(false);
+        animationEffects animation = GameObject.Find("Start_Screen").GetComponent<animationEffects>();
+        if (animation != null)
+        {
+            animation.finish_introduction = true;
+        }
+        
+        _info_btn.gameObject.SetActive(false);
+        _info_msg.gameObject.SetActive(true);
+    }
+
+    public void info_msg_click()
+    {
+        _info_msg.SetActive(false);
         Player player = GameObject.Find("Player").GetComponent<Player>();
         if (player != null)
         {
             player._isPressed = true;
         }
     }
+
+    /*public void okClick()
+    {
+        _textDialog.gameObject.SetActive(false);
+        Player player = GameObject.Find("Player").GetComponent<Player>();
+        if (player != null)
+        {
+            player._isPressed = true;
+        }
+    }*/
 
     public void defaultValues()
     {
