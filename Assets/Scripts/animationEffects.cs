@@ -14,15 +14,18 @@ public class animationEffects : MonoBehaviour
     private GameObject _pinBoard;
     [SerializeField]
     private Image _pb_clean;
+    [SerializeField]
+    private GameObject _door_rot;
 
     //[SerializeField]
     //private Image _pb_original;
 
 
-    public bool finish;
-    public bool init;
-    public bool continue_moving;
-    public bool exit;
+    public bool finish_stroop_movement;
+    public bool init_player_movement;
+    public bool continue_moving_player;
+    public bool exit_init_player_mov;
+    public bool finish_door_rotation;
 
     //positions and rotations for stroop animation
     Vector3 target_pos_stroop = new Vector3(13.37f, 0.7f, -9.29f);
@@ -34,14 +37,17 @@ public class animationEffects : MonoBehaviour
     Vector3 target_pos2_init = new Vector3(-1.423f, 0.7f, 27.7f);
     Quaternion target_rot_init = Quaternion.Euler(0, 10, 0);
 
+    //rotations for door
+    Quaternion target_door_rot = Quaternion.Euler(-90, 0, 0);
 
     // Start is called before the first frame update
     void Start()
     {
-        finish = false;
-        init = false;
-        continue_moving = false;
-        exit = false;
+        finish_stroop_movement = false;
+        init_player_movement = false;
+        continue_moving_player = false;
+        exit_init_player_mov = false;
+        finish_door_rotation = false;
     }
 
     // Update is called once per frame
@@ -53,29 +59,39 @@ public class animationEffects : MonoBehaviour
         Start_Screen start = GameObject.Find("Start_Screen").GetComponent<Start_Screen>();
         if (start != null)
         {
-            if (player != null && init == true && continue_moving == false)
+            if (player != null && init_player_movement == true && continue_moving_player == false)
             {
                 player.transform.position = Vector3.MoveTowards(player.transform.position, target_pos2_init, step*3);
                 if (player.transform.position == target_pos2_init)
                 {
-                    continue_moving = true;  
+                    continue_moving_player = true;  
                 }
             }
 
-            if (continue_moving == true && exit == false)
+            if (continue_moving_player == true && exit_init_player_mov == false)
             {
                 player.transform.position = Vector3.MoveTowards(player.transform.position, target_pos_init, step * 2);
                 player.transform.localRotation = Quaternion.Slerp(player.transform.rotation, target_rot_init, step);
-                if (player.transform.position == target_pos_init  && player.transform.localRotation == target_rot_init)
+                if (player.transform.position == target_pos_init  )
                 {
-                    //---------------------------------------------------------
-                    //antes de esto meter animacion de la puerta que se cierra
-                    //---------------------------------------------------------
-                    start._killer.SetActive(true);
-                    start._bgKiller.SetActive(true);
-                    start._textDialog.SetActive(true);
-                    exit = true;
+                    exit_init_player_mov = true;
                 }
+            }
+
+            if(exit_init_player_mov == true && finish_door_rotation == false)
+            {
+                _door_rot.transform.localRotation = Quaternion.Slerp(_door_rot.transform.rotation, target_door_rot, step);
+                if(_door_rot.transform.localRotation == target_door_rot)
+                {
+                    finish_door_rotation = true;
+                   
+                }
+                    
+            }
+
+            if (finish_door_rotation == true)
+            {
+                start.show_info_message();
             }
         }
 
@@ -94,12 +110,12 @@ public class animationEffects : MonoBehaviour
                     if (pinboard != null)
                     {
                         _pinBoard.transform.position = Vector3.MoveTowards(_pinBoard.transform.position, final_pos_stroop, step);
-                        if (_pinBoard.transform.position == final_pos_stroop && finish==false)
+                        if (_pinBoard.transform.position == final_pos_stroop && finish_stroop_movement == false)
                         {
                             _pinBoard.SetActive(false);
                             player._doingTest = true;
                             pinboard.startIntroduction();
-                            finish = true;
+                            finish_stroop_movement = true;
                         }
                     }
                 }

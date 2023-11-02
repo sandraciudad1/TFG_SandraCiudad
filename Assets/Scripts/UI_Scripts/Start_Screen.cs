@@ -91,21 +91,20 @@ public class Start_Screen : MonoBehaviour
             animationEffects animation = GameObject.Find("Start_Screen").GetComponent<animationEffects>();
             if (animation != null)
             {
-                animation.init = true;
+                animation.init_player_movement = true;
                 animation.Update();
             }
-            /*if (show_info == true)
-            {
-                //show player info
-                _killer.SetActive(true);
-                _bgKiller.SetActive(true);
-                _textDialog.SetActive(true);
-            }*/
-            
         }
     }
 
-    private void okClick()
+    public void show_info_message()
+    {
+        _killer.SetActive(true);
+        _bgKiller.SetActive(true);
+        _textDialog.SetActive(true);
+    }
+
+    public void okClick()
     {
         _textDialog.SetActive(false);
         Player player = GameObject.Find("Player").GetComponent<Player>();
