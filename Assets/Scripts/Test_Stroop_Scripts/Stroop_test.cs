@@ -11,11 +11,15 @@ public class Stroop_test : MonoBehaviour
     [SerializeField]
     public GameObject _canvasStroop;
     [SerializeField]
-    public GameObject _background;
+    public Image _background;
     [SerializeField]
     private Button finish_btn;
     [SerializeField]
     private Image bar_fill;
+    [SerializeField]
+    private Sprite pb_clean;
+    [SerializeField]
+    private Sprite pb_postit;
 
     public TextMeshProUGUI color1_txt;
     public TextMeshProUGUI color2_txt;
@@ -51,6 +55,10 @@ public class Stroop_test : MonoBehaviour
             title_color1_txt.gameObject.SetActive(false);
             title_color2_txt.gameObject.SetActive(false);
             title_color3_txt.gameObject.SetActive(false);
+            color1_dd.gameObject.SetActive(false);
+            color2_dd.gameObject.SetActive(false);
+            color3_dd.gameObject.SetActive(false);
+            _background.sprite = pb_clean;
             finish_btn.gameObject.SetActive(true);
         }
         else if (count <= 10 && (color1_dd.value != 0 && color2_dd.value != 0 && color3_dd.value != 0))
@@ -72,14 +80,20 @@ public class Stroop_test : MonoBehaviour
                 color1_txt.text = "ROJO";
             } else if (color1_dd.value == 2)
             {
-                color1_txt.text = "AMARILLO";
+                color1_txt.text = "NARANJA";
             }
             else if (color1_dd.value == 3)
             {
-                color1_txt.text = "VERDE";
+                color1_txt.text = "AMARILLO";
             } else if (color1_dd.value == 4)
             {
+                color1_txt.text = "VERDE";
+            } else if (color1_dd.value == 5)
+            {
                 color1_txt.text = "AZUL";
+            } else if (color1_dd.value == 6)
+            {
+                color1_txt.text = "MORADO";
             }
         });
 
@@ -91,15 +105,23 @@ public class Stroop_test : MonoBehaviour
             }
             else if (color2_dd.value == 2)
             {
-                color2_txt.text = "AMARILLO";
+                color2_txt.text = "NARANJA";
             }
             else if (color2_dd.value == 3)
             {
-                color2_txt.text = "VERDE";
+                color2_txt.text = "AMARILLO";
             }
             else if (color2_dd.value == 4)
             {
+                color2_txt.text = "VERDE";
+            }
+            else if (color2_dd.value == 5)
+            {
                 color2_txt.text = "AZUL";
+            }
+            else if (color2_dd.value == 6)
+            {
+                color2_txt.text = "MORADO";
             }
         });
 
@@ -111,15 +133,23 @@ public class Stroop_test : MonoBehaviour
             }
             else if (color3_dd.value == 2)
             {
-                color3_txt.text = "AMARILLO";
+                color3_txt.text = "NARANJA";
             }
             else if (color3_dd.value == 3)
             {
-                color3_txt.text = "VERDE";
+                color3_txt.text = "AMARILLO";
             }
             else if (color3_dd.value == 4)
             {
+                color3_txt.text = "VERDE";
+            }
+            else if (color3_dd.value == 5)
+            {
                 color3_txt.text = "AZUL";
+            }
+            else if (color3_dd.value == 6)
+            {
+                color3_txt.text = "MORADO";
             }
         });        
     }
@@ -150,6 +180,12 @@ public class Stroop_test : MonoBehaviour
         }
         Destroy(this.gameObject);
 
+        Raycast raycast = GameObject.Find("pinboard").GetComponent<Raycast>();
+        if (raycast != null)
+        {
+            raycast.canMove = false;
+        }
+
         tiempo2 = DateTime.Now;
         string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Stroop/Time.txt";
         string text = (tiempo2 - tiempo1).Hours + " horas " + (tiempo2 - tiempo1).Minutes + " minutos " + (tiempo2 - tiempo1).Seconds + " segundos";
@@ -173,6 +209,8 @@ public class Stroop_test : MonoBehaviour
         title_color1_txt.gameObject.SetActive(true);
         title_color2_txt.gameObject.SetActive(true);
         title_color3_txt.gameObject.SetActive(true);
+        //cambiar el fondo a con postits
+        _background.sprite = pb_postit;
         color1_dd.value = 0; color2_dd.value = 0; color3_dd.value = 0;
     }
 
@@ -196,57 +234,65 @@ public class Stroop_test : MonoBehaviour
     //method that defines all tests labels and colors
     public void testOptions()
     {
+        Color red = Color.HSVToRGB(0 / 360f, 100 / 100f, 100 / 100f);
+        Color orange = Color.HSVToRGB(19 / 360f, 100 / 100f, 100 / 100f);
+        Color yellow = Color.HSVToRGB(52 / 360f, 100 / 100f, 100 / 100f);
+        Color green = Color.HSVToRGB(108 / 360f, 100 / 100f, 100 / 100f);
+        Color blue = Color.HSVToRGB(215 / 360f, 100 / 100f, 100 / 100f);
+        Color purple = Color.HSVToRGB(279 / 360f, 100 / 100f, 100 / 100f);
+
         if (count == 1)
         {
-            title_color1_txt.text = "AZUL"; title_color1_txt.color = Color.green;
-            title_color2_txt.text = "AZUL"; title_color2_txt.color = Color.red;
-            title_color3_txt.text = "VERDE"; title_color3_txt.color = Color.yellow;
+            
+            title_color1_txt.text = "AZUL"; title_color1_txt.color = orange;
+            title_color2_txt.text = "AMARILLO"; title_color2_txt.color = blue;
+            title_color3_txt.text = "MORADO"; title_color3_txt.color = red;
         } else if (count == 2)
         {
-            title_color1_txt.text = "AZUL"; title_color1_txt.color = Color.yellow;
-            title_color2_txt.text = "AZUL"; title_color2_txt.color = Color.green;
-            title_color3_txt.text = "ROJO"; title_color3_txt.color = Color.blue;
+            title_color1_txt.text = "MORADO"; title_color1_txt.color = yellow;
+            title_color2_txt.text = "ROJO"; title_color2_txt.color = blue;
+            title_color3_txt.text = "NARANJA"; title_color3_txt.color = green;
         } else if (count == 3)
         {
-            title_color1_txt.text = "AMARILLO"; title_color1_txt.color = Color.blue;
-            title_color2_txt.text = "VERDE"; title_color2_txt.color = Color.red;
-            title_color3_txt.text = "AMARILLO"; title_color3_txt.color = Color.red;
+            title_color1_txt.text = "VERDE"; title_color1_txt.color = blue;
+            title_color2_txt.text = "AMARILLO"; title_color2_txt.color = orange;
+            title_color3_txt.text = "ROJO"; title_color3_txt.color = purple;
         } else if (count == 4)
         {
-            title_color1_txt.text = "ROJO"; title_color1_txt.color = Color.yellow;
-            title_color2_txt.text = "VERDE"; title_color2_txt.color = Color.yellow;
-            title_color3_txt.text = "AZUL"; title_color3_txt.color = Color.yellow;
+            title_color1_txt.text = "AMARILLO"; title_color1_txt.color = red;
+            title_color2_txt.text = "ROJO"; title_color2_txt.color = purple;
+            title_color3_txt.text = "MORADO"; title_color3_txt.color = yellow;
         } else if (count == 5)
         {
-            title_color1_txt.text = "AZUL"; title_color1_txt.color = Color.red;
-            title_color2_txt.text = "ROJO"; title_color2_txt.color = Color.green;
-            title_color3_txt.text = "AMARILLO"; title_color3_txt.color = Color.red;
+            title_color1_txt.text = "NARANJA"; title_color1_txt.color = yellow;
+            title_color2_txt.text = "ROJO"; title_color2_txt.color = green;
+            title_color3_txt.text = "AMARILLO"; title_color3_txt.color = blue;
         } else if (count == 6)
         {
-            title_color1_txt.text = "VERDE"; title_color1_txt.color = Color.yellow;
-            title_color2_txt.text = "AMARILLO"; title_color2_txt.color = Color.blue;
-            title_color3_txt.text = "ROJO"; title_color3_txt.color = Color.yellow;
+            title_color1_txt.text = "AZUL"; title_color1_txt.color = green;
+            title_color2_txt.text = "MORADO"; title_color2_txt.color = green;
+            title_color3_txt.text = "VERDE"; title_color3_txt.color = orange;
         } else if (count == 7)
         {
-            title_color1_txt.text = "AMARILLO"; title_color1_txt.color = Color.red;
-            title_color2_txt.text = "ROJO"; title_color2_txt.color = Color.yellow;
-            title_color3_txt.text = "AMARILLO"; title_color3_txt.color = Color.blue;
+            title_color1_txt.text = "ROJO"; title_color1_txt.color = orange;
+            title_color2_txt.text = "NARANJA"; title_color2_txt.color = purple;
+            title_color3_txt.text = "AZUL"; title_color3_txt.color = red;
         } else if (count == 8)
         {
-            title_color1_txt.text = "AZUL"; title_color1_txt.color = Color.green;
-            title_color2_txt.text = "VERDE"; title_color2_txt.color = Color.blue;
-            title_color3_txt.text = "AZUL"; title_color3_txt.color = Color.green;
+            title_color1_txt.text = "VERDE"; title_color1_txt.color = purple;
+            title_color2_txt.text = "VERDE"; title_color2_txt.color = yellow;
+            title_color3_txt.text = "MORADO"; title_color3_txt.color = green;
         } else if (count == 9)
         {
-            title_color1_txt.text = "ROJO"; title_color1_txt.color = Color.green;
-            title_color2_txt.text = "AZUL"; title_color2_txt.color = Color.yellow;
-            title_color3_txt.text = "ROJO"; title_color3_txt.color = Color.green;
+            title_color1_txt.text = "AZUL"; title_color1_txt.color = purple;
+            title_color2_txt.text = "ROJO"; title_color2_txt.color = orange;
+            title_color3_txt.text = "AMARILLO"; title_color3_txt.color = red;
 
         } else if (count == 10)
         {
-            title_color1_txt.text = "VERDE"; title_color1_txt.color = Color.blue;
-            title_color2_txt.text = "AMARILLO"; title_color2_txt.color = Color.red;
-            title_color3_txt.text = "VERDE"; title_color3_txt.color = Color.blue;
+            title_color1_txt.text = "NARANJA"; title_color1_txt.color = red;
+            title_color2_txt.text = "VERDE"; title_color2_txt.color = blue;
+            title_color3_txt.text = "NARANJA"; title_color3_txt.color = yellow;
 
         }
     }
@@ -271,6 +317,8 @@ public class Stroop_test : MonoBehaviour
         title_color1_txt.gameObject.SetActive(false);
         title_color2_txt.gameObject.SetActive(false);
         title_color3_txt.gameObject.SetActive(false);
+        //cambiar el fondo a sin postits
+        _background.sprite = pb_clean;
         color1_dd.gameObject.SetActive(true);
         color2_dd.gameObject.SetActive(true);
         color3_dd.gameObject.SetActive(true);
