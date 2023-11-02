@@ -47,16 +47,16 @@ public class typewriter_stroop : MonoBehaviour
 			}
 			_tmpProText.text += c;
 			_tmpProText.text += leadingChar;
-			PinBoard pinboard = GameObject.Find("pinboard").GetComponent<PinBoard>();
+			if (!Input.GetKeyDown(KeyCode.Space))
+
+			{
+				yield return new WaitForSeconds(timeBtwChars);
+			}
+			/*PinBoard pinboard = GameObject.Find("pinboard").GetComponent<PinBoard>();
 			if(pinboard != null)
             {
 				
-				if (!Input.GetKeyDown(KeyCode.Space))
-
-				{
-					yield return new WaitForSeconds(timeBtwChars);
-				}
-            }
+            }*/
 			
 			
 		}
@@ -68,7 +68,6 @@ public class typewriter_stroop : MonoBehaviour
 		else
 		{
 			_finishWritting = true;
-
 
 			//Para explicar el test de stroop
 			typewriter_stroop typewriter = GameObject.Find("pinboard").GetComponent<typewriter_stroop>();

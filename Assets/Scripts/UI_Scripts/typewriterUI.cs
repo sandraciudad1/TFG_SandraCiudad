@@ -16,7 +16,8 @@ public class typewriterUI : MonoBehaviour
 	string leadingChar = "";
 	[SerializeField] 
 	bool leadingCharBeforeDelay = false;
-	[SerializeField]
+	
+
 	public bool _finishWritting = false;
 
 	void Start()
@@ -46,9 +47,12 @@ public class typewriterUI : MonoBehaviour
 			} 
 			_tmpProText.text += c;
 			_tmpProText.text += leadingChar;
-			yield return new WaitForSeconds(timeBtwChars);
-		}
+			if (!Input.GetKeyDown(KeyCode.Space))
 
+			{
+				yield return new WaitForSeconds(timeBtwChars);
+			}
+		}
 		if (leadingChar != "")
 		{
 			_tmpProText.text = _tmpProText.text.Substring(0, _tmpProText.text.Length - leadingChar.Length);

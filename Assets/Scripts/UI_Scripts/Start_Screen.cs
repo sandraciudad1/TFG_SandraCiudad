@@ -16,15 +16,11 @@ public class Start_Screen : MonoBehaviour
     [SerializeField]
     private Button _arrowButton;
     [SerializeField]
-    private Image _clipboardImage;
-    [SerializeField]
     private Image _newspaper;
-    [SerializeField]
-    private GameObject _killer;
-    [SerializeField]
-    private GameObject _bgKiller;
-    [SerializeField]
-    private GameObject _textDialog;
+    
+    public GameObject _killer;
+    public GameObject _bgKiller;
+    public GameObject _textDialog;
 
     public TextMeshProUGUI text1;
     public TextMeshProUGUI text2;
@@ -33,19 +29,22 @@ public class Start_Screen : MonoBehaviour
     public TextMeshProUGUI text5;
 
     public int count;
+    public bool init_animation;
+    public bool show_info;
 
     public void startGame()
     {
         count = 0;
+        init_animation = false;
 
         _startBtn.SetActive(false);
         //show player info
-        _killer.SetActive(true);
+        /*_killer.SetActive(true);
         _bgKiller.SetActive(true);
-        _textDialog.SetActive(true);
-        /*_introBackground.SetActive(true);
+        _textDialog.SetActive(true);*/
+        _introBackground.SetActive(true);
         _newspaper.gameObject.SetActive(true);
-        _arrowButton.gameObject.SetActive(true);*/
+        _arrowButton.gameObject.SetActive(true);
     }
 
 
@@ -73,7 +72,6 @@ public class Start_Screen : MonoBehaviour
         } else if (count == 3)
         {
             text3.gameObject.SetActive(true);
-            _clipboardImage.gameObject.SetActive(true);
         } else if (count == 4)
         {
             text4.gameObject.SetActive(true);
@@ -83,15 +81,27 @@ public class Start_Screen : MonoBehaviour
             text5.gameObject.SetActive(true);
         } else if (count > 5)
         {
+            
             defaultValues();
             _arrowButton.gameObject.SetActive(false);
             _introBackground.gameObject.SetActive(false);
             _introBackground.SetActive(false);
 
-            //show player info
-            _killer.SetActive(true);
-            _bgKiller.SetActive(true);
-            _textDialog.SetActive(true);
+            init_animation = true;
+            animationEffects animation = GameObject.Find("Start_Screen").GetComponent<animationEffects>();
+            if (animation != null)
+            {
+                animation.init = true;
+                animation.Update();
+            }
+            /*if (show_info == true)
+            {
+                //show player info
+                _killer.SetActive(true);
+                _bgKiller.SetActive(true);
+                _textDialog.SetActive(true);
+            }*/
+            
         }
     }
 
@@ -108,7 +118,6 @@ public class Start_Screen : MonoBehaviour
     public void defaultValues()
     {
         _newspaper.gameObject.SetActive(false);
-        _clipboardImage.gameObject.SetActive(false);
         _arrowButton.gameObject.SetActive(false);
         text1.gameObject.SetActive(false);
         text2.gameObject.SetActive(false);
