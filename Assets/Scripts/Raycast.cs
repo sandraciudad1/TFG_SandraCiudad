@@ -11,6 +11,10 @@ public class Raycast : MonoBehaviour
     [SerializeField]
     private GameObject _pinBoard;
     [SerializeField]
+    private GameObject _remoteControl;
+
+
+    [SerializeField]
     private Image _pb_original;
     [SerializeField]
     private Image _pb_clean;
@@ -32,7 +36,7 @@ public class Raycast : MonoBehaviour
             RaycastHit hitInfo;
             if (Physics.Raycast(ray, out hitInfo))
             {
-                if(hitInfo.transform.name == "Pin_Board")
+                if (hitInfo.transform.name == "Pin_Board")
                 {
                     count = 1;
                     Player player = GameObject.Find("Player").GetComponent<Player>();
@@ -46,17 +50,15 @@ public class Raycast : MonoBehaviour
                             animation.Update();
                         }
 
-                        
-                        
+
+
                     }
                 }
+
+
             }
         }
-        
 
-    }
-    private void OnMouseDown()
-    {
-        
+
     }
 }
