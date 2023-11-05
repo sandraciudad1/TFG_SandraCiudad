@@ -104,6 +104,7 @@ public class Start_Screen : MonoBehaviour
             animationEffects animation = GameObject.Find("Start_Screen").GetComponent<animationEffects>();
             if (animation != null)
             {
+                //animation.id = 0;
                 animation.init_player_movement = true;
                 animation.Update();
             }
