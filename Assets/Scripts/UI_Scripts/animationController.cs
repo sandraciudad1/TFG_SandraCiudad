@@ -18,7 +18,7 @@ public class animationController : MonoBehaviour
     //player arriving to tv position
     Vector3 player_left_caras_pos = new Vector3(-8.43f, 0.7f, -0.12f);
     Vector3 player_straight_caras_pos = new Vector3(-8.43f, 0.7f, -3.74f);
-    Vector3 player_right_caras_pos = new Vector3(-11.44f, 0.7f, -8f);
+    Vector3 player_right_caras_pos = new Vector3(-11.44f, 0.7f, -8.3f);
     Quaternion player_final_pos_rotation = Quaternion.Euler(-10, 180, 0);
 
     public bool clicked;
@@ -27,6 +27,8 @@ public class animationController : MonoBehaviour
     public bool arrived_left_caras;
     public bool arrived_straight_caras;
     public bool arrived_right_caras;
+    public bool scaledTv;
+    public bool showTest;
 
     
 
@@ -40,6 +42,8 @@ public class animationController : MonoBehaviour
         arrived_left_caras = false;
         arrived_straight_caras = false;
         arrived_right_caras = false;
+        scaledTv = false;
+        showTest = false;
     }
 
 
@@ -120,6 +124,22 @@ public class animationController : MonoBehaviour
                 {
                     arrived_right_caras = true;
                 }
+            }
+
+            if(arrived_right_caras == true && scaledTv == false)
+            {
+                Television tv = GameObject.Find("remoteControl").GetComponent<Television>();
+                if (tv != null)
+                {
+                    tv.startIntroduction();
+                }
+                scaledTv = true;
+                
+            }
+
+            if(scaledTv == true && showTest == false)
+            {
+                
             }
         }
 

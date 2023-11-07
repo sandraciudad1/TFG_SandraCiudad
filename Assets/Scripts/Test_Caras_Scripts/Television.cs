@@ -6,12 +6,10 @@ using TMPro;
 using System.IO;
 using System;
 
-public class cb_reason : MonoBehaviour
+public class Television : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _canvas_test;
-    [SerializeField]
-    private GameObject _reason;
+    private GameObject _caras_test;
     [SerializeField]
     private GameObject _bg_explanation;
     [SerializeField]
@@ -47,30 +45,17 @@ public class cb_reason : MonoBehaviour
         count = 1;
     }
 
-    private void OnTriggerStay(Collider other)
+
+    public void startIntroduction()
     {
-        if (other.tag == "Player")
-        {
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                Player player = other.GetComponent<Player>();
-                if (player != null)
-                {
-                    //player._hasreason = true;
-                    _reason.SetActive(false);
-                    player._doingTest = true;
-
-                    _bg_explanation.SetActive(true);
-                    selecText();
-                }
-            }
-
-        }
+        _bg_explanation.SetActive(true);
+        selecText();
     }
+
 
     public void checkFinish()
     {
-        typewriter_caras typewriter = GameObject.Find("test_intros").GetComponent<typewriter_caras>();
+        typewriter_caras typewriter = GameObject.Find("remoteControl").GetComponent<typewriter_caras>();
         if (typewriter != null && typewriter._finishWritting == true)
         {
             _arrowButton_caras.gameObject.SetActive(true);
@@ -121,12 +106,12 @@ public class cb_reason : MonoBehaviour
         {
             text7.gameObject.SetActive(true);
         }
-        else if (count > 1)
+        else if (count > 8)
         {
             defaultValues();
             _arrowButton_caras.gameObject.SetActive(false);
             _bg_explanation.SetActive(false);
-            _canvas_test.SetActive(true);
+            _caras_test.SetActive(true);
 
             File.Delete("C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Caras/Results.txt");
             File.Delete("C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Caras/Time.txt");
@@ -166,5 +151,4 @@ public class cb_reason : MonoBehaviour
         count += 1;
         selecText();
     }
-
 }

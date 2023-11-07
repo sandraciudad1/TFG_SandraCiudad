@@ -16,10 +16,11 @@ public class typewriter_caras : MonoBehaviour
 	string leadingChar = "";
 	[SerializeField]
 	bool leadingCharBeforeDelay = false;
-	[SerializeField]
+
+
 	public bool _finishWritting = false;
 
-	void Start()
+	public void Start()
 	{
 		_tmpProText = GetComponent<TMP_Text>()!;
 
@@ -27,10 +28,10 @@ public class typewriter_caras : MonoBehaviour
 		{
 			writer = _tmpProText.text;
 			_tmpProText.text = "";
-
 			StartCoroutine("TypeWriterTMP");
 		}
 	}
+
 
 	IEnumerator TypeWriterTMP()
 	{
@@ -46,7 +47,13 @@ public class typewriter_caras : MonoBehaviour
 			}
 			_tmpProText.text += c;
 			_tmpProText.text += leadingChar;
-			yield return new WaitForSeconds(timeBtwChars);
+			if (!Input.GetKeyDown(KeyCode.Space))
+
+			{
+				yield return new WaitForSeconds(timeBtwChars);
+			}
+
+
 		}
 
 		if (leadingChar != "")
@@ -59,16 +66,16 @@ public class typewriter_caras : MonoBehaviour
 
 
 			//Para explicar el test de caras
-			typewriter_caras typewriter = GameObject.Find("test_intros").GetComponent<typewriter_caras>();
+			typewriter_caras typewriter = GameObject.Find("remoteControl").GetComponent<typewriter_caras>();
 			if (typewriter != null)
 			{
 				typewriter._finishWritting = true;
 			}
-			cb_reason cb_Reason = GameObject.Find("test_intros").GetComponent<cb_reason>();
-			if (cb_Reason != null)
+			Television tv = GameObject.Find("remoteControl").GetComponent<Television>();
+			if (tv != null)
 			{
 
-				cb_Reason.checkFinish();
+				tv.checkFinish();
 			}
 
 		}
