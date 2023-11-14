@@ -19,54 +19,43 @@ public class Caras_test : MonoBehaviour
     private Image bar_fill;
 
     [SerializeField]
-    private Sprite test_caras11;
+    private Image caras11;
     [SerializeField]
-    private Sprite test_caras12; 
+    private Image caras12; 
     [SerializeField]
-    private Sprite test_caras13;
+    private Image caras13;
     [SerializeField]
-    private Sprite test_caras14;
+    private Image caras21;
     [SerializeField]
-    private Sprite test_caras21;
+    private Image caras22;
     [SerializeField]
-    private Sprite test_caras22;
+    private Image caras23;
     [SerializeField]
-    private Sprite test_caras23;
+    private Image caras31;
     [SerializeField]
-    private Sprite test_caras24;
+    private Image caras32;
     [SerializeField]
-    private Sprite test_caras31;
+    private Image caras33;
     [SerializeField]
-    private Sprite test_caras32;
+    private Image caras41;
     [SerializeField]
-    private Sprite test_caras33;
+    private Image caras42;
     [SerializeField]
-    private Sprite test_caras34;
+    private Image caras43;
     [SerializeField]
-    private Sprite test_caras41;
+    private Image caras51;
     [SerializeField]
-    private Sprite test_caras42;
+    private Image caras52;
     [SerializeField]
-    private Sprite test_caras43;
+    private Image caras53;
     [SerializeField]
-    private Sprite test_caras44;
+    private Image caras61;
     [SerializeField]
-    private Sprite test_caras51;
+    private Image caras62;
     [SerializeField]
-    private Sprite test_caras52;
-    [SerializeField]
-    private Sprite test_caras53;
-    [SerializeField]
-    private Sprite test_caras54;
-    [SerializeField]
-    private Sprite test_caras61;
-    [SerializeField]
-    private Sprite test_caras62;
-    [SerializeField]
-    private Sprite test_caras63;
-    [SerializeField]
-    private Sprite test_caras64;
-    [SerializeField]
+    private Image caras63;
+
+    /*[SerializeField]
     private Sprite test_caras71;
     [SerializeField]
     private Sprite test_caras72;
@@ -97,26 +86,30 @@ public class Caras_test : MonoBehaviour
     [SerializeField]
     private Sprite test_caras103;
     [SerializeField]
-    private Sprite test_caras104;
+    private Sprite test_caras104;*/
 
     [SerializeField]
     private float timerTime;
     public int min, seg = 15, intervalo = 1;
     public float nextTime = 0;
 
-    public Image image1;
+    public Button img1;
+    public Button img2;
+    public Button img3;
+    
+    /*public Image image1;
     public Image image2;
     public Image image3;
-    public Image image4;
+    public Image image4;*/
+   
     public Image red_cross1;
     public Image red_cross2;
     public Image red_cross3;
-    public Image red_cross4;
-
+    /*public Image red_cross4;
     public TMP_Dropdown image1_dd;
     public TMP_Dropdown image2_dd;
     public TMP_Dropdown image3_dd;
-    public TMP_Dropdown image4_dd;
+    public TMP_Dropdown image4_dd;*/
 
     private int count;
     private DateTime tiempo1 = DateTime.Now, tiempo2;
@@ -124,33 +117,39 @@ public class Caras_test : MonoBehaviour
     public bool allowed;
     public bool im1, im2, im3, im4;
 
+    public string value;
+
     public void Start()
     {
         count = 1;
-        allowed = false;
-        im1 = false; im2 = false; im3 = false; im4 = false;
+        value = "";
+        //allowed = false;
+        //im1 = false; im2 = false; im3 = false; im4 = false;
     }
 
 
     void Update()
     {
-        if (count > 10)
+        if (count > 6)
         {
-            image1.gameObject.SetActive(false);
+            /*image1.gameObject.SetActive(false);
             image2.gameObject.SetActive(false);
             image3.gameObject.SetActive(false);
             image4.gameObject.SetActive(false);
-            red_cross1.gameObject.SetActive(false);
-            red_cross2.gameObject.SetActive(false);
-            red_cross3.gameObject.SetActive(false);
             red_cross4.gameObject.SetActive(false);
             image1_dd.gameObject.SetActive(false);
             image2_dd.gameObject.SetActive(false);
             image3_dd.gameObject.SetActive(false);
-            image4_dd.gameObject.SetActive(false);
+            image4_dd.gameObject.SetActive(false);*/
+            img1.gameObject.SetActive(false);
+            img2.gameObject.SetActive(false);
+            img3.gameObject.SetActive(false);
+            red_cross1.gameObject.SetActive(false);
+            red_cross2.gameObject.SetActive(false);
+            red_cross3.gameObject.SetActive(false);
             finish_btn_caras.gameObject.SetActive(true);
         }
-        else if (count <= 10 && (image1_dd.value != 0 && image2_dd.value != 0 && image3_dd.value != 0 && image4_dd.value != 0))
+        else if (count <= 6)
         {
             
             checkAllowed();
@@ -197,7 +196,7 @@ public class Caras_test : MonoBehaviour
         }
     }
 
-    public void selectColors()
+    /*public void selectColors()
     {
         image1_dd.onValueChanged.AddListener(delegate
         {
@@ -278,7 +277,7 @@ public class Caras_test : MonoBehaviour
                 red_cross4.gameObject.SetActive(true);
             }
         });
-    }
+    }*/
 
     public void finishStroop()
     {
@@ -312,11 +311,11 @@ public class Caras_test : MonoBehaviour
 
     public void defaultValues()
     {
-        red_cross1.gameObject.SetActive(false);
+       /* red_cross1.gameObject.SetActive(false);
         red_cross2.gameObject.SetActive(false);
         red_cross3.gameObject.SetActive(false);
         red_cross4.gameObject.SetActive(false);
-        image1_dd.value = 0; image2_dd.value = 0; image3_dd.value = 0; image4_dd.value = 0;
+        image1_dd.value = 0; image2_dd.value = 0; image3_dd.value = 0; image4_dd.value = 0;*/
     }
 
 
@@ -325,7 +324,8 @@ public class Caras_test : MonoBehaviour
         string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Caras/Results.txt";
         if (count > 0)
         {
-            string text = image1_dd.value + ", " + image2_dd.value + ", " + image3_dd.value + ", " + image4_dd.value;
+            //string text = image1_dd.value + ", " + image2_dd.value + ", " + image3_dd.value + ", " + image4_dd.value;
+            string text = "";
             File.AppendAllLines(path, new String[] { text });
         }
     }
@@ -336,7 +336,7 @@ public class Caras_test : MonoBehaviour
         bar_fill.fillAmount = amount;
     }
 
-    public void testOptions()
+    /*public void testOptions()
     {
         if (count == 1) 
         {
@@ -410,17 +410,75 @@ public class Caras_test : MonoBehaviour
             image4.sprite = test_caras104;
 
         }
+    }*/
+
+    public void firstClicked()
+    {
+        red_cross1.gameObject.SetActive(true);
+        value = "Izquierda";
+    }
+
+    public void secondClicked()
+    {
+        red_cross2.gameObject.SetActive(true);
+        value = "Centro";
+    }
+
+    public void thirdClicked()
+    {
+        red_cross3.gameObject.SetActive(true);
+        value = "Derecha";
+    }
+
+
+    public void testOptions()
+    {
+        if (count == 1)
+        {
+            img1.image = caras11;
+            img2.image = caras12;
+            img3.image = caras13;
+
+        } else if (count == 2)
+        {
+            img1.image = caras21;
+            img2.image = caras22;
+            img3.image = caras23;
+        } else if (count == 3)
+        {
+            img1.image = caras31;
+            img2.image = caras32;
+            img3.image = caras33;
+        } else if (count == 4)
+        {
+            img1.image = caras41;
+            img2.image = caras42;
+            img3.image = caras43;
+        } else if (count == 5)
+        {
+            img1.image = caras51;
+            img2.image = caras52;
+            img3.image = caras53;
+        } else if (count == 6)
+        {
+            img1.image = caras61;
+            img2.image = caras62;
+            img3.image = caras63;
+        }
+
+
     }
 
 
     public void nextTest()
     {
+        Debug.Log("en el next del test de caras");
         saveTestsResults();
         UpdateProgress();
         count = count + 1;
         defaultValues();
         testOptions();
-        selectColors();
+        //selectColors();
     }
 
 
