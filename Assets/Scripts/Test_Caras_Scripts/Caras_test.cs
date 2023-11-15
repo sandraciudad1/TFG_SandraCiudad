@@ -19,41 +19,41 @@ public class Caras_test : MonoBehaviour
     private Image bar_fill;
 
     [SerializeField]
-    private Image caras11;
+    private Sprite caras11;
     [SerializeField]
-    private Image caras12; 
+    private Sprite caras12; 
     [SerializeField]
-    private Image caras13;
+    private Sprite caras13;
     [SerializeField]
-    private Image caras21;
+    private Sprite caras21;
     [SerializeField]
-    private Image caras22;
+    private Sprite caras22;
     [SerializeField]
-    private Image caras23;
+    private Sprite caras23;
     [SerializeField]
-    private Image caras31;
+    private Sprite caras31;
     [SerializeField]
-    private Image caras32;
+    private Sprite caras32;
     [SerializeField]
-    private Image caras33;
+    private Sprite caras33;
     [SerializeField]
-    private Image caras41;
+    private Sprite caras41;
     [SerializeField]
-    private Image caras42;
+    private Sprite caras42;
     [SerializeField]
-    private Image caras43;
+    private Sprite caras43;
     [SerializeField]
-    private Image caras51;
+    private Sprite caras51;
     [SerializeField]
-    private Image caras52;
+    private Sprite caras52;
     [SerializeField]
-    private Image caras53;
+    private Sprite caras53;
     [SerializeField]
-    private Image caras61;
+    private Sprite caras61;
     [SerializeField]
-    private Image caras62;
+    private Sprite caras62;
     [SerializeField]
-    private Image caras63;
+    private Sprite caras63;
 
     /*[SerializeField]
     private Sprite test_caras71;
@@ -118,11 +118,22 @@ public class Caras_test : MonoBehaviour
     public bool im1, im2, im3, im4;
 
     public string value;
+    public bool pressed;
+    public bool start_timer;
+    public string text_result;
+    public float stop;
+
+    [SerializeField] TextMeshProUGUI timer_text;
+    public float remaining_time;
 
     public void Start()
     {
         count = 1;
         value = "";
+        pressed = false;
+        start_timer = false;
+        text_result = "";
+        nextTest();
         //allowed = false;
         //im1 = false; im2 = false; im3 = false; im4 = false;
     }
@@ -130,6 +141,12 @@ public class Caras_test : MonoBehaviour
 
     void Update()
     {
+        int minutes = 0;
+        int seconds = 0;
+
+       
+
+
         if (count > 6)
         {
             /*image1.gameObject.SetActive(false);
@@ -150,9 +167,42 @@ public class Caras_test : MonoBehaviour
             finish_btn_caras.gameObject.SetActive(true);
         }
         else if (count <= 6)
-        {
+        {   //cuando acabe el tiempo poner los botones interactables
+            //el usuario pulsa un boton y se reseta el contador
+            if (start_timer == true)
+            {
+                remaining_time -= Time.deltaTime;
+                minutes = Mathf.FloorToInt(remaining_time / 60);
+                seconds = Mathf.FloorToInt(remaining_time % 60);
+                timer_text.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+
+                if (pressed == false && minutes == 0 && seconds == 0)
+                {
+                    start_timer = false;
+                    text_result = "Sin elegir";
+                    nextTest();
+                }
+
+            }
+
+
+            if (pressed == true)
+            {
+                //seconds = 0;
+                //start_timer = false;
+                start_timer = false;
+                minutes = Mathf.FloorToInt(stop / 60);
+                seconds = Mathf.FloorToInt(stop % 60);
+                timer_text.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+                text_result = value;
+                nextTest();
+            }
+                    
             
-            checkAllowed();
+            
+            
+
+            /*checkAllowed();
             if (allowed == true)
             {
                 if (Time.time >= nextTime)
@@ -179,14 +229,11 @@ public class Caras_test : MonoBehaviour
                     seg = 15;
                     nextTime = 0;
                 }
-            }
-            
-
-            
+            }*/
         }
     }
 
-    public void checkAllowed()
+    /*public void checkAllowed()
     {
         if (im1 == true && im2 == true && im3 == true && im4 == true){
             allowed = true;
@@ -194,7 +241,7 @@ public class Caras_test : MonoBehaviour
         {
             allowed = false;
         }
-    }
+    }*/
 
     /*public void selectColors()
     {
@@ -311,10 +358,13 @@ public class Caras_test : MonoBehaviour
 
     public void defaultValues()
     {
-       /* red_cross1.gameObject.SetActive(false);
+        red_cross1.gameObject.SetActive(false);
         red_cross2.gameObject.SetActive(false);
         red_cross3.gameObject.SetActive(false);
-        red_cross4.gameObject.SetActive(false);
+        pressed = false;
+        remaining_time = 10;
+        start_timer = true;
+        /*red_cross4.gameObject.SetActive(false);
         image1_dd.value = 0; image2_dd.value = 0; image3_dd.value = 0; image4_dd.value = 0;*/
     }
 
@@ -325,8 +375,7 @@ public class Caras_test : MonoBehaviour
         if (count > 0)
         {
             //string text = image1_dd.value + ", " + image2_dd.value + ", " + image3_dd.value + ", " + image4_dd.value;
-            string text = "";
-            File.AppendAllLines(path, new String[] { text });
+            File.AppendAllLines(path, new String[] { text_result });
         }
     }
 
@@ -415,19 +464,28 @@ public class Caras_test : MonoBehaviour
     public void firstClicked()
     {
         red_cross1.gameObject.SetActive(true);
+        pressed = true;
+        start_timer = false;
         value = "Izquierda";
+        stop = Time.time;
     }
 
     public void secondClicked()
     {
         red_cross2.gameObject.SetActive(true);
+        pressed = true;
+        start_timer = false;
         value = "Centro";
+        stop = Time.time;
     }
 
     public void thirdClicked()
     {
         red_cross3.gameObject.SetActive(true);
+        pressed = true;
+        start_timer = false;
         value = "Derecha";
+        stop = Time.time;
     }
 
 
@@ -435,35 +493,35 @@ public class Caras_test : MonoBehaviour
     {
         if (count == 1)
         {
-            img1.image = caras11;
-            img2.image = caras12;
-            img3.image = caras13;
+            img1.image.sprite = caras11;
+            img2.image.sprite = caras12;
+            img3.image.sprite = caras13;
 
         } else if (count == 2)
         {
-            img1.image = caras21;
-            img2.image = caras22;
-            img3.image = caras23;
+            img1.image.sprite = caras21;
+            img2.image.sprite = caras22;
+            img3.image.sprite = caras23;
         } else if (count == 3)
         {
-            img1.image = caras31;
-            img2.image = caras32;
-            img3.image = caras33;
+            img1.image.sprite = caras31;
+            img2.image.sprite = caras32;
+            img3.image.sprite = caras33;
         } else if (count == 4)
         {
-            img1.image = caras41;
-            img2.image = caras42;
-            img3.image = caras43;
+            img1.image.sprite = caras41;
+            img2.image.sprite = caras42;
+            img3.image.sprite = caras43;
         } else if (count == 5)
         {
-            img1.image = caras51;
-            img2.image = caras52;
-            img3.image = caras53;
+            img1.image.sprite = caras51;
+            img2.image.sprite = caras52;
+            img3.image.sprite = caras53;
         } else if (count == 6)
         {
-            img1.image = caras61;
-            img2.image = caras62;
-            img3.image = caras63;
+            img1.image.sprite = caras61;
+            img2.image.sprite = caras62;
+            img3.image.sprite = caras63;
         }
 
 
@@ -472,7 +530,6 @@ public class Caras_test : MonoBehaviour
 
     public void nextTest()
     {
-        Debug.Log("en el next del test de caras");
         saveTestsResults();
         UpdateProgress();
         count = count + 1;
