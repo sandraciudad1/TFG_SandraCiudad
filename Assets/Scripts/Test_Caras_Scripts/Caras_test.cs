@@ -101,7 +101,7 @@ public class Caras_test : MonoBehaviour
         count = 0;
         pressed = false;
         start_timer = false;
-        nextTest();
+        //nextTest();
         finish = false;
 
     }
@@ -121,10 +121,16 @@ public class Caras_test : MonoBehaviour
         }
         else if (count <= 6)
         {
-
-            remaining_time -= Time.deltaTime;
+            Debug.Log(Time.deltaTime);
+            Debug.Log(remaining_time);
+            remaining_time = Math.Abs(remaining_time);
+            float timer = Math.Abs(Time.deltaTime);
+            remaining_time -= timer;
+            
             minutes = Mathf.FloorToInt(remaining_time / 60);
             seconds = Mathf.FloorToInt(remaining_time % 60);
+            minutes = Math.Abs(minutes);
+            seconds = Math.Abs(seconds);
             timer_text.text = string.Format("{0:00}:{1:00}", minutes, seconds);
 
             if (pressed == true)
@@ -136,7 +142,6 @@ public class Caras_test : MonoBehaviour
 
             if(minutes == 0 && seconds == 0)
             {
-                
                 nextTest();
             }
 
@@ -214,6 +219,7 @@ public class Caras_test : MonoBehaviour
     {
         red_cross1.gameObject.SetActive(true);
         value = "Izquierda";
+        saveTestsResults();
         pressed = true;
     }
 
@@ -221,6 +227,7 @@ public class Caras_test : MonoBehaviour
     {
         red_cross2.gameObject.SetActive(true);
         value = "Centro";
+        saveTestsResults();
         pressed = true;
     }
 
@@ -228,6 +235,7 @@ public class Caras_test : MonoBehaviour
     {
         red_cross3.gameObject.SetActive(true);
         value = "Derecha";
+        saveTestsResults();
         pressed = true;
     }
 
@@ -273,7 +281,6 @@ public class Caras_test : MonoBehaviour
 
     public void nextTest()
     {
-        saveTestsResults();
         UpdateProgress();
         count = count + 1;
         defaultValues();
