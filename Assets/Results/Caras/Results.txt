@@ -1,2 +1,0 @@
-ronda 2: Derecha
-ronda 3: Izquierda
