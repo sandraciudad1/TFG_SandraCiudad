@@ -35,6 +35,7 @@ public class show_cards : MonoBehaviour
     public void confirm_btn_click()
     {
         _weaponCard.gameObject.SetActive(false);
+        _reasonCard.gameObject.SetActive(false);
         _confirm_btn.gameObject.SetActive(false);
         Player player = GameObject.Find("Player").GetComponent<Player>();
         if (player != null)

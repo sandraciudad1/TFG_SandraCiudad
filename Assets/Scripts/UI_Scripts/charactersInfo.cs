@@ -108,7 +108,8 @@ public class charactersInfo : MonoBehaviour
         relation.text = "Marido de la víctima";
         relation.color = Color.black;
         description.text = "Xavier es un licenciado en negocios y finanzas que trabaja en una gran empresa con prestigio a nivel " +
-                            "internacional. Sus grandes logros empresariales le han permitido generar grandes ingresos. " +
+                            "internacional. Sus grandes logros empresariales le obligan a viajar constantemente, por lo que apenas " +
+                            "pasa tiempo con su familia, lo que le ocasiona más de un problema familiar, especialmente con su mujer. " +
                             "\n\n Es una persona muy influyente y está involucrado en organizaciones benéficas. Es conocido por " +
                             "ser muy solidario y le encanta pasar tiempo en familia. En su tiempo libre es cortador de jamón y " +
                             "colecciona botellas de vino de todo el mundo.";
@@ -141,7 +142,8 @@ public class charactersInfo : MonoBehaviour
                             "son el arte y la moda. Actualmente trabaja en una conocida galería de arte mientras presenta su propia " +
                             "colección de moda en pasarelas de todo el mundo." +
                             "\n\n Se caracteriza por ser una persona muy aventurera, por lo que en su tiempo libre le encanta explorar " +
-                            "la naturaleza y hacer acampadas.";
+                            "la naturaleza y hacer acampadas." +
+                            "La relación que mantiene con sus padres no es muy buena, ya que no aceptan su relación amorosa.";
         image.sprite = Giovanni;
     }
 
@@ -196,7 +198,9 @@ public class charactersInfo : MonoBehaviour
         relation.text = "Vigilante de la víctima";
         relation.color = Color.black;
         description.text = "Alessandro es un jóven de 27 años que ha trabajado toda su vida como portero en distintas discotecas, aunque " +
-                            "recientemente ha sido contratado por la familia Walton para supervisar y mantener la seguridad en la mansión." +
+                            "recientemente ha sido contratado por la familia Walton para mantener la seguridad en la mansión." +
+                            "Su principal misión es vigilar la mansión tanto por dentro como por fuera, a excepción de la bodega, cuya puerta debe" +
+                            " mantenerse siempre cerrada para conservar la temperatura y no estropear el vino" +
                             "\n\n Mantiene una relación amorosa con Giovanni desde hace 2 años, aunque Xavier y Emma no son capaces de aceptarla. " +
                             "En su tiempo libre, le apasiona hacer deporte y practicar técnicas de defensa personal.";
         image.sprite = Alessandro;

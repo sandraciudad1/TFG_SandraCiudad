@@ -118,6 +118,7 @@ public class Caras_test : MonoBehaviour
             red_cross2.gameObject.SetActive(false);
             red_cross3.gameObject.SetActive(false);
             finish_btn_caras.gameObject.SetActive(true);
+            timer_text.gameObject.SetActive(false);
         }
         else if (count <= 6)
         {
