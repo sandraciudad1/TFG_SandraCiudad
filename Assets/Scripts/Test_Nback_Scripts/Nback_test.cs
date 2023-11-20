@@ -15,4 +15,9 @@ public class Nback_test : MonoBehaviour
     {
         
     }
+
+    public void nextTest()
+    {
+        Debug.Log("Has llegado");
+    }
 }

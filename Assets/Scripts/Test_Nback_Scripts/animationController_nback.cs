@@ -92,30 +92,23 @@ public class animationController_nback : MonoBehaviour
             //player moves to the left
             if (start_moving == true && arrivedpos == false)
             {
-                _introduction_bg.transform.position = Vector3.MoveTowards(_introduction_bg.transform.position, bg_pos, step * 2);
-                _introduction_bg.transform.localScale = bg_scaled;
-                //player.transform.position = Vector3.MoveTowards(player.transform.position, player_left_caras_pos, step * 2);
-                if (_introduction_bg.transform.position == bg_pos && _introduction_bg.transform.localScale == bg_scaled)
+                
+                card_deck cd = GameObject.Find("card_deck").GetComponent<card_deck>();
+                if (cd != null)
                 {
-                    arrivedpos= true;
+                    Debug.Log("llamando al start de card_deck");
+                    cd.startIntroduction();
                 }
+                arrivedpos = true;
             }
 
-            if (arrivedpos == true)
-            {
-                Television tv = GameObject.Find("remoteControl").GetComponent<Television>();
-                if (tv != null)
-                {
-                    tv.startIntroduction();
-                }
-            }
         }
 
     }
 
     IEnumerator wait_animation_nback()
     {
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(10.7f);
         start_moving = true;
     }
 

@@ -43,7 +43,6 @@ public class Television : MonoBehaviour
     private void Start()
     {
         count = 1;
-        Debug.Log("count en start : " + count);
     }
 
 
@@ -70,31 +69,26 @@ public class Television : MonoBehaviour
     {
         if (count == 1)
         {
-            Debug.Log("en el count 1 " + count);
             text1.gameObject.SetActive(true);
 
         }
         else if (count == 2)
         {
-            Debug.Log("en el count 2 " + count);
             text2.gameObject.SetActive(true);
 
         }
         else if (count == 3)
         {
-            Debug.Log("en el count 3 " + count);
             text3.gameObject.SetActive(true);
             _caras_example.gameObject.SetActive(true);
         }
         else if (count == 4)
         {
-            Debug.Log("en el count 4 " + count);
             text4.gameObject.SetActive(true);
 
         }
         else if (count == 5)
         {
-            Debug.Log("en el count 5 " + count);
             text5.gameObject.SetActive(true);
             ex_boca_txt.gameObject.SetActive(true);
             ex_cejas_txt.gameObject.SetActive(true);
@@ -107,17 +101,14 @@ public class Television : MonoBehaviour
         }
         else if (count == 6)
         {
-            Debug.Log("en el count 6 " + count);
             text6.gameObject.SetActive(true);
         }
         else if (count == 7)
         {
-            Debug.Log("en el count 7 " + count);
             text7.gameObject.SetActive(true);
         }
         else if (count > 7)
         {
-            Debug.Log("en el count > 8");
             defaultValues();
             _arrowButton_caras.gameObject.SetActive(false);
             _bg_explanation.SetActive(false);
@@ -129,7 +120,6 @@ public class Television : MonoBehaviour
             Caras_test caras = GameObject.Find("CarasTest").GetComponent<Caras_test>();
             if (caras != null)
             {
-                Debug.Log("ha encontrado el caras test");
                 caras.nextTest();
             }
         }
@@ -137,7 +127,6 @@ public class Television : MonoBehaviour
 
     public void defaultValues()
     {
-        Debug.Log("en el default values " + count);
         _arrowButton_caras.gameObject.SetActive(false);
         text1.gameObject.SetActive(false);
         text2.gameObject.SetActive(false);
@@ -159,7 +148,6 @@ public class Television : MonoBehaviour
 
     public void nextText()
     {
-        Debug.Log("en el nextText " + count);
         defaultValues();
         count += 1;
         selecText();
