@@ -13,6 +13,8 @@ public class show_cards : MonoBehaviour
     private Image _weaponCard;
     [SerializeField]
     private Image _reasonCard;
+    [SerializeField]
+    private Image _placeCard;
 
     [SerializeField]
     private Button _confirm_btn;
@@ -36,6 +38,7 @@ public class show_cards : MonoBehaviour
     {
         _weaponCard.gameObject.SetActive(false);
         _reasonCard.gameObject.SetActive(false);
+        _placeCard.gameObject.SetActive(false);
         _confirm_btn.gameObject.SetActive(false);
         Player player = GameObject.Find("Player").GetComponent<Player>();
         if (player != null)
@@ -65,6 +68,18 @@ public class show_cards : MonoBehaviour
             player._isPressed = false;
         }
         _reasonCard.gameObject.SetActive(true);
+        _confirm_btn.gameObject.SetActive(true);
+
+    }
+
+    public void show_place_card()
+    {
+        Player player = GameObject.Find("Player").GetComponent<Player>();
+        if (player != null)
+        {
+            player._isPressed = false;
+        }
+        _placeCard.gameObject.SetActive(true);
         _confirm_btn.gameObject.SetActive(true);
 
     }

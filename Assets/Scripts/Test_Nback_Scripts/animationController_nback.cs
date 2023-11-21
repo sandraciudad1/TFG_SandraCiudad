@@ -8,8 +8,6 @@ using System;
 
 public class animationController_nback : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject _introduction_bg;
 
     Animator animator;
 
@@ -57,7 +55,7 @@ public class animationController_nback : MonoBehaviour
             RaycastHit hitInfo;
             if (Physics.Raycast(ray, out hitInfo))
             {
-                if (hitInfo.transform.name == "CardFan_Hearts" && clicked == false)
+                if (hitInfo.transform.name == "CardFan_Hearts_" && clicked == false)
                 {
 
                     clicked = true;
@@ -96,7 +94,6 @@ public class animationController_nback : MonoBehaviour
                 card_deck cd = GameObject.Find("card_deck").GetComponent<card_deck>();
                 if (cd != null)
                 {
-                    Debug.Log("llamando al start de card_deck");
                     cd.startIntroduction();
                 }
                 arrivedpos = true;
@@ -108,7 +105,7 @@ public class animationController_nback : MonoBehaviour
 
     IEnumerator wait_animation_nback()
     {
-        yield return new WaitForSeconds(10.7f);
+        yield return new WaitForSeconds(10.9f);
         start_moving = true;
     }
 

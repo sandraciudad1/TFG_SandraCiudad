@@ -115,6 +115,19 @@ public class UI_Manager : MonoBehaviour
         _bgplace.SetActive(true);
     }
 
+    public void placeClicked()
+    {
+        check();
+        if (possible == true)
+        {
+            show_cards show = GameObject.Find("Cards").GetComponent<show_cards>();
+            if (show != null)
+            {
+                show.show_place_card();
+            }
+        }
+    }
+
 
     public void extraCollected()
     {

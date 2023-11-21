@@ -145,12 +145,9 @@ public class Caras_test : MonoBehaviour
             {
                 nextTest();
             }
-
-            
-
         }
     }
-
+       
 
     public void finishStroop()
     {

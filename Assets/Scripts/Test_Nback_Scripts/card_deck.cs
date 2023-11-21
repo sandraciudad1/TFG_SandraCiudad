@@ -33,7 +33,7 @@ public class card_deck : MonoBehaviour
 
     public void startIntroduction()
     {
-        _bg_explanation.SetActive(true);
+        //_bg_explanation.SetActive(true);
 
         selecText();
     }
