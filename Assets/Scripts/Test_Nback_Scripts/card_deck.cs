@@ -24,17 +24,21 @@ public class card_deck : MonoBehaviour
     public TextMeshProUGUI text6;
 
     public int count;
+    public bool init_animation;
+    public bool finish;
+    public bool next;
 
     private void Start()
     {
         count = 1;
+        init_animation = false;
+        finish = false;
+        next = false;
     }
 
 
     public void startIntroduction()
     {
-        //_bg_explanation.SetActive(true);
-
         selecText();
     }
 
@@ -48,6 +52,34 @@ public class card_deck : MonoBehaviour
             typewriter._finishWritting = false;
         }
     }
+
+    public void Update()
+    {
+        
+
+        if (init_animation==true)
+        {
+            animationController_nback anim = GameObject.Find("CardFan_Hearts_").GetComponent<animationController_nback>();
+            if (anim != null)
+            {
+                anim.init_anim = true;
+            }
+        }
+      
+        
+
+        if(finish == true && next == false)
+        {
+            Nback_test nback = GameObject.Find("NbackTest").GetComponent<Nback_test>();
+            if (nback != null && finish == true)
+            {
+                nback.can_start = true;
+                nback.nextTest();
+            }
+            next = true;
+        }
+    }
+
 
     public void selecText()
     {
@@ -66,7 +98,6 @@ public class card_deck : MonoBehaviour
         else if (count == 4)
         {
             text4.gameObject.SetActive(true);
-
         }
         else if (count == 5)
         {
@@ -82,15 +113,13 @@ public class card_deck : MonoBehaviour
             _arrowButton_cards.gameObject.SetActive(false);
             _bg_explanation.SetActive(false);
             _caras_test.SetActive(true);
-
+            
             File.Delete("C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Nback/Results.txt");
             File.Delete("C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Nback/Time.txt");
-
-            Nback_test nback = GameObject.Find("NbackTest").GetComponent<Nback_test>();
-            if (nback != null)
-            {
-                nback.nextTest();
-            }
+            
+            
+            init_animation = true;
+            Update();
         }
     }
 

@@ -33,7 +33,13 @@ public class animationController_nback : MonoBehaviour
 
     public bool showTest;
 
-    
+    public bool init_anim;
+    public bool finish;
+    public bool next;
+
+    public bool cardFan_init;
+    public bool finish_nback_test;
+    public bool next_test;
 
 
     void Start()
@@ -43,6 +49,14 @@ public class animationController_nback : MonoBehaviour
         cardDeck_pos = false;
         start_moving = false;
         arrivedpos = false;
+
+        init_anim = false;
+        finish = false;
+        next = false;
+
+        cardFan_init = false;
+        finish_nback_test = false;
+        next_test = false;
     }
 
 
@@ -84,14 +98,12 @@ public class animationController_nback : MonoBehaviour
 
         }
 
-
-        if (player != null)
+        card_deck cd = GameObject.Find("card_deck").GetComponent<card_deck>();
+        if (cd != null)
         {
             //player moves to the left
             if (start_moving == true && arrivedpos == false)
             {
-                
-                card_deck cd = GameObject.Find("card_deck").GetComponent<card_deck>();
                 if (cd != null)
                 {
                     cd.startIntroduction();
@@ -99,14 +111,49 @@ public class animationController_nback : MonoBehaviour
                 arrivedpos = true;
             }
 
+
+            if (init_anim == true && animator.GetBool("card_back") == false && finish==false)
+            {
+                animator.SetBool("card_back", true);
+                StartCoroutine(wait_back());
+            }
+
+            if (finish == true && next == false)
+            {
+                cd.finish = true;
+                next = true;
+            }
         }
 
+
+        if (cardFan_init == true && animator.GetBool("cardFan_init") == false && finish_nback_test == false)
+        {
+            animator.SetBool("cardFan_init", true);
+            StartCoroutine(wait_initial_pos());
+        }
+
+        
+
+
     }
+
 
     IEnumerator wait_animation_nback()
     {
-        yield return new WaitForSeconds(10.9f);
+        yield return new WaitForSeconds(11f);
         start_moving = true;
     }
 
+
+    IEnumerator wait_back()
+    {
+        yield return new WaitForSeconds(3.4f);
+        finish = true;
+    }
+
+    IEnumerator wait_initial_pos()
+    {
+        yield return new WaitForSeconds(2.8f);
+        finish_nback_test = true;
+    }
 }

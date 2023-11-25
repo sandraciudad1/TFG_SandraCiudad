@@ -1,9 +1,2 @@
 La carta 1 ha sido presionada. ERROR.
 La carta 2 ha sido presionada. ERROR.
-La carta 3 ha sido presionada. ERROR.
-La carta 4 ha sido presionada. ACIERTO.
-La carta 5 ha sido presionada. ERROR.
-La carta 6 ha sido presionada. ERROR.
-La carta 7 ha sido presionada. ERROR.
-La carta 8 ha sido presionada. ERROR.
-La carta 9 ha sido presionada. ERROR.

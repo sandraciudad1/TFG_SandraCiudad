@@ -5,9 +5,19 @@ using UnityEngine.UI;
 using TMPro;
 using System.IO;
 using System;
+using System.Threading;
 
 public class Nback_test : MonoBehaviour
 {
+    [SerializeField]
+    public GameObject _canvasNback;
+    [SerializeField]
+    private Button finish_btn_nback;
+    [SerializeField]
+    private Image bar_fill;
+    [SerializeField]
+    public GameObject progressBar;
+
     [SerializeField]
     private Sprite one;
     [SerializeField]
@@ -35,33 +45,82 @@ public class Nback_test : MonoBehaviour
     public string text_result;
     public bool pressed;
     public string value;
-    public bool can_check;
+    public bool can_start;
+
+    [SerializeField] TextMeshProUGUI timer_text;
+    public float remaining_time;
+    private int minutes;
+    private int seconds;
+
+    public bool finish_test;
+    public bool _hasFinished;
 
     // Start is called before the first frame update
     void Start()
     {
         count = 0;
         pressed = false;
-        can_check = false;
+        can_start = false;
+        finish_test = false;
+        _hasFinished = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(count > 20)
+        animationController_nback anim = GameObject.Find("CardFan_Hearts_").GetComponent<animationController_nback>();
+        if (anim != null && anim.finish_nback_test == true && _hasFinished == false)
         {
-            card.gameObject.SetActive(false);
-        } else if (count <= 20 && can_check==true)
-        {
-            //saveTestsResults();
-            nextTest();
+            showCard_finish();
+            _hasFinished = true;
         }
 
+        if (count > 20)
+        {
+            card.gameObject.SetActive(false);
+            finish_btn_nback.gameObject.SetActive(true);
+            timer_text.gameObject.SetActive(false);
 
+        }
+        else if (count <= 20 && can_start==true)
+        {
+
+            remaining_time = Math.Abs(remaining_time);
+            float timer = Math.Abs(Time.deltaTime);
+            remaining_time -= timer;
+
+            minutes = Mathf.FloorToInt(remaining_time / 60);
+            seconds = Mathf.FloorToInt(remaining_time % 60);
+            minutes = Math.Abs(minutes);
+            seconds = Math.Abs(seconds);
+            timer_text.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+
+
+            if (minutes == 0 && seconds == 0)
+            {
+                nextTest();
+            }
+
+        }
+    }
+    IEnumerator wait_initial_pos()
+    {
+        yield return new WaitForSeconds(2f);
     }
 
     public void finishNback()
     {
+        _canvasNback.SetActive(false);
+        animationController_nback anim = GameObject.Find("CardFan_Hearts_").GetComponent<animationController_nback>();
+        if (anim != null)
+        {
+            anim.cardFan_init = true;
+        }   
+    }
+
+    public void showCard_finish()
+    {
+        StartCoroutine(wait_initial_pos());
         show_cards show = GameObject.Find("Cards").GetComponent<show_cards>();
         if (show != null)
         {
@@ -86,15 +145,12 @@ public class Nback_test : MonoBehaviour
         string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Nback/Time.txt";
         string text = (tiempo2 - tiempo1).Hours + " horas " + (tiempo2 - tiempo1).Minutes + " minutos " + (tiempo2 - tiempo1).Seconds + " segundos";
         File.AppendAllLines(path, new String[] { text });
-
-        //llamar a la animación para que deje las cartas en su sitio
+        
     }
-
 
     public void button_pressed()
     {
-        pressed = true;
-        can_check = true;
+        card.interactable = false;
     }
 
     public void checkFailure()
@@ -118,18 +174,25 @@ public class Nback_test : MonoBehaviour
             if (pressed == true)
             {
                 text_result = "La carta " + count + " ha sido presionada. " + value;
-            } else
+            }
+            else
             {
                 text_result = "La carta " + count + " ha sido presionada. " + value;
             }
 
-            
+
             File.AppendAllLines(path, new String[] { text_result });
 
         }
     }
 
-    
+    public void UpdateProgress()
+    {
+        float amount = (float)count / 20;
+        bar_fill.fillAmount = amount;
+    }
+
+
     public void testOptions()
     {
         if (count == 1) { card.image.sprite = four; }
@@ -156,13 +219,18 @@ public class Nback_test : MonoBehaviour
 
     public void defaultValues()
     {
-        can_check = false;
+        card.gameObject.SetActive(true);
+        timer_text.gameObject.SetActive(true);
+        progressBar.gameObject.SetActive(true);
+        card.interactable = true;
         pressed = false;
+        remaining_time = 6;
         value = "";
     }
 
     public void nextTest()
     {
+        UpdateProgress();
         saveTestsResults();
         count = count + 1;
         defaultValues();
@@ -173,6 +241,9 @@ public class Nback_test : MonoBehaviour
     IEnumerator wait()
     {
         yield return new WaitForSeconds(5.0f);
-        can_check = true;
+
+        card.gameObject.SetActive(false);
+        yield return new WaitForSeconds(1.0f);
+        card.gameObject.SetActive(true);
     }
 }

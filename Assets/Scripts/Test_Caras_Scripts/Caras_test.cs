@@ -122,8 +122,6 @@ public class Caras_test : MonoBehaviour
         }
         else if (count <= 6)
         {
-            Debug.Log(Time.deltaTime);
-            Debug.Log(remaining_time);
             remaining_time = Math.Abs(remaining_time);
             float timer = Math.Abs(Time.deltaTime);
             remaining_time -= timer;
@@ -187,7 +185,7 @@ public class Caras_test : MonoBehaviour
         red_cross1.gameObject.SetActive(false);
         red_cross2.gameObject.SetActive(false);
         red_cross3.gameObject.SetActive(false);
-        remaining_time = 5;
+        remaining_time = 6;
         finish = false;
         pressed = false;
         value = "";
@@ -208,7 +206,7 @@ public class Caras_test : MonoBehaviour
 
     public void UpdateProgress()
     {
-        float amount = (float)count / 10;
+        float amount = (float)count / 6;
         bar_fill.fillAmount = amount;
     }
 
