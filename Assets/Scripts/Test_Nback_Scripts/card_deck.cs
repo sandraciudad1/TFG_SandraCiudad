@@ -15,7 +15,8 @@ public class card_deck : MonoBehaviour
     [SerializeField]
     private Button _arrowButton_cards;
 
-
+    [SerializeField]
+    private Image _example;
     public TextMeshProUGUI text1;
     public TextMeshProUGUI text2;
     public TextMeshProUGUI text3;
@@ -98,6 +99,7 @@ public class card_deck : MonoBehaviour
         else if (count == 4)
         {
             text4.gameObject.SetActive(true);
+            _example.gameObject.SetActive(true);
         }
         else if (count == 5)
         {
@@ -132,6 +134,7 @@ public class card_deck : MonoBehaviour
         text4.gameObject.SetActive(false);
         text5.gameObject.SetActive(false);
         text6.gameObject.SetActive(false);
+        _example.gameObject.SetActive(false);
     }
 
     public void nextText()
