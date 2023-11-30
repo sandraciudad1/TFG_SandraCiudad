@@ -76,7 +76,7 @@ public class anillas : MonoBehaviour
             if (anillas != null && finish == true)
             {
                 //nback.can_start = true;
-                anillas.init_test();
+                anillas.start = true;
             }
             next = true;
         }
