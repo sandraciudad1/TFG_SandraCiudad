@@ -14,7 +14,7 @@ public class anillas : MonoBehaviour
     private Button _arrowButton_anillas;
 
     [SerializeField]
-    private Image _red_arrow;
+    private Image _final_pos;
     public TextMeshProUGUI text1;
     public TextMeshProUGUI text2;
     public TextMeshProUGUI text3;
@@ -22,6 +22,7 @@ public class anillas : MonoBehaviour
     public TextMeshProUGUI text5;
     public TextMeshProUGUI text6;
 
+    public bool arrive;
     public int count;
     public bool init_animation;
     public bool finish;
@@ -30,6 +31,7 @@ public class anillas : MonoBehaviour
     private void Start()
     {
         count = 1;
+        arrive = false;
         init_animation = false;
         finish = false;
         next = false;
@@ -55,9 +57,9 @@ public class anillas : MonoBehaviour
     public void Update()
     {
 
-
         if (init_animation == true)
         {
+            _final_pos.transform.position = new Vector3(805, 390, 0);
             animationController_anillas anim = GameObject.Find("anillas_structure").GetComponent<animationController_anillas>();
             if (anim != null)
             {
@@ -70,12 +72,12 @@ public class anillas : MonoBehaviour
         if (finish == true && next == false)
         {
             Debug.Log("empezando el test de anillas...");
-            /*Nback_test nback = GameObject.Find("NbackTest").GetComponent<Nback_test>();
-            if (nback != null && finish == true)
+            Anillas_test anillas = GameObject.Find("Anillas").GetComponent<Anillas_test>();
+            if (anillas != null && finish == true)
             {
-                nback.can_start = true;
-                nback.nextTest();
-            }*/
+                //nback.can_start = true;
+                anillas.init_test();
+            }
             next = true;
         }
     }
@@ -90,7 +92,6 @@ public class anillas : MonoBehaviour
         else if (count == 2)
         {
             text2.gameObject.SetActive(true);
-            _red_arrow.gameObject.SetActive(true);
         }
         else if (count == 3)
         {
@@ -103,12 +104,9 @@ public class anillas : MonoBehaviour
         else if (count == 5)
         {
             text5.gameObject.SetActive(true);
+            _final_pos.gameObject.SetActive(true);
         }
-        else if (count == 6)
-        {
-            text6.gameObject.SetActive(true);
-        }
-        else if (count > 6)
+        else if (count > 5)
         {
             defaultValues();
             _arrowButton_anillas.gameObject.SetActive(false);
@@ -132,7 +130,7 @@ public class anillas : MonoBehaviour
         text4.gameObject.SetActive(false);
         text5.gameObject.SetActive(false);
         text6.gameObject.SetActive(false);
-        _red_arrow.gameObject.SetActive(false);
+        //_final_pos.gameObject.SetActive(false);
     }
 
     public void nextText()

@@ -41,7 +41,8 @@ public class animationController_anillas : MonoBehaviour
             RaycastHit hitInfo;
             if (Physics.Raycast(ray, out hitInfo))
             {
-                if (hitInfo.transform.name == "anillas_structure" && clicked == false)
+                if ((hitInfo.transform.name == "anillas_structure" || hitInfo.transform.name == "center_cylinder" || hitInfo.transform.name == "left_cylinder" 
+                    || hitInfo.transform.name == "right_cylinder") && clicked == false)
                 {
                     clicked = true;
                 }

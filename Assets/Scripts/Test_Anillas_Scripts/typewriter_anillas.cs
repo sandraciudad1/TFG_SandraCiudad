@@ -72,7 +72,7 @@ public class typewriter_anillas : MonoBehaviour
 			pressed = false;
 
 			
-			typewriter_nback typewriter = GameObject.Find("Anillas").GetComponent<typewriter_nback>();
+			typewriter_anillas typewriter = GameObject.Find("Anillas").GetComponent<typewriter_anillas>();
 			if (typewriter != null)
 			{
 				typewriter._finishWritting = true;
