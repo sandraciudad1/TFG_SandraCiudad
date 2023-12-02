@@ -20,7 +20,6 @@ public class anillas : MonoBehaviour
     public TextMeshProUGUI text3;
     public TextMeshProUGUI text4;
     public TextMeshProUGUI text5;
-    public TextMeshProUGUI text6;
 
     public bool arrive;
     public int count;
@@ -129,7 +128,6 @@ public class anillas : MonoBehaviour
         text3.gameObject.SetActive(false);
         text4.gameObject.SetActive(false);
         text5.gameObject.SetActive(false);
-        text6.gameObject.SetActive(false);
         //_final_pos.gameObject.SetActive(false);
     }
 

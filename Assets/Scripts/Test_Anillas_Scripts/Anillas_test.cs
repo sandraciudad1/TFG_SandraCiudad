@@ -31,7 +31,7 @@ public class Anillas_test : MonoBehaviour
             RaycastHit hitInfo;
             if (Physics.Raycast(ray, out hitInfo))
             {
-                Debug.Log(hitInfo.transform.name);
+                
                
             }
         }

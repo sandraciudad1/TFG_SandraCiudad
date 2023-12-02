@@ -6,8 +6,11 @@ public class animationController_anillas : MonoBehaviour
 {
     Animator animator;
 
+    //player movements
     Vector3 player_anillas_pos = new Vector3(4.093f, 0.7f, 2.79f);
-    Quaternion player_anillas_rot = Quaternion.Euler(0f, 171.36f, 0f);
+    Quaternion player_anillas_rot = Quaternion.Euler(0f, 176.3f, 0f);
+
+    Vector3 player_final_pos = new Vector3(4.119f, 0.7f, 1.931f);
 
     public bool clicked;
     public bool anillas_pos;
@@ -17,6 +20,8 @@ public class animationController_anillas : MonoBehaviour
     public bool init_anim;
     public bool finish;
     public bool next;
+
+    public int counter;
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +35,8 @@ public class animationController_anillas : MonoBehaviour
         init_anim = false;
         finish = false;
         next = false;
+
+        counter = 0;
     }
 
     // Update is called once per frame
@@ -41,10 +48,11 @@ public class animationController_anillas : MonoBehaviour
             RaycastHit hitInfo;
             if (Physics.Raycast(ray, out hitInfo))
             {
-                if ((hitInfo.transform.name == "anillas_structure" || hitInfo.transform.name == "center_cylinder" || hitInfo.transform.name == "left_cylinder" 
-                    || hitInfo.transform.name == "right_cylinder") && clicked == false)
+                Debug.Log(hitInfo.transform.name);
+                if ((hitInfo.transform.name == "Cube" || hitInfo.transform.name == "Cylinder_mid" || hitInfo.transform.name == "Cylinder_left" || hitInfo.transform.name == "Cylinder_right") && counter == 0)
                 {
                     clicked = true;
+                    counter = 1;
                 }
             }
         }
@@ -72,11 +80,17 @@ public class animationController_anillas : MonoBehaviour
                 arrivedpos = true;
             }
 
-
-            if (init_anim == true && animator.GetBool("initial_movement") == false && finish == false)
+            
+            if (player!=null && init_anim == true && finish == false)
             {
-                animator.SetBool("initial_movement", true);
-                StartCoroutine(wait());
+                //animator.SetBool("initial_movement", true);
+                //animator.SetBool("initial_ring_mov", true);
+                //StartCoroutine(wait());
+                player.transform.position = Vector3.MoveTowards(player.transform.position, player_final_pos, step * 2);
+                if (player.transform.position == player_final_pos)
+                {
+                    finish = true;
+                }
             }
 
             if (finish == true && next == false)
