@@ -22,6 +22,9 @@ public class animationController_anillas : MonoBehaviour
     public bool next;
 
     public int counter;
+    public bool turnOn;
+    public bool turnOff;
+
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +40,8 @@ public class animationController_anillas : MonoBehaviour
         next = false;
 
         counter = 0;
+        turnOn = false;
+        turnOff = false;
     }
 
     // Update is called once per frame
@@ -48,7 +53,6 @@ public class animationController_anillas : MonoBehaviour
             RaycastHit hitInfo;
             if (Physics.Raycast(ray, out hitInfo))
             {
-                Debug.Log(hitInfo.transform.name);
                 if ((hitInfo.transform.name == "Cube" || hitInfo.transform.name == "Cylinder_mid" || hitInfo.transform.name == "Cylinder_left" || hitInfo.transform.name == "Cylinder_right") && counter == 0)
                 {
                     clicked = true;
@@ -74,20 +78,29 @@ public class animationController_anillas : MonoBehaviour
         anillas anillas = GameObject.Find("Anillas").GetComponent<anillas>();
         if (anillas != null)
         {
-            if (anillas_pos == true && arrivedpos == false)
+            if (animator.GetBool("turnOff_bright") == false && anillas_pos==true && turnOn==false)
+            {
+                animator.SetBool("turnOff_bright", true);
+                StartCoroutine(wait_Onlight());
+            }
+
+            if (turnOn == true && arrivedpos == false)
             {
                 anillas.startIntroduction();
                 arrivedpos = true;
             }
 
             
-            if (player!=null && init_anim == true && finish == false)
+            if (player!=null && init_anim == true && turnOff == false && animator.GetBool("turnOff_light") == false)
             {
-                //animator.SetBool("initial_movement", true);
-                //animator.SetBool("initial_ring_mov", true);
-                //StartCoroutine(wait());
+                animator.SetBool("turnOff_light", true);
+                StartCoroutine(wait_Offlight());
+            }
+
+            if (turnOff == true && finish == false)
+            {
                 player.transform.position = Vector3.MoveTowards(player.transform.position, player_final_pos, step * 2);
-                if (player.transform.position == player_final_pos)
+                if(player.transform.position == player_final_pos)
                 {
                     finish = true;
                 }
@@ -102,9 +115,15 @@ public class animationController_anillas : MonoBehaviour
 
     }
 
-    IEnumerator wait()
+    IEnumerator wait_Onlight()
     {
         yield return new WaitForSeconds(2.8f);
-        finish = true;
+        turnOn = true;
+    }
+
+    IEnumerator wait_Offlight()
+    {
+        yield return new WaitForSeconds(2.8f);
+        turnOff = true;
     }
 }
