@@ -1,10 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+using System.IO;
+using System;
 using UnityEngine.EventSystems;
 
 public class Anillas_test : MonoBehaviour
 {
+    [SerializeField]
+    private Image error_ring;
+    [SerializeField]
+    private Image error_object;
+    [SerializeField]
+    private Button ok_error_btn;
+
     public bool start;
 
     bool isDrag;
@@ -30,12 +41,13 @@ public class Anillas_test : MonoBehaviour
     public string pivot;
     public string previous_pivot;
     public int rings_num;
-    public float x, y;
+    public float x, y, z;
 
     // Start is called before the first frame update
     void Start()
     {
         start = false;
+        z = 1.254f;
 
         isDrag = false;
         cam = Camera.main;
@@ -62,41 +74,33 @@ public class Anillas_test : MonoBehaviour
     {
         if (hit.transform.name == "red_ring" || hit.transform.name == "orange_ring" || hit.transform.name == "yellow_ring" || hit.transform.name == "green_ring" || hit.transform.name == "blue_ring")
         {
+            initial_x = hit.collider.transform.position.x;
+            initial_y = hit.collider.transform.position.y;
             if (st_left.Count > 0 && (st_left.Peek() == hit.transform.name))
             {
-                //previous_pivot = "left";
-                /*initial_x = focus.position.x;
-                initial_y = focus.position.y -0.05f;
-                Debug.Log("before movements x = " + initial_x + " and y = " + initial_y);*/
                 st_left.Pop();
                 _canMove = true;
             }
             else if (st_mid.Count > 0 && (st_mid.Peek() == hit.transform.name))
             {
-                //previous_pivot = "mniddle";
-                /*initial_x = focus.position.x;
-                initial_y = focus.position.y - 0.05f;
-                Debug.Log("before movements x = " + initial_x + " and y = " + initial_y);*/
                 st_mid.Pop();
                 _canMove = true;
             }
             else if (st_right.Count > 0 && (st_right.Peek() == hit.transform.name))
             {
-                //previous_pivot = "right";
-                /*initial_x = focus.position.x;
-                initial_y = focus.position.y - 0.05f;
-                Debug.Log("before movements x = " + initial_x + " and y = " + initial_y);*/
                 st_right.Pop();
                 _canMove = true;
             }
             else
             {
-                Debug.Log("ERROR. ESTE DISCO CONTIENE OTROS ENCIMA.");
+                error_ring.gameObject.SetActive(true);
+                ok_error_btn.gameObject.SetActive(true);
                 _canMove = false;
             }
         } else
         {
-            Debug.Log("ESTE OBJETO NO SE PUEDE MOVER. NO ES UN DISCO.");
+            error_object.gameObject.SetActive(true);
+            ok_error_btn.gameObject.SetActive(true);
             _canMove = false;
         }
 
@@ -104,26 +108,30 @@ public class Anillas_test : MonoBehaviour
 
     }
 
+    public void ok_pressed()
+    {
+        error_ring.gameObject.SetActive(false);
+        error_object.gameObject.SetActive(false);
+        ok_error_btn.gameObject.SetActive(false);
+    }
+
 
     public void check_pos()
     {
         if (focus.position.x >= 4.30f && focus.position.x <= 4.38f)
         {
-            Debug.Log("eje izquierdo");
             st_left.Push(hit.transform.name);
             pivot = "left";
             rings_num = st_left.Count;
         }
         else if (focus.position.x >= 4.12f && focus.position.x <= 4.20f)
         {
-            Debug.Log("eje central");
             st_mid.Push(hit.transform.name);
             pivot = "middle";
             rings_num = st_mid.Count;
         }
         else if (focus.position.x >= 3.96f && focus.position.x <= 4.04f)
         {
-            Debug.Log("eje derecho");
             st_right.Push(hit.transform.name);
             pivot = "right";
             rings_num = st_right.Count;
@@ -131,8 +139,24 @@ public class Anillas_test : MonoBehaviour
         else 
         {
             Debug.Log("FUERA DE LOS EJES");
-            pivot = "out";
-            
+            if (initial_x >= 4.30f && initial_x <= 4.38f)
+            {
+                pivot = "left";
+                st_left.Push(hit.transform.name);
+            }
+            else if (initial_x >= 4.12f && initial_x <= 4.20f)
+            {
+                pivot = "middle";
+                st_mid.Push(hit.transform.name);
+            }
+            else if (initial_x >= 3.96f && initial_x <= 4.04f)
+            {
+                pivot = "right";
+                st_right.Push(hit.transform.name);
+            }
+            rings_num = -1;
+
+
         }
 
     }
@@ -151,31 +175,10 @@ public class Anillas_test : MonoBehaviour
         else if (pivot == "right")
         {
             x = 3.98f;
-        } 
-        else if (pivot == "out")
-        {
-            /*x = initial_x;
-            y = initial_y;
-            if (x >= 4.30f && x <= 4.38f)
-            {
-                st_left.Push(hit.transform.name);
-            } 
-            else if (x >= 4.12f && x <= 4.20f)
-            {
-                st_mid.Push(hit.transform.name);
-            } 
-            else if (x >= 3.96f && x <= 4.04f)
-            {
-                st_right.Push(hit.transform.name);
-            }*/
         }
 
         //checking rings correct position (y axis)
-        if (rings_num == 0)
-        {
-            y = 1.15f;
-        } 
-        else if (rings_num == 1)
+        if (rings_num == 1)
         {
             y = 1.18f;
         } 
@@ -190,6 +193,28 @@ public class Anillas_test : MonoBehaviour
         else if (rings_num == 4)
         {
             y = 1.27f;
+        }
+        else if (rings_num == 5)
+        {
+            y = 1.30f;
+        }
+        else if (rings_num == -1)
+        {
+            y = initial_y;
+        }
+    }
+
+    public void check_result()
+    {
+        string[] pila = st_right.ToArray();
+        if (st_left.Count==0 && st_mid.Count==0 && st_right.Count==5)
+        {
+            if (pila[0]== "yellow_ring" && pila[1] == "blue_ring" && pila[2] == "orange_ring" && pila[3] == "green_ring" && pila[4] == "red_ring")
+            {
+                Debug.Log("------------------------------------------------------------------------------");
+                Debug.Log("valores correctos!");
+                Debug.Log("------------------------------------------------------------------------------");
+            }
         }
     }
 
@@ -217,7 +242,8 @@ public class Anillas_test : MonoBehaviour
         {
             check_pos();
             correct_pos();
-            focus.position = new Vector3(x, y, currentPos.z);
+            focus.position = new Vector3(x, y, z);
+            check_result();
             isDrag = false;
         }
         else if (isDrag == true)
