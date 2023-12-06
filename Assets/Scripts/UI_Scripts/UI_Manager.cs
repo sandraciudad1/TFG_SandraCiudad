@@ -135,6 +135,20 @@ public class UI_Manager : MonoBehaviour
         _bgextra.SetActive(true);
     }
 
+    public void extraClicked()
+    {
+        check();
+        if (possible == true)
+        {
+            show_cards show = GameObject.Find("Cards").GetComponent<show_cards>();
+            if (show != null)
+            {
+                show.show_extra_card();
+            }
+        }
+    }
+
+
     public void dateCollected()
     {
         _date.SetActive(true);

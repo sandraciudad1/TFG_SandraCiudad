@@ -12,6 +12,8 @@ public class animationController_anillas : MonoBehaviour
 
     Vector3 player_final_pos = new Vector3(4.119f, 0.7f, 1.931f);
 
+    Vector3 player_return_pos = new Vector3(3.773f, 0.7f, 3.294f);
+
     public bool clicked;
     public bool anillas_pos;
     public bool start_moving;
@@ -25,6 +27,8 @@ public class animationController_anillas : MonoBehaviour
     public bool turnOn;
     public bool turnOff;
 
+    public bool return_pos;
+    public bool arrive_return_pos;
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +46,9 @@ public class animationController_anillas : MonoBehaviour
         counter = 0;
         turnOn = false;
         turnOff = false;
+
+        return_pos = false;
+        arrive_return_pos = false;
     }
 
     // Update is called once per frame
@@ -99,7 +106,7 @@ public class animationController_anillas : MonoBehaviour
 
             if (turnOff == true && finish == false)
             {
-                player.transform.position = Vector3.MoveTowards(player.transform.position, player_final_pos, step * 2);
+                player.transform.position = Vector3.MoveTowards(player.transform.position, player_final_pos, step);
                 if(player.transform.position == player_final_pos)
                 {
                     finish = true;
@@ -110,6 +117,16 @@ public class animationController_anillas : MonoBehaviour
             {
                 anillas.finish = true;
                 next = true;
+            }
+
+            if (return_pos == true && arrive_return_pos == false)
+            {
+                player.transform.position = Vector3.MoveTowards(player.transform.position, player_return_pos, step);
+                if (player.transform.position == player_return_pos)
+                {
+                    //player._doingTest = false;
+                    arrive_return_pos = true;
+                }
             }
         }
 
