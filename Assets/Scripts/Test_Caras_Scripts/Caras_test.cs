@@ -109,7 +109,7 @@ public class Caras_test : MonoBehaviour
 
     void Update()
     {
-        if (count > 6)
+        if (count == 7)
         {
             img1.gameObject.SetActive(false);
             img2.gameObject.SetActive(false);
@@ -119,6 +119,12 @@ public class Caras_test : MonoBehaviour
             red_cross3.gameObject.SetActive(false);
             finish_btn_caras.gameObject.SetActive(true);
             timer_text.gameObject.SetActive(false);
+            finish = true;
+            if (finish == true)
+            {
+                finishCaras();
+                finish = false;
+            }
         }
         else if (count <= 6)
         {
@@ -147,7 +153,7 @@ public class Caras_test : MonoBehaviour
     }
        
 
-    public void finishStroop()
+    public void finishCaras()
     {
         show_cards show = GameObject.Find("Cards").GetComponent<show_cards>();
         if (show != null)
@@ -160,14 +166,12 @@ public class Caras_test : MonoBehaviour
         {
             player._doingTest = false;
         }
-        Destroy(this.gameObject);
 
         UI_Manager ui_manager = GameObject.Find("Inventry").GetComponent<UI_Manager>();
         if (ui_manager != null)
         {
             ui_manager.reasonCollected();
         }
-        Destroy(this.gameObject);
 
         tiempo2 = DateTime.Now;
         string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Caras/Time.txt";
@@ -175,6 +179,7 @@ public class Caras_test : MonoBehaviour
         File.AppendAllLines(path, new String[] { text });
 
         _canvasCaras.SetActive(false);
+        //player.Update();
     }
 
     public void defaultValues()

@@ -1,6 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+using System.IO;
+using System;
 
 public class animationController_anillas : MonoBehaviour
 {
@@ -30,7 +34,7 @@ public class animationController_anillas : MonoBehaviour
     public bool return_pos;
     public bool arrive_return_pos;
 
-    // Start is called before the first frame update
+
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -51,7 +55,7 @@ public class animationController_anillas : MonoBehaviour
         arrive_return_pos = false;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -82,53 +86,59 @@ public class animationController_anillas : MonoBehaviour
         }
 
 
+
+        if (animator.GetBool("light_particles") == false && anillas_pos == true)
+            {
+                animator.SetBool("light_particles", true);
+                StartCoroutine(wait_Onlight());
+
+               
+            }
+
+
         anillas anillas = GameObject.Find("Anillas").GetComponent<anillas>();
         if (anillas != null)
         {
-            if (animator.GetBool("turnOff_bright") == false && anillas_pos==true && turnOn==false)
-            {
-                animator.SetBool("turnOff_bright", true);
-                StartCoroutine(wait_Onlight());
-            }
+            
 
             if (turnOn == true && arrivedpos == false)
             {
-                anillas.startIntroduction();
+                if (anillas != null)
+                {
+                    anillas.startIntroduction();
+                }
                 arrivedpos = true;
             }
 
-            
-            if (player!=null && init_anim == true && turnOff == false && animator.GetBool("turnOff_light") == false)
+            if (player != null && init_anim == true && animator.GetBool("turnOff") == false && turnOff == false)
             {
-                animator.SetBool("turnOff_light", true);
+                animator.SetBool("turnOff", true);
                 StartCoroutine(wait_Offlight());
             }
 
             if (turnOff == true && finish == false)
             {
                 player.transform.position = Vector3.MoveTowards(player.transform.position, player_final_pos, step);
-                if(player.transform.position == player_final_pos)
+                if (player.transform.position == player_final_pos)
                 {
+                    anillas.finish = true;
                     finish = true;
                 }
             }
 
-            if (finish == true && next == false)
-            {
-                anillas.finish = true;
-                next = true;
-            }
 
-            if (return_pos == true && arrive_return_pos == false)
+        }
+
+
+        if (return_pos == true && arrive_return_pos == false)
+        {
+            player.transform.position = Vector3.MoveTowards(player.transform.position, player_return_pos, step);
+            if (player.transform.position == player_return_pos)
             {
-                player.transform.position = Vector3.MoveTowards(player.transform.position, player_return_pos, step);
-                if (player.transform.position == player_return_pos)
-                {
-                    //player._doingTest = false;
-                    arrive_return_pos = true;
-                }
+                arrive_return_pos = true;
             }
         }
+
 
     }
 

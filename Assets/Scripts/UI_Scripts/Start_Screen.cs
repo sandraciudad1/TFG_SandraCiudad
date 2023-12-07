@@ -44,13 +44,18 @@ public class Start_Screen : MonoBehaviour
         _info_btn.SetActive(false);
         _info_msg.SetActive(false);
 
+
+        /*_introBackground.SetActive(true);
+        _newspaper.gameObject.SetActive(true);
+        _arrowButton.gameObject.SetActive(true);
+        */
+
+
         //show player info
         /*_killer.SetActive(true);
         _bgKiller.SetActive(true);
-        _textDialog.SetActive(true);
-        _introBackground.SetActive(true);
-        _newspaper.gameObject.SetActive(true);
-        _arrowButton.gameObject.SetActive(true);*/
+        _textDialog.SetActive(true);*/
+
         Player player = GameObject.Find("Player").GetComponent<Player>();
         if (player != null)
         {
@@ -104,7 +109,6 @@ public class Start_Screen : MonoBehaviour
             animationEffects animation = GameObject.Find("Start_Screen").GetComponent<animationEffects>();
             if (animation != null)
             {
-                //animation.id = 0;
                 animation.init_player_movement = true;
                 animation.Update();
             }

@@ -10,6 +10,21 @@ using UnityEngine.EventSystems;
 public class Anillas_test : MonoBehaviour
 {
     [SerializeField]
+    private GameObject _anillas_estructure;
+    [SerializeField]
+    private GameObject _red_ring;
+    [SerializeField]
+    private GameObject _orange_ring;
+    [SerializeField]
+    private GameObject _yellow_ring;
+    [SerializeField]
+    private GameObject _green_ring;
+    [SerializeField]
+    private GameObject _blue_ring;
+
+
+
+    [SerializeField]
     private Image error_ring;
     [SerializeField]
     private Image error_object;
@@ -65,7 +80,6 @@ public class Anillas_test : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
         start = false;
         z = 1.254f;
 
@@ -346,7 +360,6 @@ public class Anillas_test : MonoBehaviour
 
     public void saveTestsResults()
     {
-        //checkFailure();
         string[] res_right = st_right.ToArray();
         string result_right = string.Join(",", res_right);
         string[] res_middle = st_mid.ToArray();
@@ -355,7 +368,11 @@ public class Anillas_test : MonoBehaviour
         string result_left = string.Join(",", res_left);
 
         string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Anillas/Results.txt";
-        text_result = "Movimiento " + movements + ":\n\t Eje izquierdo: " + result_left + "\n\t Eje central: " + result_middle + "\n\t Eje derecho: " + result_right + "\n";
+        text_result = "Movimiento " + movements + "\n\t Eje izquierdo: " + result_left + "\n\t Eje central: " + result_middle + "\n\t Eje derecho: " + result_right + "\n";
+        Debug.Log("Movimiento " + movements);
+        Debug.Log("\n\t Eje izquierdo: " + result_left);
+        Debug.Log("\n\t Eje central: " + result_middle);
+        Debug.Log("Eje derecho: " + result_right + "\n");
         File.AppendAllLines(path, new String[] { text_result });
     }
 

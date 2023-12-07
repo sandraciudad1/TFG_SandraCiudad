@@ -1,55 +1,25 @@
-Movimiento 1:
+Movimiento 1
 	 Eje izquierdo: green_ring,yellow_ring,orange_ring,red_ring
 	 Eje central: blue_ring
 	 Eje derecho: 
 
-Movimiento 2:
+Movimiento 2
 	 Eje izquierdo: yellow_ring,orange_ring,red_ring
-	 Eje central: blue_ring
-	 Eje derecho: green_ring
-
-Movimiento 3:
-	 Eje izquierdo: orange_ring,red_ring
-	 Eje central: yellow_ring,blue_ring
-	 Eje derecho: green_ring
-
-Movimiento 4:
-	 Eje izquierdo: red_ring
-	 Eje central: orange_ring,yellow_ring,blue_ring
-	 Eje derecho: green_ring
-
-Movimiento 5:
-	 Eje izquierdo: red_ring
-	 Eje central: green_ring,orange_ring,yellow_ring,blue_ring
+	 Eje central: green_ring,blue_ring
 	 Eje derecho: 
 
-Movimiento 6:
+Movimiento 3
+	 Eje izquierdo: orange_ring,red_ring
+	 Eje central: yellow_ring,green_ring,blue_ring
+	 Eje derecho: 
+
+Movimiento 4
+	 Eje izquierdo: red_ring
+	 Eje central: yellow_ring,green_ring,blue_ring
+	 Eje derecho: orange_ring
+
+Movimiento 5
 	 Eje izquierdo: 
-	 Eje central: green_ring,orange_ring,yellow_ring,blue_ring
-	 Eje derecho: red_ring
-
-Movimiento 7:
-	 Eje izquierdo: 
-	 Eje central: orange_ring,yellow_ring,blue_ring
-	 Eje derecho: green_ring,red_ring
-
-Movimiento 8:
-	 Eje izquierdo: 
-	 Eje central: yellow_ring,blue_ring
-	 Eje derecho: orange_ring,green_ring,red_ring
-
-Movimiento 9:
-	 Eje izquierdo: yellow_ring
-	 Eje central: blue_ring
-	 Eje derecho: orange_ring,green_ring,red_ring
-
-Movimiento 10:
-	 Eje izquierdo: yellow_ring
-	 Eje central: 
-	 Eje derecho: blue_ring,orange_ring,green_ring,red_ring
-
-Movimiento 11:
-	 Eje izquierdo: 
-	 Eje central: 
-	 Eje derecho: yellow_ring,blue_ring,orange_ring,green_ring,red_ring
+	 Eje central: red_ring,yellow_ring,green_ring,blue_ring
+	 Eje derecho: orange_ring
 

@@ -17,8 +17,8 @@ public class typewriterUI : MonoBehaviour
 	[SerializeField] 
 	bool leadingCharBeforeDelay = false;
 	
-
 	public bool _finishWritting = false;
+	bool pressed = false;
 
 	void Start()
 	{
@@ -28,8 +28,16 @@ public class typewriterUI : MonoBehaviour
 		{
 			writer = _tmpProText.text;
 			_tmpProText.text = "";
-
 			StartCoroutine("TypeWriterTMP");
+		}
+	}
+
+
+	private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+			pressed = true;
 		}
 	}
 
@@ -47,11 +55,11 @@ public class typewriterUI : MonoBehaviour
 			} 
 			_tmpProText.text += c;
 			_tmpProText.text += leadingChar;
-			if (!Input.GetKeyDown(KeyCode.Space))
-
-			{
+			if (pressed == false)
+            {
 				yield return new WaitForSeconds(timeBtwChars);
 			}
+
 		}
 		if (leadingChar != "")
 		{
@@ -60,13 +68,14 @@ public class typewriterUI : MonoBehaviour
         else
         {
 			_finishWritting = true;
+			pressed = false;
 
-			//Para la introducción al juego
 			typewriterUI typewriter = GameObject.Find("Introduction").GetComponent<typewriterUI>();
 			if (typewriter != null)
             {
 				typewriter._finishWritting = true;
             }
+
 			Start_Screen startScreen = GameObject.Find("Start_Screen").GetComponent<Start_Screen>();
 			if (startScreen != null)
             {

@@ -132,14 +132,12 @@ public class Nback_test : MonoBehaviour
         {
             player._doingTest = false;
         }
-        Destroy(this.gameObject);
 
         UI_Manager ui_manager = GameObject.Find("Inventry").GetComponent<UI_Manager>();
         if (ui_manager != null)
         {
             ui_manager.placeCollected();
         }
-        Destroy(this.gameObject);
 
         tiempo2 = DateTime.Now;
         string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Nback/Time.txt";

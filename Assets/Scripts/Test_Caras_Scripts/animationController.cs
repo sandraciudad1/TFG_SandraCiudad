@@ -11,6 +11,9 @@ public class animationController : MonoBehaviour
     
     Animator animator;
 
+    [SerializeField]
+    private GameObject _particles;
+
     //player in sofa position
     Vector3 player_remoteControl_pos = new Vector3(-10.1f, 0.7f, -0.12f);
     Quaternion player_remoteControl_rot = Quaternion.Euler(0, 180, 0);
@@ -80,6 +83,7 @@ public class animationController : MonoBehaviour
 
         if (animator.GetBool("remoteControl_clicked") == false && remoteControl_pos == true)
         {
+            _particles.gameObject.SetActive(false);
             animator.SetBool("remoteControl_clicked", true);
 
         }
@@ -137,10 +141,6 @@ public class animationController : MonoBehaviour
                 
             }
 
-            if(scaledTv == true && showTest == false)
-            {
-                
-            }
         }
 
     }

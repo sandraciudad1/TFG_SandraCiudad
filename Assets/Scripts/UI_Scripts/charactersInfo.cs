@@ -107,12 +107,11 @@ public class charactersInfo : MonoBehaviour
         name.text = "Xavier";
         relation.text = "Marido de la víctima";
         relation.color = Color.black;
-        description.text = "Xavier es un licenciado en negocios y finanzas que trabaja en una gran empresa con prestigio a nivel " +
-                            "internacional. Sus grandes logros empresariales le obligan a viajar constantemente, por lo que apenas " +
-                            "pasa tiempo con su familia, lo que le ocasiona más de un problema familiar, especialmente con su mujer. " +
-                            "\n\n Es una persona muy influyente y está involucrado en organizaciones benéficas. Es conocido por " +
-                            "ser muy solidario y le encanta pasar tiempo en familia. En su tiempo libre es cortador de jamón y " +
-                            "colecciona botellas de vino de todo el mundo.";
+        description.text = "Xavier es licenciado en negocios y finanzas que trabaja en una gran empresa con prestigio a nivel " +
+                            "internacional. Sus logros empresariales le obligan a viajar constantemente, por lo que apenas pasa" +
+                            "tiempo con su familia, lo que le ocasiona más de un problema familiar, especialmente con Bianca. " +
+                            "\n\n Es una persona a la que le encanta pasar tiempo en familia, aunque en su escaso tiempo libre " +
+                            "es cortador de jamón y colecciona botellas de vino de todo el mundo en su bodega.";
         image.sprite = Xavier;
     }
 
@@ -197,12 +196,11 @@ public class charactersInfo : MonoBehaviour
         name.text = "Alessandro";
         relation.text = "Vigilante de la víctima";
         relation.color = Color.black;
-        description.text = "Alessandro es un jóven de 27 años que ha trabajado toda su vida como portero en distintas discotecas, aunque " +
-                            "recientemente ha sido contratado por la familia Walton para mantener la seguridad en la mansión." +
-                            "Su principal misión es vigilar la mansión tanto por dentro como por fuera, a excepción de la bodega, cuya puerta debe" +
-                            " mantenerse siempre cerrada para conservar la temperatura y no estropear el vino" +
-                            "\n\n Mantiene una relación amorosa con Giovanni desde hace 2 años, aunque Xavier y Emma no son capaces de aceptarla. " +
-                            "En su tiempo libre, le apasiona hacer deporte y practicar técnicas de defensa personal.";
+        description.text = "Alessandro es un apasionado del deporte y la defensa personal. Es vigilante de seguridad y ha sido contratado" +
+                            "por la familia Walton para mantener la seguridad en la mansión. Su misión es vigilar la mansión tanto por dentro " +
+                            "como por fuera, a excepción de la bodega, cuya puerta debe estar siempre cerrada para conservar la temperatura" +
+                            "y no estropear el vino." +
+                            "\n\n Mantiene una relación amorosa con Giovanni, aunque Xavier y Emma no son capaces de aceptarla.";
         image.sprite = Alessandro;
     }
 

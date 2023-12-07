@@ -1,6 +1,3 @@
-ronda 1: Derecha
-ronda 2: Izquierda
 ronda 3: Centro
-ronda 4: Derecha
+ronda 4: Izquierda
 ronda 5: Derecha
-ronda 6: Derecha

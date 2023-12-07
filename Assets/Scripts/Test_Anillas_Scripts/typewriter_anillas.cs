@@ -58,8 +58,6 @@ public class typewriter_anillas : MonoBehaviour
 			{
 				yield return new WaitForSeconds(timeBtwChars);
 			}
-
-
 		}
 
 		if (leadingChar != "")
@@ -71,7 +69,6 @@ public class typewriter_anillas : MonoBehaviour
 			_finishWritting = true;
 			pressed = false;
 
-			
 			typewriter_anillas typewriter = GameObject.Find("Anillas").GetComponent<typewriter_anillas>();
 			if (typewriter != null)
 			{

@@ -171,14 +171,12 @@ public class Stroop_test : MonoBehaviour
         {
             player._doingTest = false;
         }
-        Destroy(this.gameObject);
 
         UI_Manager ui_manager = GameObject.Find("Inventry").GetComponent<UI_Manager>();
         if (ui_manager != null)
         {
             ui_manager.weaponCollected();
         }
-        Destroy(this.gameObject);
 
         Raycast raycast = GameObject.Find("pinboard").GetComponent<Raycast>();
         if (raycast != null)
