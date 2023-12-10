@@ -11,6 +11,9 @@ public class animationController_nback : MonoBehaviour
 
     Animator animator;
 
+    [SerializeField]
+    private GameObject _particles;
+
     //player in sofa position
     Vector3 player_cardDeck_pos = new Vector3(7f, 0.7f, -24f);
     Quaternion player_cardDeck_rot = Quaternion.Euler(0, 270, 0);
@@ -45,6 +48,7 @@ public class animationController_nback : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        _particles.SetActive(true);
         clicked = false;
         cardDeck_pos = false;
         start_moving = false;
@@ -71,7 +75,7 @@ public class animationController_nback : MonoBehaviour
             {
                 if (hitInfo.transform.name == "CardFan_Hearts_" && clicked == false)
                 {
-
+                    _particles.SetActive(false);
                     clicked = true;
                 }
             }

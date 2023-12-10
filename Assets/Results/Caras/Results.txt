@@ -1,3 +1,0 @@
-ronda 3: Centro
-ronda 4: Izquierda
-ronda 5: Derecha

@@ -32,7 +32,8 @@ public class animationController : MonoBehaviour
     public bool arrived_right_caras;
     public bool scaledTv;
     public bool showTest;
-
+    public bool exit;
+    public bool finish;
     
 
 
@@ -47,6 +48,8 @@ public class animationController : MonoBehaviour
         arrived_right_caras = false;
         scaledTv = false;
         showTest = false;
+        exit = false;
+        finish = false;
     }
 
 
@@ -61,7 +64,7 @@ public class animationController : MonoBehaviour
             {
                 if (hitInfo.transform.name == "RemoteControl_" && clicked == false)
                 {
-
+                    _particles.gameObject.SetActive(false);
                     clicked = true;
                 }
             }
@@ -81,67 +84,65 @@ public class animationController : MonoBehaviour
         }
 
 
-        if (animator.GetBool("remoteControl_clicked") == false && remoteControl_pos == true)
+        if (animator.GetBool("remoteControl_clicked") == false && remoteControl_pos == true && exit == false)
         {
-            _particles.gameObject.SetActive(false);
             animator.SetBool("remoteControl_clicked", true);
+            exit = true;
 
         }
 
 
-        if (start_moving == false && animator.GetCurrentAnimatorStateInfo(0).IsName("start_television"))
+        if (exit == true && start_moving == false && animator.GetCurrentAnimatorStateInfo(0).IsName("start_television"))
         {
             StartCoroutine(wait_animation_caras());
 
         }
 
-
-        if (player != null)
+        //player moves to the left
+        if (start_moving == true && arrived_left_caras == false)
         {
-            //player moves to the left
-            if (start_moving == true && arrived_left_caras == false)
+            player.transform.position = Vector3.MoveTowards(player.transform.position, player_left_caras_pos, step * 2);
+            if (player.transform.position == player_left_caras_pos)
             {
-                player.transform.position = Vector3.MoveTowards(player.transform.position, player_left_caras_pos, step * 2);
-                if (player.transform.position == player_left_caras_pos)
-                {
-                    arrived_left_caras = true;
-                }
+                arrived_left_caras = true;
+            }
+        }
+
+
+        //player moves straight
+        if (arrived_left_caras == true && arrived_straight_caras == false)
+        {
+            player.transform.position = Vector3.MoveTowards(player.transform.position, player_straight_caras_pos, step * 2);
+            if (player.transform.position == player_straight_caras_pos)
+            {
+                arrived_straight_caras = true;
+            }
+        }
+
+        //player moves right and straight
+        if (arrived_straight_caras == true && arrived_right_caras == false)
+        {
+            player.transform.position = Vector3.MoveTowards(player.transform.position, player_right_caras_pos, step * 2);
+            player.transform.localRotation = Quaternion.Slerp(player.transform.rotation, player_final_pos_rotation, step);
+            if (player.transform.position == player_right_caras_pos && player.transform.localRotation == player_final_pos_rotation)
+            {
+                arrived_right_caras = true;
+            }
+        }
+
+        if (arrived_right_caras == true && scaledTv == false)
+        {
+            Television tv = GameObject.Find("remoteControl").GetComponent<Television>();
+            if (tv != null)
+            {
+                tv.startIntroduction();
+                scaledTv = true;
             }
             
 
-            //player moves straight
-            if (arrived_left_caras == true && arrived_straight_caras == false)
-            {
-                player.transform.position = Vector3.MoveTowards(player.transform.position, player_straight_caras_pos, step * 2);
-                if (player.transform.position == player_straight_caras_pos)
-                {
-                    arrived_straight_caras = true;
-                }
-            }
-
-            //player moves right and straight
-            if (arrived_straight_caras == true && arrived_right_caras == false)
-            {
-                player.transform.position = Vector3.MoveTowards(player.transform.position, player_right_caras_pos, step * 2);
-                player.transform.localRotation = Quaternion.Slerp(player.transform.rotation, player_final_pos_rotation, step);
-                if (player.transform.position == player_right_caras_pos && player.transform.localRotation == player_final_pos_rotation)
-                {
-                    arrived_right_caras = true;
-                }
-            }
-
-            if(arrived_right_caras == true && scaledTv == false)
-            {
-                Television tv = GameObject.Find("remoteControl").GetComponent<Television>();
-                if (tv != null)
-                {
-                    tv.startIntroduction();
-                }
-                scaledTv = true;
-                
-            }
-
         }
+
+        
 
     }
 

@@ -39,12 +39,17 @@ public class Television : MonoBehaviour
     public TextMeshProUGUI ex_boca_txt;
 
     public int count;
+    public bool next;
+
+    public bool check;
 
     private void Start()
     {
         count = 1;
+        next = false;
     }
 
+   
 
     public void startIntroduction()
     {
@@ -64,6 +69,21 @@ public class Television : MonoBehaviour
         }
     }
 
+
+    public void Update()
+    {
+        if (check == true)
+        {
+            Caras_test caras = GameObject.Find("CarasTest").GetComponent<Caras_test>();
+            if (caras != null && next == false)
+            {
+                caras._canStart = true;
+                caras.nextTest();
+                next = true;
+            }
+            check = false;
+        }
+    }
 
     public void selecText()
     {
@@ -117,11 +137,9 @@ public class Television : MonoBehaviour
             File.Delete("C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Caras/Results.txt");
             File.Delete("C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Caras/Time.txt");
 
-            Caras_test caras = GameObject.Find("CarasTest").GetComponent<Caras_test>();
-            if (caras != null)
-            {
-                caras.nextTest();
-            }
+
+            check = true;
+            Update();
         }
     }
 

@@ -75,6 +75,7 @@ public class Caras_test : MonoBehaviour
 
     public bool allowed;
     public bool im1, im2, im3, im4;
+    public bool _canStart;
 
     public string value;
     public bool pressed;
@@ -84,7 +85,6 @@ public class Caras_test : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI timer_text;
     public float remaining_time;
-
 
     private float startTime;
     private float stopTime;
@@ -97,6 +97,7 @@ public class Caras_test : MonoBehaviour
 
     public void Start()
     {
+        //_canStart = false;
         isrunning = false;
         count = 0;
         pressed = false;
@@ -109,7 +110,13 @@ public class Caras_test : MonoBehaviour
 
     void Update()
     {
-        if (count == 7)
+        if (finish == true)
+        {
+            finishCaras();
+            finish = false;
+        }
+
+        if (count >= 3)
         {
             img1.gameObject.SetActive(false);
             img2.gameObject.SetActive(false);
@@ -120,13 +127,10 @@ public class Caras_test : MonoBehaviour
             finish_btn_caras.gameObject.SetActive(true);
             timer_text.gameObject.SetActive(false);
             finish = true;
-            if (finish == true)
-            {
-                finishCaras();
-                finish = false;
-            }
+           
+
         }
-        else if (count <= 6)
+        else if (count <= 2 && _canStart == true)
         {
             remaining_time = Math.Abs(remaining_time);
             float timer = Math.Abs(Time.deltaTime);
@@ -179,7 +183,6 @@ public class Caras_test : MonoBehaviour
         File.AppendAllLines(path, new String[] { text });
 
         _canvasCaras.SetActive(false);
-        //player.Update();
     }
 
     public void defaultValues()

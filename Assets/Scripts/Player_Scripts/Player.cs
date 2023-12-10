@@ -1,19 +1,21 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+using System.IO;
+using System;
 
 public class Player : MonoBehaviour
 {
 
     private CharacterController _controler;
     [SerializeField]
-    private float _speed = 3.5f;
+    private float _speed;
     [SerializeField]
-    private float _gravity = 9.81f;
+    private float _gravity;
     [SerializeField]
-    private float _sensitivity = 1f;
+    private float _sensitivity;
 
     [SerializeField]
     public bool _hasweapon = false;
@@ -45,16 +47,21 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _controler = GetComponent<CharacterController>();
+        _speed = 3.5f;
+        _gravity = 9.81f;
+        _sensitivity = 1f;
 
+        _controler = GetComponent<CharacterController>();
     }
 
     // Update is called once per frame
     public void Update()
     {
-        _speed = 3.5f;
+        
         if (_isPressed == true && _doingTest == false)
         {
+            //Debug.Log("el jugador puede moverse libremente");
+            //_speed = 3.5f;
             //hiddenCursor();
             movements();
             rotations();
@@ -78,10 +85,14 @@ public class Player : MonoBehaviour
     void movements()  
     {
         Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        Debug.Log("direction " + direction);
         Vector3 velocity = direction * _speed * Time.deltaTime;
+        Debug.Log("velocity " + velocity);
         velocity.y -= _gravity;
+        Debug.Log("velocity.y " + velocity.y);
         //Trasform local direction into global direction
         velocity = transform.transform.TransformDirection(velocity);
+        Debug.Log("velocity updated " + velocity);
         _controler.Move(velocity);
     }
 
@@ -89,7 +100,9 @@ public class Player : MonoBehaviour
     void rotations() 
     {
         float yRotation = transform.localEulerAngles.y + (Input.GetAxis("Mouse X") * _sensitivity);
+        Debug.Log("yrotation " + yRotation);
         Vector3 rotation = new Vector3(transform.localEulerAngles.x, yRotation, transform.localEulerAngles.z);
+        Debug.Log("rotation " + rotation);
         transform.localEulerAngles = rotation;
     }
 
