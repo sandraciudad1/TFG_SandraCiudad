@@ -103,7 +103,7 @@ public class PinBoard : MonoBehaviour
             Stroop_test stroop_test = GameObject.Find("StroopTest").GetComponent<Stroop_test>();
             if (stroop_test != null)
             {
-                stroop_test.nextTest();
+                stroop_test.canStart();
             }
         }
     }

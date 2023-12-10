@@ -15,8 +15,14 @@ public class animationController_anillas : MonoBehaviour
     Quaternion player_anillas_rot = Quaternion.Euler(0f, 176.3f, 0f);
 
     Vector3 player_final_pos = new Vector3(4.119f, 0.7f, 1.931f);
-
     Vector3 player_return_pos = new Vector3(3.773f, 0.7f, 3.294f);
+
+    [SerializeField]
+    private GameObject _particles;
+    [SerializeField]
+    private Light _light;
+
+
 
     public bool clicked;
     public bool anillas_pos;
@@ -38,6 +44,7 @@ public class animationController_anillas : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        _particles.SetActive(true);
         clicked = false;
         anillas_pos = false;
         start_moving = false;
@@ -67,7 +74,6 @@ public class animationController_anillas : MonoBehaviour
                 if ((hitInfo.transform.name == "Cube" || hitInfo.transform.name == "Cylinder_mid" || hitInfo.transform.name == "Cylinder_left" || hitInfo.transform.name == "Cylinder_right") && counter == 0)
                 {
                     clicked = true;
-                    counter = 1;
                 }
             }
         }
@@ -86,21 +92,21 @@ public class animationController_anillas : MonoBehaviour
         }
 
 
-
-        if (animator.GetBool("light_particles") == false && anillas_pos == true)
+        if (anillas_pos == true && turnOn == false)
+        {
+            _particles.SetActive(false);
+            _light.range += 0.1f;
+            if(_light.range >= 1.5f)
             {
-                animator.SetBool("light_particles", true);
-                StartCoroutine(wait_Onlight());
-
-               
+                _light.range = 1.5f;
+                turnOn = true;
             }
+        }
 
 
         anillas anillas = GameObject.Find("Anillas").GetComponent<anillas>();
         if (anillas != null)
         {
-            
-
             if (turnOn == true && arrivedpos == false)
             {
                 if (anillas != null)
@@ -110,10 +116,14 @@ public class animationController_anillas : MonoBehaviour
                 arrivedpos = true;
             }
 
-            if (player != null && init_anim == true && animator.GetBool("turnOff") == false && turnOff == false)
+            if (player != null && init_anim == true && turnOff == false)
             {
-                animator.SetBool("turnOff", true);
-                StartCoroutine(wait_Offlight());
+                _light.range -= 0.1f;
+                if (_light.range <= 0f)
+                {
+                    _light.range = 0f;
+                    turnOff = true;
+                }
             }
 
             if (turnOff == true && finish == false)
@@ -142,15 +152,5 @@ public class animationController_anillas : MonoBehaviour
 
     }
 
-    IEnumerator wait_Onlight()
-    {
-        yield return new WaitForSeconds(2.8f);
-        turnOn = true;
-    }
-
-    IEnumerator wait_Offlight()
-    {
-        yield return new WaitForSeconds(2.8f);
-        turnOff = true;
-    }
+   
 }

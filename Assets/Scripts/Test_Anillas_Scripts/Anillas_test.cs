@@ -369,10 +369,6 @@ public class Anillas_test : MonoBehaviour
 
         string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Anillas/Results.txt";
         text_result = "Movimiento " + movements + "\n\t Eje izquierdo: " + result_left + "\n\t Eje central: " + result_middle + "\n\t Eje derecho: " + result_right + "\n";
-        Debug.Log("Movimiento " + movements);
-        Debug.Log("\n\t Eje izquierdo: " + result_left);
-        Debug.Log("\n\t Eje central: " + result_middle);
-        Debug.Log("Eje derecho: " + result_right + "\n");
         File.AppendAllLines(path, new String[] { text_result });
     }
 

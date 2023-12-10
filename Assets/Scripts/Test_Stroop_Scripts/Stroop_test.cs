@@ -38,34 +38,99 @@ public class Stroop_test : MonoBehaviour
     private DateTime tiempo1 = DateTime.Now, tiempo2;
     public bool _hasfinish_stoop;
 
+    [SerializeField] TextMeshProUGUI timer_text;
+    public float remaining_time;
+    private int minutes;
+    private int seconds;
 
+    public bool next;
+    public bool restart;
+    private bool start;
 
     //initialize variable count
-    private void Start()
+    public void Start()
     {
         count = 1;
+        remaining_time = 6;
+
+        next = false;
+        restart = true;
     }
 
+    public void canStart()
+    {
+        start = true;
+        count = 1;
+        remaining_time = 6;
+
+        start = false;
+        next = false;
+        restart = true;
+        start = true;
+        Update();
+    }
 
     //checks if there are more tests to continue or not
-    private void Update()
+    public void Update()
     {
-        if (count > 10)
+        if (start == true)
         {
-            title_color1_txt.gameObject.SetActive(false);
-            title_color2_txt.gameObject.SetActive(false);
-            title_color3_txt.gameObject.SetActive(false);
-            color1_dd.gameObject.SetActive(false);
-            color2_dd.gameObject.SetActive(false);
-            color3_dd.gameObject.SetActive(false);
-            _background.sprite = pb_clean;
-            finish_btn.gameObject.SetActive(true);
+            if (count > 10)
+            {
+                title_color1_txt.gameObject.SetActive(false);
+                title_color2_txt.gameObject.SetActive(false);
+                title_color3_txt.gameObject.SetActive(false);
+                color1_dd.gameObject.SetActive(false);
+                color2_dd.gameObject.SetActive(false);
+                color3_dd.gameObject.SetActive(false);
+                timer_text.gameObject.SetActive(false);
+                _background.sprite = pb_clean;
+                finish_btn.gameObject.SetActive(true);
+            }
+            else if (count <= 10)
+            {
+                if ((color1_dd.value == 0 && color2_dd.value == 0 && color3_dd.value == 0) && restart == true)
+                {
+                    title_color1_txt.gameObject.SetActive(true);
+                    title_color2_txt.gameObject.SetActive(true);
+                    title_color3_txt.gameObject.SetActive(true);
+
+                    remaining_time = Math.Abs(remaining_time);
+                    float timer = Math.Abs(Time.deltaTime);
+                    remaining_time -= timer;
+
+                    minutes = Mathf.FloorToInt(remaining_time / 60);
+                    seconds = Mathf.FloorToInt(remaining_time % 60);
+                    minutes = Math.Abs(minutes);
+                    seconds = Math.Abs(seconds);
+                    timer_text.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+
+                    if (minutes == 0 && seconds == 0)
+                    {
+                        restart = false;
+                        title_color1_txt.gameObject.SetActive(false);
+                        title_color2_txt.gameObject.SetActive(false);
+                        title_color3_txt.gameObject.SetActive(false);
+                        color1_dd.gameObject.SetActive(true);
+                        color2_dd.gameObject.SetActive(true);
+                        color3_dd.gameObject.SetActive(true);
+                        selectColors();
+                        next = true;
+
+
+                    }
+                }
+
+                if ((color1_dd.value != 0 && color2_dd.value != 0 && color3_dd.value != 0) && next == true)
+                {
+                    saveTestsResults();
+                    nextTest();
+                    next = false;
+
+                }
+            }
         }
-        else if (count <= 10 && (color1_dd.value != 0 && color2_dd.value != 0 && color3_dd.value != 0))
-        {
-            saveTestsResults();
-            nextTest();
-        }
+       
     }
 
 
@@ -210,15 +275,19 @@ public class Stroop_test : MonoBehaviour
         //cambiar el fondo a con postits
         _background.sprite = pb_postit;
         color1_dd.value = 0; color2_dd.value = 0; color3_dd.value = 0;
+        timer_text.gameObject.SetActive(true);
+        remaining_time = 6;
     }
 
 
     //Method for saving test results in .txt file
     public void saveTestsResults()
     {
+        
         string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Stroop/Results.txt";
         string text = color1_txt.text + ", " + color2_txt.text + ", " + color3_txt.text;
         File.AppendAllLines(path, new String[] { text });
+        //nextTest();
     }
 
 
@@ -233,7 +302,7 @@ public class Stroop_test : MonoBehaviour
     public void testOptions()
     {
         Color red = Color.HSVToRGB(0 / 360f, 100 / 100f, 100 / 100f);
-        Color orange = Color.HSVToRGB(19 / 360f, 100 / 100f, 100 / 100f);
+        Color orange = Color.HSVToRGB(32 / 360f, 100 / 100f, 100 / 100f);
         Color yellow = Color.HSVToRGB(52 / 360f, 100 / 100f, 100 / 100f);
         Color green = Color.HSVToRGB(108 / 360f, 100 / 100f, 100 / 100f);
         Color blue = Color.HSVToRGB(215 / 360f, 100 / 100f, 100 / 100f);
@@ -304,22 +373,7 @@ public class Stroop_test : MonoBehaviour
         count = count + 1;
         defaultValues();
         testOptions();
-        StartCoroutine(change());
+        restart = true;
     }
 
-
-    //coroutine that show test for 5 seconds and then hide 
-    IEnumerator change()
-    {
-        yield return new WaitForSeconds(5.0f);
-        title_color1_txt.gameObject.SetActive(false);
-        title_color2_txt.gameObject.SetActive(false);
-        title_color3_txt.gameObject.SetActive(false);
-        //cambiar el fondo a sin postits
-        _background.sprite = pb_clean;
-        color1_dd.gameObject.SetActive(true);
-        color2_dd.gameObject.SetActive(true);
-        color3_dd.gameObject.SetActive(true);
-        selectColors();
-    }
 }

@@ -12,7 +12,8 @@ public class Raycast : MonoBehaviour
     private GameObject _pinBoard;
     [SerializeField]
     private GameObject _remoteControl;
-
+    [SerializeField]
+    private GameObject _particles;
 
     [SerializeField]
     private Image _pb_original;
@@ -42,6 +43,7 @@ public class Raycast : MonoBehaviour
                     Player player = GameObject.Find("Player").GetComponent<Player>();
                     if (player != null)
                     {
+                        _particles.SetActive(false);
                         player._doingTest = true;
                         canMove = true;
                         animationEffects animation = GameObject.Find("Player").GetComponent<animationEffects>();
