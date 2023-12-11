@@ -24,6 +24,9 @@ public class animationController : MonoBehaviour
     Vector3 player_right_caras_pos = new Vector3(-11.44f, 0.7f, -8.3f);
     Quaternion player_final_pos_rotation = Quaternion.Euler(-10, 180, 0);
 
+    Vector3 final_pos = new Vector3(-11.44f, 0.7f, -5.726f);
+    Quaternion final_rot = Quaternion.Euler(0, 180, 0);
+
     public bool clicked;
     public bool remoteControl_pos;
     public bool start_moving;
@@ -34,8 +37,10 @@ public class animationController : MonoBehaviour
     public bool showTest;
     public bool exit;
     public bool finish;
-    
-
+    public bool start_turnOff_tv;
+    public bool showCard;
+    public bool init_final_anim;
+    public bool finish_final_anim;
 
     void Start()
     {
@@ -50,6 +55,10 @@ public class animationController : MonoBehaviour
         showTest = false;
         exit = false;
         finish = false;
+        start_turnOff_tv = false;
+        showCard = false;
+        init_final_anim = false;
+        finish_final_anim = false;
     }
 
 
@@ -130,19 +139,55 @@ public class animationController : MonoBehaviour
             }
         }
 
-        if (arrived_right_caras == true && scaledTv == false)
+
+        Television tv = GameObject.Find("remoteControl").GetComponent<Television>();
+        if (tv != null)
         {
-            Television tv = GameObject.Find("remoteControl").GetComponent<Television>();
-            if (tv != null)
+            if (arrived_right_caras == true && scaledTv == false)
             {
-                tv.startIntroduction();
+                if (tv != null)
+                {
+                    tv.startIntroduction();
+                    
+                }
                 scaledTv = true;
             }
-            
+        }
 
+        if(start_turnOff_tv == true && animator.GetBool("turnOff_tv") == false && showCard == false)
+        {
+            player.transform.position = Vector3.MoveTowards(player.transform.position, final_pos, step * 2);
+            player.transform.localRotation = Quaternion.Slerp(player.transform.rotation, final_rot, step*2);
+            if (player.transform.position == final_pos && player.transform.localRotation == final_rot)
+            {
+                showCard = true;
+                /*Debug.Log("se va a poner a true la animacion");
+                animator.SetBool("turnOff_tv", true);
+                Debug.Log("valor turn off " + animator.GetBool("turnOff_tv"));
+                StartCoroutine(wait_turnOff());
+                */
+            }
+            
+        }
+
+
+        if (animator.GetBool("turnOff_tv") == false && showCard == true && init_final_anim == false)
+        {
+            animator.SetBool("turnOff_tv", true);
+            Debug.Log("animator " + animator.GetBool("turnOff_tv"));
+            //StartCoroutine(wait_turnOff());
+            
+            if (init_final_anim == true && finish_final_anim == false && animator.GetCurrentAnimatorStateInfo(0).IsName("turnOff_tv"))
+            {
+                Debug.Log("is in animation");
+                StartCoroutine(wait_animation_caras());
+
+            }
+            init_final_anim = true;
         }
 
         
+
 
     }
 
@@ -152,4 +197,9 @@ public class animationController : MonoBehaviour
         start_moving = true;
     }
 
+    IEnumerator wait_turnOff()
+    {
+        yield return new WaitForSeconds(2f);
+        finish_final_anim = true;
+    }
 }

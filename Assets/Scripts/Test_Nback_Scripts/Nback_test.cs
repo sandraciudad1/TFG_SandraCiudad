@@ -103,6 +103,7 @@ public class Nback_test : MonoBehaviour
 
         }
     }
+
     IEnumerator wait_initial_pos()
     {
         yield return new WaitForSeconds(2f);
@@ -236,12 +237,12 @@ public class Nback_test : MonoBehaviour
         //StartCoroutine(wait());
     }
 
-    IEnumerator wait()
+    /*IEnumerator wait()
     {
         yield return new WaitForSeconds(5.0f);
 
         card.gameObject.SetActive(false);
         yield return new WaitForSeconds(1.0f);
         card.gameObject.SetActive(true);
-    }
+    }*/
 }

@@ -99,7 +99,7 @@ public class Caras_test : MonoBehaviour
     {
         //_canStart = false;
         isrunning = false;
-        count = 0;
+        count = 1;
         pressed = false;
         start_timer = false;
         //nextTest();
@@ -110,13 +110,18 @@ public class Caras_test : MonoBehaviour
 
     void Update()
     {
-        if (finish == true)
+        animationController anim = GameObject.Find("RemoteControl_").GetComponent<animationController>();
+        Debug.Log("init final anim " + anim.init_final_anim);
+        Debug.Log("finish final anim " + anim.finish_final_anim);
+        Debug.Log("finish " + finish);
+        if (anim != null && anim.init_final_anim == true && finish == false)
         {
-            finishCaras();
-            finish = false;
+            Debug.Log("se va a llamar a la carta para que sze muestre");
+            showCard_caras();
+            finish = true;
         }
 
-        if (count >= 3)
+        if (count > 2)
         {
             img1.gameObject.SetActive(false);
             img2.gameObject.SetActive(false);
@@ -126,7 +131,7 @@ public class Caras_test : MonoBehaviour
             red_cross3.gameObject.SetActive(false);
             finish_btn_caras.gameObject.SetActive(true);
             timer_text.gameObject.SetActive(false);
-            finish = true;
+            //finish = true;
            
 
         }
@@ -159,6 +164,21 @@ public class Caras_test : MonoBehaviour
 
     public void finishCaras()
     {
+        _canvasCaras.SetActive(false);
+        animationController anim = GameObject.Find("RemoteControl_").GetComponent<animationController>();
+        if (anim != null)
+        {
+            anim.start_turnOff_tv = true;
+        }
+
+
+
+    }
+
+    public void showCard_caras()
+    {
+        Debug.Log("mostrando carta...");
+        //coroutine con tiempo de apagado de pantalla
         show_cards show = GameObject.Find("Cards").GetComponent<show_cards>();
         if (show != null)
         {
@@ -181,8 +201,6 @@ public class Caras_test : MonoBehaviour
         string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Caras/Time.txt";
         string text = (tiempo2 - tiempo1).Hours + " horas " + (tiempo2 - tiempo1).Minutes + " minutos " + (tiempo2 - tiempo1).Seconds + " segundos";
         File.AppendAllLines(path, new String[] { text });
-
-        _canvasCaras.SetActive(false);
     }
 
     public void defaultValues()
@@ -194,7 +212,7 @@ public class Caras_test : MonoBehaviour
         red_cross2.gameObject.SetActive(false);
         red_cross3.gameObject.SetActive(false);
         remaining_time = 6;
-        finish = false;
+        
         pressed = false;
         value = "";
     }

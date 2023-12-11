@@ -71,7 +71,7 @@ public class typewriter_nback : MonoBehaviour
 			_finishWritting = true;
 			pressed = false;
 
-			//Para explicar el test de caras
+
 			typewriter_nback typewriter = GameObject.Find("card_deck").GetComponent<typewriter_nback>();
 			if (typewriter != null)
 			{
