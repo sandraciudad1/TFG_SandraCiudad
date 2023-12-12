@@ -23,16 +23,16 @@ public class animationController : MonoBehaviour
 
     //player in sofa position
     Vector3 player_remoteControl_pos = new Vector3(-10.1f, 0.7f, -0.12f);
-    Quaternion player_remoteControl_rot = Quaternion.Euler(0, 180, 0);
+    Quaternion player_remoteControl_rot = Quaternion.Euler(0f, 180f, 0f);
 
     //player arriving to tv position
     Vector3 player_left_caras_pos = new Vector3(-8.43f, 0.7f, -0.12f);
     Vector3 player_straight_caras_pos = new Vector3(-8.43f, 0.7f, -3.74f);
     Vector3 player_right_caras_pos = new Vector3(-11.44f, 0.7f, -8.3f);
-    Quaternion player_final_pos_rotation = Quaternion.Euler(-10, 180, 0);
+    Quaternion player_final_pos_rotation = Quaternion.Euler(-15f, 180f, 0f);
 
     Vector3 final_pos = new Vector3(-11.44f, 0.7f, -5.726f);
-    Quaternion final_rot = Quaternion.Euler(0, 180, 0);
+    Quaternion final_rot = Quaternion.Euler(0.00f, 180f, 0f);
 
     public bool clicked;
     public bool remoteControl_pos;
@@ -94,10 +94,12 @@ public class animationController : MonoBehaviour
         {
             player._doingTest = true;
             player.transform.position = Vector3.MoveTowards(player.transform.position, player_remoteControl_pos, step * 2);
-            player.transform.localRotation = Quaternion.Slerp(player.transform.rotation, player_remoteControl_rot, step * 3);            
+            player.transform.rotation = Quaternion.RotateTowards(player.transform.rotation, player_remoteControl_rot, step * 10);
+
             if (player.transform.position == player_remoteControl_pos && player.transform.localRotation == player_remoteControl_rot)
             {
                 remoteControl_pos = true;
+                
             }
         }
 
@@ -142,10 +144,11 @@ public class animationController : MonoBehaviour
         if (arrived_straight_caras == true && arrived_right_caras == false)
         {
             player.transform.position = Vector3.MoveTowards(player.transform.position, player_right_caras_pos, step * 2);
-            player.transform.localRotation = Quaternion.Slerp(player.transform.rotation, player_final_pos_rotation, step);
+            player.transform.rotation = Quaternion.RotateTowards(player.transform.rotation, player_final_pos_rotation, step * 10);
             if (player.transform.position == player_right_caras_pos && player.transform.localRotation == player_final_pos_rotation)
             {
                 arrived_right_caras = true;
+                
             }
         }
 
@@ -167,19 +170,19 @@ public class animationController : MonoBehaviour
         if(start_turnOff_tv == true && showCard == false)
         {
             animator.SetBool("remoteControl_clicked", false);
-            Debug.Log(animator.GetBool("remoteControl_clicked"));
             player.transform.position = Vector3.MoveTowards(player.transform.position, final_pos, step * 2);
-            player.transform.localRotation = Quaternion.Slerp(player.transform.rotation, final_rot, step * 2);
-            if (player.transform.position == final_pos && player.transform.localRotation == final_rot && animator.GetBool("remoteControl_clicked") == false)
+            player.transform.rotation = Quaternion.RotateTowards(player.transform.rotation, final_rot, step * 10);
+            if (player.transform.position == final_pos && player.transform.rotation == final_rot && animator.GetBool("remoteControl_clicked") == false)
             {
-                Debug.Log("posicion correcta");
+                //player.transform.localRotation = Quaternion.Slerp(player.transform.localRotation, final_rot, step * 2);
+                //player.transform.rotation = Quaternion.Euler(final_rot);
                 animator.SetBool("turnOff_tv", true);
                 //black = new Color(0, 0, 0);
                 //_screen.GetComponent<MeshRenderer>().material.color = Color.black;
                 //rendererTv.material.color = black;                
 
                 //StartCoroutine(wait_turnOff());
-                
+
                 Debug.Log("animacion = " + animator.GetBool("turnOff_tv"));
                 StartCoroutine(wait_turnOff());
                 /*Debug.Log("se va a poner a true la animacion");
@@ -187,8 +190,12 @@ public class animationController : MonoBehaviour
                 Debug.Log("valor turn off " + animator.GetBool("turnOff_tv"));
                 StartCoroutine(wait_turnOff());
                 */
+
+
+
+
             }
-            
+
         }
 
         if (showCard == true && init_final_anim == false)
@@ -232,7 +239,7 @@ public class animationController : MonoBehaviour
 
     IEnumerator wait_turnOff()
     {
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(1f);
         showCard = true;
     }
 }

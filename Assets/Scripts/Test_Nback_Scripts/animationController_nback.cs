@@ -16,18 +16,9 @@ public class animationController_nback : MonoBehaviour
 
     //player in sofa position
     Vector3 player_cardDeck_pos = new Vector3(7f, 0.7f, -24f);
-    Quaternion player_cardDeck_rot = Quaternion.Euler(0, 270, 0);
+    Quaternion player_cardDeck_rot = Quaternion.Euler(0f, 270f, 0f);
 
-
-    Vector3 bg_pos = new Vector3(0f, 0f, 0f);
-    Vector3 bg_scaled = new Vector3(1.5f, 2f, 1.5f);
-
-
-    //player arriving to tv position
-    Vector3 player_left_caras_pos = new Vector3(-8.43f, 0.7f, -0.12f);
-    Vector3 player_straight_caras_pos = new Vector3(-8.43f, 0.7f, -3.74f);
-    Vector3 player_right_caras_pos = new Vector3(-11.44f, 0.7f, -8.3f);
-    Quaternion player_final_pos_rotation = Quaternion.Euler(-10, 180, 0);
+    Quaternion initial_rot = Quaternion.Euler(0f, 270f, 0f);
 
     public bool clicked;
     public bool cardDeck_pos;
@@ -87,7 +78,7 @@ public class animationController_nback : MonoBehaviour
         {
             player._doingTest = true;
             player.transform.position = Vector3.MoveTowards(player.transform.position, player_cardDeck_pos, step * 2);
-            player.transform.localRotation = Quaternion.Slerp(player.transform.rotation, player_cardDeck_rot, step * 3);            
+            player.transform.rotation = Quaternion.RotateTowards(player.transform.rotation, player_cardDeck_rot, step * 15);
             if (player.transform.position == player_cardDeck_pos && player.transform.localRotation == player_cardDeck_rot)
             {
                 cardDeck_pos = true;
@@ -132,8 +123,13 @@ public class animationController_nback : MonoBehaviour
 
         if (cardFan_init == true && animator.GetBool("cardFan_init") == false && finish_nback_test == false)
         {
-            animator.SetBool("cardFan_init", true);
-            StartCoroutine(wait_initial_pos());
+            player.transform.rotation = Quaternion.RotateTowards(player.transform.rotation, initial_rot, step * 10);
+            if (player.transform.localRotation == initial_rot)
+            {
+                animator.SetBool("cardFan_init", true);
+                StartCoroutine(wait_initial_pos());
+            }
+            
         }
 
         

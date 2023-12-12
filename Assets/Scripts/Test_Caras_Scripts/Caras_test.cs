@@ -117,7 +117,7 @@ public class Caras_test : MonoBehaviour
             finish = true;
         }
 
-        if (count > 6)
+        if (count > 2)
         {
             img1.gameObject.SetActive(false);
             img2.gameObject.SetActive(false);
@@ -131,7 +131,7 @@ public class Caras_test : MonoBehaviour
            
 
         }
-        else if (count <= 6 && _canStart == true)
+        else if (count <= 2 && _canStart == true)
         {
             remaining_time = Math.Abs(remaining_time);
             float timer = Math.Abs(Time.deltaTime);

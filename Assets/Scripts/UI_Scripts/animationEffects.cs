@@ -30,13 +30,13 @@ public class animationEffects : MonoBehaviour
 
     //positions and rotations for stroop animation
     Vector3 target_pos_stroop = new Vector3(13.37f, 0.7f, -9.29f);
-    Quaternion target_rot_stroop = Quaternion.Euler(0, 0, 0);
+    Quaternion target_rot_stroop = Quaternion.Euler(0f, 0f, 0f);
     Vector3 final_pos_stroop = new Vector3(13.358f, 1.31f, -8.092f);
 
     //positions and rotations for init animation
     Vector3 target_pos_init = new Vector3(-2.59f, 0.7f, 23.088f);
     Vector3 target_pos2_init = new Vector3(-1.423f, 0.7f, 27.7f);
-    Quaternion target_rot_init = Quaternion.Euler(0, 10, 0);
+    Quaternion target_rot_init = Quaternion.Euler(0f, 10f, 0f);
 
     //rotations for door
     Quaternion target_door_rot = Quaternion.Euler(-90, 0, 0);
@@ -73,8 +73,8 @@ public class animationEffects : MonoBehaviour
             if (continue_moving_player == true && exit_init_player_mov == false)
             {
                 player.transform.position = Vector3.MoveTowards(player.transform.position, target_pos_init, step * 2);
-                player.transform.localRotation = Quaternion.Slerp(player.transform.rotation, target_rot_init, step);
-                if (player.transform.position == target_pos_init  )
+                player.transform.rotation = Quaternion.RotateTowards(player.transform.rotation, target_rot_init, step * 10);
+                if (player.transform.position == target_pos_init && player.transform.rotation == target_rot_init)
                 {
                     exit_init_player_mov = true;
                 }
@@ -107,8 +107,8 @@ public class animationEffects : MonoBehaviour
             if (player != null && raycast.canMove == true)
             {
                 player.transform.position = Vector3.MoveTowards(player.transform.position, target_pos_stroop, step/2);
-                player.transform.localRotation = Quaternion.Slerp(player.transform.rotation, target_rot_stroop, step);
-                if (player.transform.position == target_pos_stroop )
+                player.transform.rotation = Quaternion.RotateTowards(player.transform.rotation, target_rot_stroop, step * 10);
+                if (player.transform.position == target_pos_stroop && player.transform.rotation == target_rot_stroop)
                 {
                     PinBoard pinboard = GameObject.Find("pinboard").GetComponent<PinBoard>();
                     if (pinboard != null)

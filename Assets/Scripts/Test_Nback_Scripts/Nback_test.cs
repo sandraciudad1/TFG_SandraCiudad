@@ -75,14 +75,14 @@ public class Nback_test : MonoBehaviour
             _hasFinished = true;
         }
 
-        if (count > 20)
+        if (count > 5)
         {
             card.gameObject.SetActive(false);
             finish_btn_nback.gameObject.SetActive(true);
             timer_text.gameObject.SetActive(false);
             progressBar.SetActive(false);
         }
-        else if (count <= 20 && can_start==true)
+        else if (count <= 5 && can_start==true)
         {
 
             remaining_time = Math.Abs(remaining_time);

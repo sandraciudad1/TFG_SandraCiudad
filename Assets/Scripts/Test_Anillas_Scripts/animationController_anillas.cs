@@ -84,7 +84,7 @@ public class animationController_anillas : MonoBehaviour
         {
             player._doingTest = true;
             player.transform.position = Vector3.MoveTowards(player.transform.position, player_anillas_pos, step * 2);
-            player.transform.localRotation = Quaternion.Slerp(player.transform.rotation, player_anillas_rot, step * 3);
+            player.transform.rotation = Quaternion.RotateTowards(player.transform.rotation, player_anillas_rot, step * 10);
             if (player.transform.position == player_anillas_pos && player.transform.localRotation == player_anillas_rot)
             {
                 anillas_pos = true;

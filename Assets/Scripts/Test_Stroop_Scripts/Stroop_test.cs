@@ -75,7 +75,7 @@ public class Stroop_test : MonoBehaviour
     {
         if (start == true)
         {
-            if (count > 10)
+            if (count > 4)
             {
                 title_color1_txt.gameObject.SetActive(false);
                 title_color2_txt.gameObject.SetActive(false);
@@ -87,7 +87,7 @@ public class Stroop_test : MonoBehaviour
                 _background.sprite = pb_clean;
                 finish_btn.gameObject.SetActive(true);
             }
-            else if (count <= 10)
+            else if (count <= 4)
             {
                 if ((color1_dd.value == 0 && color2_dd.value == 0 && color3_dd.value == 0) && restart == true)
                 {
