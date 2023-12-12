@@ -43,7 +43,10 @@ public class UI_Manager : MonoBehaviour
     private Button ok_errorMsg_btn;
 
     public bool possible;
-
+    public int weapon_counter;
+    public int reason_counter;
+    public int place_counter;
+    public int extra_counter;
 
     public void check()
     {
@@ -79,6 +82,7 @@ public class UI_Manager : MonoBehaviour
 
     public void weaponClicked()
     {
+        weapon_counter += 1;
         check();
         if(possible == true)
         {
@@ -98,6 +102,7 @@ public class UI_Manager : MonoBehaviour
 
     public void reasonClicked()
     {
+        reason_counter += 1;
         check();
         if (possible == true)
         {
@@ -117,6 +122,7 @@ public class UI_Manager : MonoBehaviour
 
     public void placeClicked()
     {
+        place_counter += 1;
         check();
         if (possible == true)
         {
@@ -137,6 +143,7 @@ public class UI_Manager : MonoBehaviour
 
     public void extraClicked()
     {
+        extra_counter += 1;
         check();
         if (possible == true)
         {
@@ -149,10 +156,6 @@ public class UI_Manager : MonoBehaviour
     }
 
 
-    public void dateCollected()
-    {
-        _date.SetActive(true);
-        _bgdate.SetActive(true);
-    }
+    
 
 }

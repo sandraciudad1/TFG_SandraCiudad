@@ -43,10 +43,12 @@ public class charactersInfo : MonoBehaviour
     public TextMeshProUGUI description;
 
     public Image image;
+    public int characters_counter;
 
 
     public void showInfo()
     {
+        characters_counter += 1;
         Player player = GameObject.Find("Player").GetComponent<Player>();
         if (player != null)
         {

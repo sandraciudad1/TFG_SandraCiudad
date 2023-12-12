@@ -80,7 +80,7 @@ public class Nback_test : MonoBehaviour
             card.gameObject.SetActive(false);
             finish_btn_nback.gameObject.SetActive(true);
             timer_text.gameObject.SetActive(false);
-
+            progressBar.SetActive(false);
         }
         else if (count <= 20 && can_start==true)
         {
@@ -94,7 +94,7 @@ public class Nback_test : MonoBehaviour
             minutes = Math.Abs(minutes);
             seconds = Math.Abs(seconds);
             timer_text.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-
+            
 
             if (minutes == 0 && seconds == 0)
             {

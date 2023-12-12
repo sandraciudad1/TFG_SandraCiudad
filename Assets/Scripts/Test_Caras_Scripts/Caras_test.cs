@@ -86,11 +86,12 @@ public class Caras_test : MonoBehaviour
     [SerializeField] TextMeshProUGUI timer_text;
     public float remaining_time;
 
-    private float startTime;
-    private float stopTime;
-    private float timer_Time;
+    //private float startTime;
+    //private float stopTime;
+    //private float timer_Time;
     public bool isrunning;
     public bool finish;
+    public bool showCard;
     public int write = 0;
     private int minutes;
     private int seconds;
@@ -110,18 +111,13 @@ public class Caras_test : MonoBehaviour
 
     void Update()
     {
-        animationController anim = GameObject.Find("RemoteControl_").GetComponent<animationController>();
-        Debug.Log("init final anim " + anim.init_final_anim);
-        Debug.Log("finish final anim " + anim.finish_final_anim);
-        Debug.Log("finish " + finish);
-        if (anim != null && anim.init_final_anim == true && finish == false)
+        if (showCard == true && finish == false)
         {
-            Debug.Log("se va a llamar a la carta para que sze muestre");
             showCard_caras();
             finish = true;
         }
 
-        if (count > 2)
+        if (count > 6)
         {
             img1.gameObject.SetActive(false);
             img2.gameObject.SetActive(false);
@@ -135,7 +131,7 @@ public class Caras_test : MonoBehaviour
            
 
         }
-        else if (count <= 2 && _canStart == true)
+        else if (count <= 6 && _canStart == true)
         {
             remaining_time = Math.Abs(remaining_time);
             float timer = Math.Abs(Time.deltaTime);

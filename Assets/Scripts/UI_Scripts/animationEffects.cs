@@ -106,16 +106,18 @@ public class animationEffects : MonoBehaviour
         {
             if (player != null && raycast.canMove == true)
             {
-                player.transform.position = Vector3.MoveTowards(player.transform.position, target_pos_stroop, step);
+                player.transform.position = Vector3.MoveTowards(player.transform.position, target_pos_stroop, step/2);
                 player.transform.localRotation = Quaternion.Slerp(player.transform.rotation, target_rot_stroop, step);
-                if (player.transform.position == target_pos_stroop && player.transform.localRotation == target_rot_stroop)
+                if (player.transform.position == target_pos_stroop )
                 {
                     PinBoard pinboard = GameObject.Find("pinboard").GetComponent<PinBoard>();
                     if (pinboard != null)
                     {
-                        _pinBoard.transform.position = Vector3.MoveTowards(_pinBoard.transform.position, final_pos_stroop, step);
+                        Debug.Log("pinboard no null");
+                        _pinBoard.transform.position = Vector3.MoveTowards(_pinBoard.transform.position, final_pos_stroop, step/2);
                         if (_pinBoard.transform.position == final_pos_stroop && finish_stroop_movement == false)
                         {
+                            Debug.Log("pinboard en posicion");
                             _pinBoard.SetActive(false);
                             player._doingTest = true;
                             pinboard.startIntroduction();
