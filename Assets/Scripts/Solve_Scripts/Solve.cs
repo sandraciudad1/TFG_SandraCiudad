@@ -24,8 +24,6 @@ public class Solve : MonoBehaviour
     [SerializeField]
     private Button ok_solve_btn;
     [SerializeField]
-    private Image bg_solve;
-    [SerializeField]
     private Button solve_btn;
 
     [SerializeField]
@@ -33,9 +31,30 @@ public class Solve : MonoBehaviour
     [SerializeField]
     private Button acusar_btn;
 
+    [SerializeField]
+    private Image bg_xavier;
+    [SerializeField]
+    private Image bg_giovanni;
+    [SerializeField]
+    private Image bg_emma;
+    [SerializeField]
+    private Image bg_gertrud;
+    [SerializeField]
+    private Image bg_gustavo;
+    [SerializeField]
+    private Image bg_alessandro;
+
+    public string name;
+    public bool success;
+
     private DateTime tiempo1, tiempo2;
 
     public int count;
+
+    [SerializeField]
+    private TextMeshProUGUI correct_solution;
+    [SerializeField]
+    private TextMeshProUGUI incorrect_solution;
 
 
     // Start is called before the first frame update
@@ -53,13 +72,13 @@ public class Solve : MonoBehaviour
             Player player = GameObject.Find("Player").GetComponent<Player>();
             if (player != null)
             {
-                if (player._doingTest == false && player._isPressed == true)
+                if (player._doingTest == false && player._isPressed == true && player._canMove == true)
                 {
                     tiempo1 = DateTime.Now;
                     Debug.Log("tiempo de inicio " + tiempo1);
                     background.gameObject.SetActive(true);
                     solve_text.gameObject.SetActive(true);
-                    player._isPressed = false;
+                    player._canMove = false;
                 }
             }
             count += 1;
@@ -82,8 +101,8 @@ public class Solve : MonoBehaviour
         background.gameObject.SetActive(false);
         solve_text.gameObject.SetActive(false);
         ok_solve_btn.gameObject.SetActive(false);
-        bg_solve.gameObject.SetActive(true);
         solve_btn.gameObject.SetActive(true);
+        
     }
 
 
@@ -93,18 +112,66 @@ public class Solve : MonoBehaviour
         buttons.SetActive(true);
     }
 
-    public void character_pressed()
+    public void Xavier_pressed()
     {
+        bg_xavier.color = Color.red;
         acusar_btn.gameObject.SetActive(true);
+        name = "Xavier";
+    }
+
+    public void Giovanni_pressed()
+    {
+        bg_giovanni.color = Color.red;
+        acusar_btn.gameObject.SetActive(true);
+        name = "Giovanni";
+    }
+
+    public void Emma_pressed()
+    {
+        bg_emma.color = Color.red;
+        acusar_btn.gameObject.SetActive(true);
+        name = "Emma";
+    }
+
+    public void Gertrud_pressed()
+    {
+        bg_gertrud.color = Color.red;
+        acusar_btn.gameObject.SetActive(true);
+        name = "Gertrud";
+    }
+
+    public void Gustavo_pressed()
+    {
+        bg_gustavo.color = Color.red;
+        acusar_btn.gameObject.SetActive(true);
+        name = "Gustavo";
+    }
+
+    public void Alessandro_pressed()
+    {
+        bg_alessandro.color = Color.red;
+        acusar_btn.gameObject.SetActive(true);
+        name = "Alessandro";
     }
 
     public void acusar_btn_pressed()
     {
-        background.gameObject.SetActive(false);
+        //background.gameObject.SetActive(false);
         buttons.SetActive(false);
         acusar_btn.gameObject.SetActive(false);
 
-        //resolver el crimen
+
+        if (name == "Giovanni")
+        {
+            correct_solution.gameObject.SetActive(true);
+        }
+        else
+        {
+            incorrect_solution.gameObject.SetActive(true);
+        }
+
+
+
 
         //Metricas
         File.Delete("C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Solution/Results.txt");
@@ -126,5 +193,6 @@ public class Solve : MonoBehaviour
         }
 
     }
+
 
 }

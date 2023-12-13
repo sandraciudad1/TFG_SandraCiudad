@@ -19,7 +19,7 @@ public class LookY : MonoBehaviour
         Player player = GameObject.Find("Player").GetComponent<Player>();
         if (player != null)
         {
-            if(player._isPressed == true && player._doingTest == false)
+            if(player._isPressed == true && player._doingTest == false && player._canMove==true)
             {
                 
 

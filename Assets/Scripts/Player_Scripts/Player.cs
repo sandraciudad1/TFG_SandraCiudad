@@ -36,13 +36,12 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     public bool _doingTest = false;
-
-    //[SerializeField]
-    //public bool _hasPistol = false;
     [SerializeField]
     public bool _isPressed = false;
     [SerializeField]
     public int _mouseCounter = 0;
+
+    public bool _canMove;
 
     // Start is called before the first frame update
     void Start()
@@ -52,14 +51,17 @@ public class Player : MonoBehaviour
         _sensitivity = 1f;
 
         _controler = GetComponent<CharacterController>();
+
+        _canMove = true;
     }
 
     // Update is called once per frame
     public void Update()
     {
         
-        if (_isPressed == true && _doingTest == false)
+        if (_isPressed == true && _doingTest == false && _canMove == true)
         {
+            //_canMove = true;
             //Debug.Log("el jugador puede moverse libremente");
             //_speed = 3.5f;
             //hiddenCursor();
