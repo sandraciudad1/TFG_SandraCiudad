@@ -22,8 +22,6 @@ public class animationController_anillas : MonoBehaviour
     [SerializeField]
     private Light _light;
 
-
-
     public bool clicked;
     public bool anillas_pos;
     public bool start_moving;
@@ -65,18 +63,29 @@ public class animationController_anillas : MonoBehaviour
 
     void Update()
     {
+        
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = (Camera.main.ScreenPointToRay(Input.mousePosition));
             RaycastHit hitInfo;
             if (Physics.Raycast(ray, out hitInfo))
             {
-                if ((hitInfo.transform.name == "Cube" || hitInfo.transform.name == "Cylinder_mid" || hitInfo.transform.name == "Cylinder_left" || hitInfo.transform.name == "Cylinder_right") && counter == 0)
+                if ((hitInfo.transform.name == "Cube" || hitInfo.transform.name == "Cylinder_mid" || hitInfo.transform.name == "Cylinder_left" || hitInfo.transform.name == "Cylinder_right") && _particles.activeInHierarchy == true)
                 {
-                    clicked = true;
+                    if (counter == 0)
+                    {
+                        clicked = true;
+                    }
+                    else
+                    {
+                        clicked = false;
+                    }
+                    counter += 1;
                 }
             }
+
         }
+
 
         float step = Time.deltaTime;
         Player player = GameObject.Find("Player").GetComponent<Player>();
@@ -96,7 +105,7 @@ public class animationController_anillas : MonoBehaviour
         {
             _particles.SetActive(false);
             _light.range += 0.1f;
-            if(_light.range >= 1.5f)
+            if (_light.range >= 1.5f)
             {
                 _light.range = 1.5f;
                 turnOn = true;
@@ -139,7 +148,6 @@ public class animationController_anillas : MonoBehaviour
 
         }
 
-
         if (return_pos == true && arrive_return_pos == false)
         {
             player.transform.position = Vector3.MoveTowards(player.transform.position, player_return_pos, step);
@@ -148,7 +156,6 @@ public class animationController_anillas : MonoBehaviour
                 arrive_return_pos = true;
             }
         }
-
 
     }
 

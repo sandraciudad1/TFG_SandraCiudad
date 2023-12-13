@@ -29,7 +29,7 @@ public class animationController : MonoBehaviour
     Vector3 player_left_caras_pos = new Vector3(-8.43f, 0.7f, -0.12f);
     Vector3 player_straight_caras_pos = new Vector3(-8.43f, 0.7f, -3.74f);
     Vector3 player_right_caras_pos = new Vector3(-11.44f, 0.7f, -8.3f);
-    Quaternion player_final_pos_rotation = Quaternion.Euler(-15f, 180f, 0f);
+    Quaternion player_final_pos_rotation = Quaternion.Euler(-2.5f, 180f, 0f);
 
     Vector3 final_pos = new Vector3(-11.44f, 0.7f, -5.726f);
     Quaternion final_rot = Quaternion.Euler(0.00f, 180f, 0f);
@@ -49,10 +49,12 @@ public class animationController : MonoBehaviour
     public bool init_final_anim;
     public bool finish_final_anim;
 
+    public int counter;
 
     void Start()
     {
         animator = GetComponent<Animator>();
+        counter = 0;
         //rendererTv = GetComponent<Renderer>();
         clicked = false;
         remoteControl_pos = false;
@@ -73,17 +75,25 @@ public class animationController : MonoBehaviour
 
     void Update()
     {
-
+        
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = (Camera.main.ScreenPointToRay(Input.mousePosition));
             RaycastHit hitInfo;
             if (Physics.Raycast(ray, out hitInfo))
             {
-                if (hitInfo.transform.name == "RemoteControl_" && clicked == false)
+                if (hitInfo.transform.name == "RemoteControl_" && clicked == false && _particles.activeInHierarchy == true)
                 {
-                    _particles.gameObject.SetActive(false);
-                    clicked = true;
+                    if (counter == 0)
+                    {
+                        _particles.gameObject.SetActive(false);
+                        clicked = true;
+                    }
+                    else
+                    {
+                        clicked = false;
+                    }
+                    counter += 1;
                 }
             }
         }
@@ -183,7 +193,6 @@ public class animationController : MonoBehaviour
 
                 //StartCoroutine(wait_turnOff());
 
-                Debug.Log("animacion = " + animator.GetBool("turnOff_tv"));
                 StartCoroutine(wait_turnOff());
                 /*Debug.Log("se va a poner a true la animacion");
                 animator.SetBool("turnOff_tv", true);

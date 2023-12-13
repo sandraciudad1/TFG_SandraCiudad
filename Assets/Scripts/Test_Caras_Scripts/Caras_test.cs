@@ -173,7 +173,6 @@ public class Caras_test : MonoBehaviour
 
     public void showCard_caras()
     {
-        Debug.Log("mostrando carta...");
         //coroutine con tiempo de apagado de pantalla
         show_cards show = GameObject.Find("Cards").GetComponent<show_cards>();
         if (show != null)

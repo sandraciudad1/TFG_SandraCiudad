@@ -35,11 +35,14 @@ public class animationController_nback : MonoBehaviour
     public bool finish_nback_test;
     public bool next_test;
 
+    public int counter;
 
     void Start()
     {
         animator = GetComponent<Animator>();
-        _particles.SetActive(true);
+        //_particles.SetActive(true);
+        counter = 0;
+
         clicked = false;
         cardDeck_pos = false;
         start_moving = false;
@@ -57,17 +60,25 @@ public class animationController_nback : MonoBehaviour
 
     void Update()
     {
-
+        
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = (Camera.main.ScreenPointToRay(Input.mousePosition));
             RaycastHit hitInfo;
             if (Physics.Raycast(ray, out hitInfo))
             {
-                if (hitInfo.transform.name == "CardFan_Hearts_" && clicked == false)
+                if (hitInfo.transform.name == "CardFan_Hearts_" && clicked == false && _particles.activeInHierarchy == true)
                 {
-                    _particles.SetActive(false);
-                    clicked = true;
+                    if (counter == 0)
+                    {
+                        _particles.SetActive(false);
+                        clicked = true;
+                    }
+                    else
+                    {
+                        clicked = false;
+                    }
+                    counter += 1;
                 }
             }
         }
@@ -78,7 +89,7 @@ public class animationController_nback : MonoBehaviour
         {
             player._doingTest = true;
             player.transform.position = Vector3.MoveTowards(player.transform.position, player_cardDeck_pos, step * 2);
-            player.transform.rotation = Quaternion.RotateTowards(player.transform.rotation, player_cardDeck_rot, step * 15);
+            player.transform.rotation = Quaternion.RotateTowards(player.transform.rotation, player_cardDeck_rot, step * 20);
             if (player.transform.position == player_cardDeck_pos && player.transform.localRotation == player_cardDeck_rot)
             {
                 cardDeck_pos = true;
@@ -147,7 +158,7 @@ public class animationController_nback : MonoBehaviour
 
     IEnumerator wait_back()
     {
-        yield return new WaitForSeconds(3.4f);
+        yield return new WaitForSeconds(3f);
         finish = true;
     }
 

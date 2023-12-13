@@ -55,6 +55,7 @@ public class animationEffects : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
+        
         float step = Time.deltaTime;
         Player player = GameObject.Find("Player").GetComponent<Player>();
 
@@ -73,7 +74,7 @@ public class animationEffects : MonoBehaviour
             if (continue_moving_player == true && exit_init_player_mov == false)
             {
                 player.transform.position = Vector3.MoveTowards(player.transform.position, target_pos_init, step * 2);
-                player.transform.rotation = Quaternion.RotateTowards(player.transform.rotation, target_rot_init, step * 10);
+                player.transform.rotation = Quaternion.RotateTowards(player.transform.rotation, target_rot_init, step * 23);
                 if (player.transform.position == target_pos_init && player.transform.rotation == target_rot_init)
                 {
                     exit_init_player_mov = true;
@@ -113,11 +114,9 @@ public class animationEffects : MonoBehaviour
                     PinBoard pinboard = GameObject.Find("pinboard").GetComponent<PinBoard>();
                     if (pinboard != null)
                     {
-                        Debug.Log("pinboard no null");
                         _pinBoard.transform.position = Vector3.MoveTowards(_pinBoard.transform.position, final_pos_stroop, step/2);
                         if (_pinBoard.transform.position == final_pos_stroop && finish_stroop_movement == false)
                         {
-                            Debug.Log("pinboard en posicion");
                             _pinBoard.SetActive(false);
                             player._doingTest = true;
                             pinboard.startIntroduction();

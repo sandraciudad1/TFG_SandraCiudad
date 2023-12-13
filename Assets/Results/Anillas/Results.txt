@@ -1,64 +1,59 @@
 Movimiento 1
-	 Eje izquierdo: blue_ring,green_ring,yellow_ring,orange_ring,red_ring
-	 Eje central: 
-	 Eje derecho: 
-
-Movimiento 2
 	 Eje izquierdo: green_ring,yellow_ring,orange_ring,red_ring
 	 Eje central: 
 	 Eje derecho: blue_ring
 
-Movimiento 3
+Movimiento 2
 	 Eje izquierdo: yellow_ring,orange_ring,red_ring
 	 Eje central: 
 	 Eje derecho: green_ring,blue_ring
 
-Movimiento 4
+Movimiento 3
 	 Eje izquierdo: orange_ring,red_ring
 	 Eje central: yellow_ring
 	 Eje derecho: green_ring,blue_ring
 
-Movimiento 5
+Movimiento 4
 	 Eje izquierdo: red_ring
 	 Eje central: orange_ring,yellow_ring
 	 Eje derecho: green_ring,blue_ring
 
-Movimiento 6
+Movimiento 5
 	 Eje izquierdo: red_ring
 	 Eje central: green_ring,orange_ring,yellow_ring
 	 Eje derecho: blue_ring
 
-Movimiento 7
+Movimiento 6
 	 Eje izquierdo: red_ring
 	 Eje central: blue_ring,green_ring,orange_ring,yellow_ring
 	 Eje derecho: 
 
-Movimiento 8
+Movimiento 7
 	 Eje izquierdo: 
 	 Eje central: blue_ring,green_ring,orange_ring,yellow_ring
 	 Eje derecho: red_ring
 
-Movimiento 9
+Movimiento 8
 	 Eje izquierdo: blue_ring
 	 Eje central: green_ring,orange_ring,yellow_ring
 	 Eje derecho: red_ring
 
-Movimiento 10
+Movimiento 9
 	 Eje izquierdo: blue_ring
 	 Eje central: orange_ring,yellow_ring
 	 Eje derecho: green_ring,red_ring
 
-Movimiento 11
+Movimiento 10
 	 Eje izquierdo: blue_ring
 	 Eje central: yellow_ring
 	 Eje derecho: orange_ring,green_ring,red_ring
 
-Movimiento 12
+Movimiento 11
 	 Eje izquierdo: 
 	 Eje central: yellow_ring
 	 Eje derecho: blue_ring,orange_ring,green_ring,red_ring
 
-Movimiento 13
+Movimiento 12
 	 Eje izquierdo: 
 	 Eje central: 
 	 Eje derecho: yellow_ring,blue_ring,orange_ring,green_ring,red_ring

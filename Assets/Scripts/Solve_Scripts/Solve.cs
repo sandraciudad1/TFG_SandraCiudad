@@ -53,13 +53,17 @@ public class Solve : MonoBehaviour
             Player player = GameObject.Find("Player").GetComponent<Player>();
             if (player != null)
             {
-                tiempo1 = DateTime.Now;
-                player._isPressed = false;
-                background.gameObject.SetActive(true);
-                solve_text.gameObject.SetActive(true);
-                count += 1;
+                if (player._doingTest == false && player._isPressed == true)
+                {
+                    tiempo1 = DateTime.Now;
+                    Debug.Log("tiempo de inicio " + tiempo1);
+                    background.gameObject.SetActive(true);
+                    solve_text.gameObject.SetActive(true);
+                    player._isPressed = false;
+                }
             }
-            
+            count += 1;
+
         }
     }
 
@@ -100,12 +104,14 @@ public class Solve : MonoBehaviour
         buttons.SetActive(false);
         acusar_btn.gameObject.SetActive(false);
 
+        //resolver el crimen
 
         //Metricas
         File.Delete("C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Solution/Results.txt");
         File.Delete("C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Solution/Time.txt");
 
         tiempo2 = DateTime.Now;
+        Debug.Log("tiempo de fin " + tiempo2);
         string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Solution/Time.txt";
         string text = (tiempo2 - tiempo1).Hours + " horas " + (tiempo2 - tiempo1).Minutes + " minutos " + (tiempo2 - tiempo1).Seconds + " segundos";
         File.AppendAllLines(path, new String[] { text });

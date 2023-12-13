@@ -37,24 +37,28 @@ public class Raycast : MonoBehaviour
             RaycastHit hitInfo;
             if (Physics.Raycast(ray, out hitInfo))
             {
-                if (hitInfo.transform.name == "Pin_Board")
+                if (hitInfo.transform.name == "Pin_Board" && _particles.activeInHierarchy == true)
                 {
-                    count = 1;
-                    Player player = GameObject.Find("Player").GetComponent<Player>();
-                    if (player != null)
+                    if (count == 0)
                     {
-                        _particles.SetActive(false);
-                        player._doingTest = true;
-                        canMove = true;
-                        animationEffects animation = GameObject.Find("Player").GetComponent<animationEffects>();
-                        if (animation != null && count == 1)
+                        Player player = GameObject.Find("Player").GetComponent<Player>();
+                        if (player != null)
                         {
-                            animation.Update();
+                            _particles.SetActive(false);
+                            player._doingTest = true;
+                            canMove = true;
+                            animationEffects animation = GameObject.Find("Player").GetComponent<animationEffects>();
+                            if (animation != null && count == 1)
+                            {
+                                animation.Update();
+                            }
+
+
+
                         }
-
-
-
                     }
+                    count += 1;
+                   
                 }
 
 
