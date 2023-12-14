@@ -36,6 +36,13 @@ public class Stroop_test : MonoBehaviour
     
     private int count;
     private DateTime tiempo1 = DateTime.Now, tiempo2;
+
+    public string month = DateTime.Now.ToString("MM");
+    public string day = DateTime.Now.ToString("dd");
+    public string year = DateTime.Now.ToString("yyyy");
+    public string hour = DateTime.Now.ToString("HH");
+    public string min = DateTime.Now.ToString("mm");
+
     public bool _hasfinish_stoop;
 
     [SerializeField] TextMeshProUGUI timer_text;
@@ -250,7 +257,7 @@ public class Stroop_test : MonoBehaviour
         }
 
         tiempo2 = DateTime.Now;
-        string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Stroop/Time.txt";
+        string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Stroop/Time_" + day + "_" + month + "_" + year + "_" + hour + "_" + min + ".txt";
         string text = (tiempo2 - tiempo1).Hours + " horas " + (tiempo2 - tiempo1).Minutes + " minutos " + (tiempo2 - tiempo1).Seconds + " segundos";
         File.AppendAllLines(path, new String[] { text });
 
@@ -284,7 +291,7 @@ public class Stroop_test : MonoBehaviour
     public void saveTestsResults()
     {
         
-        string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Stroop/Results.txt";
+        string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Stroop/Results_" + day + "_" + month + "_" + year + "_" + hour + ":" + min + ".txt";
         string text = color1_txt.text + ", " + color2_txt.text + ", " + color3_txt.text;
         File.AppendAllLines(path, new String[] { text });
         //nextTest();

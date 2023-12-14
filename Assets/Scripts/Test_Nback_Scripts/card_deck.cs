@@ -115,11 +115,7 @@ public class card_deck : MonoBehaviour
             _arrowButton_cards.gameObject.SetActive(false);
             _bg_explanation.SetActive(false);
             _caras_test.SetActive(true);
-            
-            File.Delete("C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Nback/Results.txt");
-            File.Delete("C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Nback/Time.txt");
-            
-            
+          
             init_animation = true;
             Update();
         }

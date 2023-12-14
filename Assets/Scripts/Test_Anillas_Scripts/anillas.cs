@@ -115,12 +115,7 @@ public class anillas : MonoBehaviour
             _final_pos_anillas.gameObject.SetActive(true);
             defaultValues();
             _arrowButton_anillas.gameObject.SetActive(false);
-            //_anillas_test.SetActive(true);
-
-            File.Delete("C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Anillas/Results.txt");
-            File.Delete("C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Anillas/Time.txt");
-
-
+          
             init_animation = true;
             Update();
         }

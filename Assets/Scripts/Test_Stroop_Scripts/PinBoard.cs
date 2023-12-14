@@ -97,9 +97,6 @@ public class PinBoard : MonoBehaviour
             _pb_clean.gameObject.SetActive(false);
             _stroop_test.SetActive(true);
 
-            File.Delete("C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Stroop/Results.txt");
-            File.Delete("C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Stroop/Time.txt");
-
             Stroop_test stroop_test = GameObject.Find("StroopTest").GetComponent<Stroop_test>();
             if (stroop_test != null)
             {

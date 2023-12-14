@@ -134,10 +134,6 @@ public class Television : MonoBehaviour
             _bg_explanation.SetActive(false);
             _caras_test.SetActive(true);
 
-            File.Delete("C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Caras/Results.txt");
-            File.Delete("C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Caras/Time.txt");
-
-
             check = true;
             Update();
         }
