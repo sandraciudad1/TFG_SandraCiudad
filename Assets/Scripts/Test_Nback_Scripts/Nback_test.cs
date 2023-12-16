@@ -40,13 +40,13 @@ public class Nback_test : MonoBehaviour
     [SerializeField]
     private Button card;
 
-    private DateTime tiempo1 = DateTime.Now, tiempo2;
+    public DateTime tiempo1, tiempo2;
 
-    public string month = DateTime.Now.ToString("MM");
-    public string day = DateTime.Now.ToString("dd");
-    public string year = DateTime.Now.ToString("yyyy");
-    public string hour = DateTime.Now.ToString("HH");
-    public string min = DateTime.Now.ToString("mm");
+    public string month;
+    public string day;
+    public string year;
+    public string hour;
+    public string _min;
 
     private int count;
     public string text_result;
@@ -61,38 +61,59 @@ public class Nback_test : MonoBehaviour
 
     public bool finish_test;
     public bool _hasFinished;
+    public bool time;
+
+    public bool _canStart;
+    public string actual_date;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        _canStart = false;
         count = 0;
         pressed = false;
         can_start = false;
         finish_test = false;
         _hasFinished = false;
+        time = false;
+    }
+
+    public void canStart()
+    {
+        tiempo1 = DateTime.Now;
+        month = DateTime.Now.ToString("MM");
+        day = DateTime.Now.ToString("dd");
+        year = DateTime.Now.ToString("yyyy");
+        hour = DateTime.Now.ToString("HH");
+        _min = DateTime.Now.ToString("mm");
+        actual_date = day + "_" + month + "_" + year + "__" + hour + "_" + _min;
+        _canStart = true;
+        nextTest();
     }
 
     // Update is called once per frame
     void Update()
     {
+
         animationController_nback anim = GameObject.Find("CardFan_Hearts_").GetComponent<animationController_nback>();
         if (anim != null && anim.finish_nback_test == true && _hasFinished == false)
         {
+
             showCard_finish();
             _hasFinished = true;
         }
 
-        if (count > 5)
+        if (count > 5 && time == false)
         {
             card.gameObject.SetActive(false);
             finish_btn_nback.gameObject.SetActive(true);
             timer_text.gameObject.SetActive(false);
             progressBar.SetActive(false);
+            saveTimeResults();
+            time = true;
         }
-        else if (count <= 5 && can_start==true)
+        else if (count <= 5 && _canStart == true)
         {
-
             remaining_time = Math.Abs(remaining_time);
             float timer = Math.Abs(Time.deltaTime);
             remaining_time -= timer;
@@ -102,11 +123,11 @@ public class Nback_test : MonoBehaviour
             minutes = Math.Abs(minutes);
             seconds = Math.Abs(seconds);
             timer_text.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-            
 
-            if (minutes == 0 && seconds == 0)
+
+            if (minutes == 0 && seconds == 0 && count > 0)
             {
-                nextTest();
+                saveTestsResults();
             }
 
         }
@@ -114,7 +135,7 @@ public class Nback_test : MonoBehaviour
 
     IEnumerator wait_initial_pos()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.2f);
     }
 
     public void finishNback()
@@ -124,7 +145,7 @@ public class Nback_test : MonoBehaviour
         if (anim != null)
         {
             anim.cardFan_init = true;
-        }   
+        }
     }
 
     public void showCard_finish()
@@ -135,6 +156,7 @@ public class Nback_test : MonoBehaviour
         {
             show.show_place_card();
         }
+
 
         Player player = GameObject.Find("Player").GetComponent<Player>();
         if (player != null)
@@ -148,15 +170,13 @@ public class Nback_test : MonoBehaviour
             ui_manager.placeCollected();
         }
 
-        tiempo2 = DateTime.Now;
-        string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Nback/Time_" + day + "_" + month + "_" + year + "_" + hour + "_" + min + ".txt";
-        string text = (tiempo2 - tiempo1).Hours + " horas " + (tiempo2 - tiempo1).Minutes + " minutos " + (tiempo2 - tiempo1).Seconds + " segundos";
-        File.AppendAllLines(path, new String[] { text });
-        
+
+
     }
 
     public void button_pressed()
     {
+        pressed = true;
         card.interactable = false;
     }
 
@@ -172,26 +192,37 @@ public class Nback_test : MonoBehaviour
         }
     }
 
+    public void saveTimeResults()
+    {
+        tiempo2 = DateTime.Now;
+        string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Nback/Time_" + actual_date + ".txt";
+        string text = (tiempo2 - tiempo1).Hours + " horas " + (tiempo2 - tiempo1).Minutes + " minutos " + (tiempo2 - tiempo1).Seconds + " segundos";
+
+        File.AppendAllLines(path, new String[] { text });
+    }
+
     public void saveTestsResults()
     {
-        checkFailure();
-
-        string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Nback/Results_" + day + "_" + month + "_" + year + "_" + hour + ":" + min + ".txt";
         if (count > 0)
         {
-            if (pressed == true)
+            checkFailure();
+            string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Nback/Results_" + actual_date + ".txt";
+            if (card.interactable == false)
             {
                 text_result = "La carta " + count + " ha sido presionada. " + value;
             }
-            else
+            else if (card.interactable == true)
             {
                 text_result = "La carta " + count + " no ha sido presionada. " + value;
             }
 
 
             File.AppendAllLines(path, new String[] { text_result });
-
+            nextTest();
         }
+
+
+
     }
 
     public void UpdateProgress()
@@ -238,20 +269,12 @@ public class Nback_test : MonoBehaviour
 
     public void nextTest()
     {
+        Debug.Log("count antes de actualizar " + count);
         UpdateProgress();
-        saveTestsResults();
-        count = count + 1;
         defaultValues();
+        count += 1;
+        Debug.Log("count despues de actualizar " + count);
         testOptions();
-        //StartCoroutine(wait());
     }
-
-    /*IEnumerator wait()
-    {
-        yield return new WaitForSeconds(5.0f);
-
-        card.gameObject.SetActive(false);
-        yield return new WaitForSeconds(1.0f);
-        card.gameObject.SetActive(true);
-    }*/
 }
+

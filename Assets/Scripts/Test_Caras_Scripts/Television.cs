@@ -77,8 +77,8 @@ public class Television : MonoBehaviour
             Caras_test caras = GameObject.Find("CarasTest").GetComponent<Caras_test>();
             if (caras != null && next == false)
             {
-                caras._canStart = true;
-                caras.nextTest();
+                //caras._canStart = true;
+                caras.canStart();
                 next = true;
             }
             check = false;

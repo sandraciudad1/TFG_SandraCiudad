@@ -35,13 +35,13 @@ public class Stroop_test : MonoBehaviour
 
     
     private int count;
-    private DateTime tiempo1 = DateTime.Now, tiempo2;
+    public DateTime tiempo1, tiempo2;
 
-    public string month = DateTime.Now.ToString("MM");
-    public string day = DateTime.Now.ToString("dd");
-    public string year = DateTime.Now.ToString("yyyy");
-    public string hour = DateTime.Now.ToString("HH");
-    public string min = DateTime.Now.ToString("mm");
+    public string month;
+    public string day;
+    public string year;
+    public string hour;
+    public string _min;
 
     public bool _hasfinish_stoop;
 
@@ -53,6 +53,9 @@ public class Stroop_test : MonoBehaviour
     public bool next;
     public bool restart;
     private bool start;
+    public bool time;
+
+    public string actual_date;
 
     //initialize variable count
     public void Start()
@@ -62,6 +65,7 @@ public class Stroop_test : MonoBehaviour
 
         next = false;
         restart = true;
+        time = false;
     }
 
     public void canStart()
@@ -73,6 +77,15 @@ public class Stroop_test : MonoBehaviour
         start = false;
         next = false;
         restart = true;
+
+        tiempo1 = DateTime.Now;
+        month = DateTime.Now.ToString("MM");
+        day = DateTime.Now.ToString("dd");
+        year = DateTime.Now.ToString("yyyy");
+        hour = DateTime.Now.ToString("HH");
+        _min = DateTime.Now.ToString("mm");
+        actual_date = day + "_" + month + "_" + year + "__" + hour + "_" + _min;
+
         start = true;
         Update();
     }
@@ -80,64 +93,64 @@ public class Stroop_test : MonoBehaviour
     //checks if there are more tests to continue or not
     public void Update()
     {
-        if (start == true)
+
+        if (count > 4 && time == false)
         {
-            if (count > 4)
+            title_color1_txt.gameObject.SetActive(false);
+            title_color2_txt.gameObject.SetActive(false);
+            title_color3_txt.gameObject.SetActive(false);
+            color1_dd.gameObject.SetActive(false);
+            color2_dd.gameObject.SetActive(false);
+            color3_dd.gameObject.SetActive(false);
+            timer_text.gameObject.SetActive(false);
+            _background.sprite = pb_clean;
+            finish_btn.gameObject.SetActive(true);
+            saveTimeResults();
+            time = true;
+        }
+        else if (count <= 4 && start == true)
+        {
+            if ((color1_dd.value == 0 && color2_dd.value == 0 && color3_dd.value == 0) && restart == true)
             {
-                title_color1_txt.gameObject.SetActive(false);
-                title_color2_txt.gameObject.SetActive(false);
-                title_color3_txt.gameObject.SetActive(false);
-                color1_dd.gameObject.SetActive(false);
-                color2_dd.gameObject.SetActive(false);
-                color3_dd.gameObject.SetActive(false);
-                timer_text.gameObject.SetActive(false);
-                _background.sprite = pb_clean;
-                finish_btn.gameObject.SetActive(true);
+                title_color1_txt.gameObject.SetActive(true);
+                title_color2_txt.gameObject.SetActive(true);
+                title_color3_txt.gameObject.SetActive(true);
+
+                remaining_time = Math.Abs(remaining_time);
+                float timer = Math.Abs(Time.deltaTime);
+                remaining_time -= timer;
+
+                minutes = Mathf.FloorToInt(remaining_time / 60);
+                seconds = Mathf.FloorToInt(remaining_time % 60);
+                minutes = Math.Abs(minutes);
+                seconds = Math.Abs(seconds);
+                timer_text.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+
+                if (minutes == 0 && seconds == 0)
+                {
+                    restart = false;
+                    title_color1_txt.gameObject.SetActive(false);
+                    title_color2_txt.gameObject.SetActive(false);
+                    title_color3_txt.gameObject.SetActive(false);
+                    color1_dd.gameObject.SetActive(true);
+                    color2_dd.gameObject.SetActive(true);
+                    color3_dd.gameObject.SetActive(true);
+                    selectColors();
+                    next = true;
+
+
+                }
             }
-            else if (count <= 4)
+
+            if ((color1_dd.value != 0 && color2_dd.value != 0 && color3_dd.value != 0) && next == true)
             {
-                if ((color1_dd.value == 0 && color2_dd.value == 0 && color3_dd.value == 0) && restart == true)
-                {
-                    title_color1_txt.gameObject.SetActive(true);
-                    title_color2_txt.gameObject.SetActive(true);
-                    title_color3_txt.gameObject.SetActive(true);
+                saveTestsResults();
+                nextTest();
+                next = false;
 
-                    remaining_time = Math.Abs(remaining_time);
-                    float timer = Math.Abs(Time.deltaTime);
-                    remaining_time -= timer;
-
-                    minutes = Mathf.FloorToInt(remaining_time / 60);
-                    seconds = Mathf.FloorToInt(remaining_time % 60);
-                    minutes = Math.Abs(minutes);
-                    seconds = Math.Abs(seconds);
-                    timer_text.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-
-                    if (minutes == 0 && seconds == 0)
-                    {
-                        restart = false;
-                        title_color1_txt.gameObject.SetActive(false);
-                        title_color2_txt.gameObject.SetActive(false);
-                        title_color3_txt.gameObject.SetActive(false);
-                        color1_dd.gameObject.SetActive(true);
-                        color2_dd.gameObject.SetActive(true);
-                        color3_dd.gameObject.SetActive(true);
-                        selectColors();
-                        next = true;
-
-
-                    }
-                }
-
-                if ((color1_dd.value != 0 && color2_dd.value != 0 && color3_dd.value != 0) && next == true)
-                {
-                    saveTestsResults();
-                    nextTest();
-                    next = false;
-
-                }
             }
         }
-       
+
     }
 
 
@@ -256,14 +269,7 @@ public class Stroop_test : MonoBehaviour
             raycast.canMove = false;
         }
 
-        tiempo2 = DateTime.Now;
-        string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Stroop/Time_" + day + "_" + month + "_" + year + "_" + hour + "_" + min + ".txt";
-        string text = (tiempo2 - tiempo1).Hours + " horas " + (tiempo2 - tiempo1).Minutes + " minutos " + (tiempo2 - tiempo1).Seconds + " segundos";
-        File.AppendAllLines(path, new String[] { text });
-
         _canvasStroop.SetActive(false);
-        //_background.SetActive(false);
-        //finish_btn.gameObject.SetActive(false);
     }
 
 
@@ -287,11 +293,20 @@ public class Stroop_test : MonoBehaviour
     }
 
 
+    public void saveTimeResults()
+    {
+        tiempo2 = DateTime.Now;
+        string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Stroop/Time_" + actual_date + ".txt";
+        string text = (tiempo2 - tiempo1).Hours + " horas " + (tiempo2 - tiempo1).Minutes + " minutos " + (tiempo2 - tiempo1).Seconds + " segundos";
+
+        File.AppendAllLines(path, new String[] { text });
+    }
+
     //Method for saving test results in .txt file
     public void saveTestsResults()
     {
-        
-        string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Stroop/Results_" + day + "_" + month + "_" + year + "_" + hour + ":" + min + ".txt";
+
+        string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Stroop/Results_" + actual_date + ".txt";
         string text = color1_txt.text + ", " + color2_txt.text + ", " + color3_txt.text;
         File.AppendAllLines(path, new String[] { text });
         //nextTest();

@@ -71,13 +71,13 @@ public class Caras_test : MonoBehaviour
     public Image red_cross3;
 
     private int count;
-    private DateTime tiempo1 = DateTime.Now, tiempo2;
+    public DateTime tiempo1, tiempo2;
 
-    public string month = DateTime.Now.ToString("MM");
-    public string day = DateTime.Now.ToString("dd");
-    public string year = DateTime.Now.ToString("yyyy");
-    public string hour = DateTime.Now.ToString("HH");
-    public string min = DateTime.Now.ToString("mm");
+    public string month;
+    public string day;
+    public string year;
+    public string hour;
+    public string _min;
 
     public bool allowed;
     public bool im1, im2, im3, im4;
@@ -102,6 +102,9 @@ public class Caras_test : MonoBehaviour
     private int minutes;
     private int seconds;
 
+    public bool time;
+    public string actual_date;
+
     public void Start()
     {
         //_canStart = false;
@@ -111,19 +114,34 @@ public class Caras_test : MonoBehaviour
         start_timer = false;
         //nextTest();
         finish = false;
+        time = false;
 
     }
 
+    public void canStart()
+    {
+        tiempo1 = DateTime.Now;
+        month = DateTime.Now.ToString("MM");
+        day = DateTime.Now.ToString("dd");
+        year = DateTime.Now.ToString("yyyy");
+        hour = DateTime.Now.ToString("HH");
+        _min = DateTime.Now.ToString("mm");
+        actual_date = day + "_" + month + "_" + year + "__" + hour + "_" + _min;
+
+        _canStart = true;
+        nextTest();
+    }
 
     void Update()
     {
+
         if (showCard == true && finish == false)
         {
             showCard_caras();
             finish = true;
         }
 
-        if (count > 2)
+        if (count > 2 && time == false)
         {
             img1.gameObject.SetActive(false);
             img2.gameObject.SetActive(false);
@@ -134,8 +152,8 @@ public class Caras_test : MonoBehaviour
             finish_btn_caras.gameObject.SetActive(true);
             timer_text.gameObject.SetActive(false);
             //finish = true;
-           
-
+            saveTimeResults();
+            time = true;
         }
         else if (count <= 2 && _canStart == true)
         {
@@ -158,7 +176,8 @@ public class Caras_test : MonoBehaviour
 
             if(minutes == 0 && seconds == 0)
             {
-                nextTest();
+                //nextTest();
+                saveTestsResults();
             }
         }
     }
@@ -198,10 +217,6 @@ public class Caras_test : MonoBehaviour
             ui_manager.reasonCollected();
         }
 
-        tiempo2 = DateTime.Now;
-        string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Caras/Time_" + day + "_" + month + "_" + year + "_" + hour + "_" + min + ".txt";
-        string text = (tiempo2 - tiempo1).Hours + " horas " + (tiempo2 - tiempo1).Minutes + " minutos " + (tiempo2 - tiempo1).Seconds + " segundos";
-        File.AppendAllLines(path, new String[] { text });
     }
 
     public void defaultValues()
@@ -218,16 +233,24 @@ public class Caras_test : MonoBehaviour
         value = "";
     }
 
+    public void saveTimeResults()
+    {
+        tiempo2 = DateTime.Now;
+        string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Caras/Time_" + actual_date + ".txt";
+        string text = (tiempo2 - tiempo1).Hours + " horas " + (tiempo2 - tiempo1).Minutes + " minutos " + (tiempo2 - tiempo1).Seconds + " segundos";
+
+        File.AppendAllLines(path, new String[] { text });
+    }
 
     public void saveTestsResults()
     {
         
-        string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Caras/Results_" + day + "_" + month + "_" + year + "_" + hour + ":" + min + ".txt";
+        string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Caras/Results_" + actual_date + ".txt";
         if (count > 0)
         {
             text_result = "ronda " + count + ": " + value;
             File.AppendAllLines(path, new String[] { text_result });
-            
+            nextTest();
         }
     }
 

@@ -75,13 +75,15 @@ public class Anillas_test : MonoBehaviour
     public bool finish_animation;
 
     public string text_result;
-    private DateTime tiempo1 = DateTime.Now, tiempo2;
+    public DateTime tiempo1, tiempo2;
 
-    public string month = DateTime.Now.ToString("MM");
-    public string day = DateTime.Now.ToString("dd");
-    public string year = DateTime.Now.ToString("yyyy");
-    public string hour = DateTime.Now.ToString("HH");
-    public string min = DateTime.Now.ToString("mm");
+    public string month;
+    public string day;
+    public string year;
+    public string hour;
+    public string _min;
+
+    public string actual_date;
 
     // Start is called before the first frame update
     void Start()
@@ -111,6 +113,16 @@ public class Anillas_test : MonoBehaviour
 
     public void can_Start()
     {
+        
+        tiempo1 = DateTime.Now;
+
+        month = DateTime.Now.ToString("MM");
+        day = DateTime.Now.ToString("dd");
+        year = DateTime.Now.ToString("yyyy");
+        hour = DateTime.Now.ToString("HH");
+        _min = DateTime.Now.ToString("mm");
+        actual_date = day + "_" + month + "_" + year + "__" + hour + "_" + _min;
+
         start = true;
     }
 
@@ -260,11 +272,13 @@ public class Anillas_test : MonoBehaviour
             {
                 //congrats_msg.gameObject.SetActive(true);
                 //ok_congrats_btn.gameObject.SetActive(true);
-                
+                saveTimeResults();
                 finish_anim();
             }
         }
     }
+
+   
 
     public void congrats_btn_clicked()
     {
@@ -318,10 +332,6 @@ public class Anillas_test : MonoBehaviour
             ui_manager.extraCollected();
         }
 
-        tiempo2 = DateTime.Now;
-        string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Anillas/Time_" + day + "_" + month + "_" + year + "_" + hour + "_" + min + ".txt";
-        string text = (tiempo2 - tiempo1).Hours + " horas " + (tiempo2 - tiempo1).Minutes + " minutos " + (tiempo2 - tiempo1).Seconds + " segundos";
-        File.AppendAllLines(path, new String[] { text });
     }
 
     // Update is called once per frame
@@ -364,6 +374,15 @@ public class Anillas_test : MonoBehaviour
 
     }
 
+    public void saveTimeResults()
+    {
+        tiempo2 = DateTime.Now;
+        string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Anillas/Time_" + actual_date + ".txt";
+        string text = (tiempo2 - tiempo1).Hours + " horas " + (tiempo2 - tiempo1).Minutes + " minutos " + (tiempo2 - tiempo1).Seconds + " segundos";
+
+        File.AppendAllLines(path, new String[] { text });
+    }
+
     public void saveTestsResults()
     {
         string[] res_right = st_right.ToArray();
@@ -373,7 +392,7 @@ public class Anillas_test : MonoBehaviour
         string[] res_left = st_left.ToArray();
         string result_left = string.Join(",", res_left);
 
-        string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Anillas/Results_" + day + "_" + month + "_" + year + "_" + hour + ":" + min + ".txt";
+        string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Anillas/Results_" + actual_date + ".txt";
         text_result = "Movimiento " + movements + "\n\t Eje izquierdo: " + result_left + "\n\t Eje central: " + result_middle + "\n\t Eje derecho: " + result_right + "\n";
         File.AppendAllLines(path, new String[] { text_result });
     }

@@ -75,7 +75,7 @@ public class card_deck : MonoBehaviour
             if (nback != null && finish == true)
             {
                 nback.can_start = true;
-                nback.nextTest();
+                nback.canStart();
             }
             next = true;
         }
