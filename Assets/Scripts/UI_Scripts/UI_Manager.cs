@@ -16,8 +16,6 @@ public class UI_Manager : MonoBehaviour
     [SerializeField]
     private GameObject _killer;
     [SerializeField]
-    private GameObject _date;
-    [SerializeField]
     private GameObject _extra;
 
     [SerializeField]
@@ -28,8 +26,6 @@ public class UI_Manager : MonoBehaviour
     private GameObject _bgplace;
     [SerializeField]
     private GameObject _bgkiller;
-    [SerializeField]
-    private GameObject _bgdate;
     [SerializeField]
     private GameObject _bgextra;
 
