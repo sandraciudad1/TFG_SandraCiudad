@@ -45,10 +45,10 @@ public class Start_Screen : MonoBehaviour
         _info_msg.SetActive(false);
 
 
-        /*_introBackground.SetActive(true);
+        _introBackground.SetActive(true);
         _newspaper.gameObject.SetActive(true);
         _arrowButton.gameObject.SetActive(true);
-        */
+        
 
 
         //show player info
@@ -56,12 +56,12 @@ public class Start_Screen : MonoBehaviour
         _bgKiller.SetActive(true);
         _textDialog.SetActive(true);*/
 
-        Player player = GameObject.Find("Player").GetComponent<Player>();
+        /*Player player = GameObject.Find("Player").GetComponent<Player>();
         if (player != null)
         {
             player._isPressed = true;
             player._doingTest = false;
-        }
+        }*/
 
     }
 

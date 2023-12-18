@@ -57,6 +57,10 @@ public class Solve : MonoBehaviour
     public bool success;
     public bool check;
     public bool _isColliding;
+    public bool anim;
+    public bool _story;
+    public bool wait;
+    public bool solution;
 
     private DateTime tiempo1, tiempo2;
 
@@ -67,18 +71,41 @@ public class Solve : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI incorrect_solution;
 
+    Vector3 player_infront_pos = new Vector3(-10f, 0.7f, 6f);
+    Quaternion player_infront_rot = Quaternion.Euler(0f, 270f, 0f);
+
 
     // Start is called before the first frame update
     void Start()
     {
+        //acusar_btn.gameObject.SetActive(false);
         count = 0;
         check = false;
         _isColliding = false;
+        anim = false;
+        _story = false;
+        wait = false;
+
     }
 
     // Update is called once per frame
     public void Update()
     {
+        Debug.Log(solution);
+        Story s = GameObject.Find("story").GetComponent<Story>();
+        if (s != null)
+        {
+            if (solution == true)
+            {
+                s.solution = true;
+            } 
+            else if (solution == false)
+            {
+                s.solution = false;
+            }
+        }
+        
+
         Player player = GameObject.Find("Player").GetComponent<Player>();
         if (_weapon.activeInHierarchy == true && _place.activeInHierarchy == true && _extra.activeInHierarchy == true && _reason.activeInHierarchy == true && count == 0)
         {
@@ -98,17 +125,43 @@ public class Solve : MonoBehaviour
         }
 
 
-        if (_isColliding == true)
+        if (_isColliding == true && _weapon.activeInHierarchy == true && _place.activeInHierarchy == true && _extra.activeInHierarchy == true && _reason.activeInHierarchy == true)
         {
             player._isPressed = false;
-            animationController_solution sol = GameObject.Find("Giovanni").GetComponent<animationController_solution>();
-            animationController_knife knife = GameObject.Find("knife").GetComponent<animationController_knife>();
-            if (sol != null && knife != null)
+            float step = Time.deltaTime;
+            player.transform.position = Vector3.MoveTowards(player.transform.position, player_infront_pos, step * 2);
+            player.transform.rotation = Quaternion.RotateTowards(player.transform.rotation, player_infront_rot, step * 10);
+            if(player.transform.position == player_infront_pos && player.transform.rotation == player_infront_rot && anim == false)
             {
-                sol._canStart = true;
-                knife._canStart = true;
+                
+                animationController_solution sol = GameObject.Find("Giovanni").GetComponent<animationController_solution>();
+                animationController_knife knife = GameObject.Find("knife").GetComponent<animationController_knife>();
+                if (sol != null && knife != null)
+                {
+                    sol._canStart = true;
+                    knife._canStart = true;
+                }
+                anim = true;
             }
         }
+
+        if (anim == true && _story == false)
+        {
+            StartCoroutine(wait_anim());
+            Story story = GameObject.Find("story").GetComponent<Story>();
+            if (story != null && wait == true)
+            {
+                story.startIntroduction();
+                _story = true;
+            }
+        }
+
+    }
+
+    IEnumerator wait_anim()
+    {
+        yield return new WaitForSeconds(1.5f);
+        wait = true;
     }
 
     public void checkFinish()
@@ -137,8 +190,19 @@ public class Solve : MonoBehaviour
         buttons.SetActive(true);
     }
 
+    public void reset_values()
+    {
+        bg_xavier.color = Color.white;
+        bg_giovanni.color = Color.white;
+        bg_emma.color = Color.white;
+        bg_gertrud.color = Color.white;
+        bg_gustavo.color = Color.white;
+        bg_alessandro.color = Color.white;
+    }
+
     public void Xavier_pressed()
     {
+        reset_values();
         bg_xavier.color = Color.red;
         acusar_btn.gameObject.SetActive(true);
         name = "Xavier";
@@ -146,13 +210,21 @@ public class Solve : MonoBehaviour
 
     public void Giovanni_pressed()
     {
+        reset_values();
         bg_giovanni.color = Color.red;
         acusar_btn.gameObject.SetActive(true);
         name = "Giovanni";
+        solution = true;
+        Story s = GameObject.Find("story").GetComponent<Story>();
+        if (s != null)
+        {
+            s.solution = true;
+        }
     }
 
     public void Emma_pressed()
     {
+        reset_values();
         bg_emma.color = Color.red;
         acusar_btn.gameObject.SetActive(true);
         name = "Emma";
@@ -160,6 +232,7 @@ public class Solve : MonoBehaviour
 
     public void Gertrud_pressed()
     {
+        reset_values();
         bg_gertrud.color = Color.red;
         acusar_btn.gameObject.SetActive(true);
         name = "Gertrud";
@@ -167,6 +240,7 @@ public class Solve : MonoBehaviour
 
     public void Gustavo_pressed()
     {
+        reset_values();
         bg_gustavo.color = Color.red;
         acusar_btn.gameObject.SetActive(true);
         name = "Gustavo";
@@ -174,6 +248,7 @@ public class Solve : MonoBehaviour
 
     public void Alessandro_pressed()
     {
+        reset_values();
         bg_alessandro.color = Color.red;
         acusar_btn.gameObject.SetActive(true);
         name = "Alessandro";
@@ -200,49 +275,37 @@ public class Solve : MonoBehaviour
         }
     }
 
+    public void check_solution()
+    {
+        
+    }
+
+
     public void acusar_btn_pressed()
     {
         buttons.SetActive(false);
         acusar_btn.gameObject.SetActive(false);
 
-        _Giovanni.SetActive(true);
-        knife.SetActive(true);
-
-
-        bodega_msg.gameObject.SetActive(true);
-        ok_bodega_msg.gameObject.SetActive(true);
-
-        //check_player_position();
-        
-        
-
-        //-     mesaje de dirigirse a bodega
-        //-     activar el gameobject del asesino
-        //-         comprobar si la pos del jugador es la bodega
-        //-         paralizar movimientos jugador
-        //darle la vuelta al asesino
-        //el asesino cuenta la historia
-        //comprobar si el usuario ha acertado
-        //en caso de si: asesino se pone triste y se va arrestado
-        //en caso de no: el asesino se pone contento y escapa
-        //mensaje al usuario para que sepa si ha resuelto o no
-        //si ha resuelto: medalla por resolver
-        
-        
-        /*if (name == "Giovanni")
+        if (name == "Giovanni")
         {
-            correct_solution.gameObject.SetActive(true);
+            solution = true;
+            Update();
         }
         else
         {
-            incorrect_solution.gameObject.SetActive(true);
-        }*/
+            solution = false;
+            Update();
+        }
 
+        _Giovanni.SetActive(true);
+        knife.SetActive(true);
+        solve_btn.gameObject.SetActive(false);
 
+        bodega_msg.gameObject.SetActive(true);
+        ok_bodega_msg.gameObject.SetActive(true);
+        
 
-
-
-        /*tiempo2 = DateTime.Now;
+        tiempo2 = DateTime.Now;
         string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Solution/Time.txt";
         string text = (tiempo2 - tiempo1).Hours + " horas " + (tiempo2 - tiempo1).Minutes + " minutos " + (tiempo2 - tiempo1).Seconds + " segundos";
         File.AppendAllLines(path, new String[] { text });
@@ -255,7 +318,7 @@ public class Solve : MonoBehaviour
             string text_result = "Número de veces que se ha consultado información \n\t Arma: " + ui.weapon_counter + " veces" + "\n\t Lugar: " + ui.place_counter + " veces" + "\n\t Motivo: " + ui.reason_counter + " veces" + "\n\t Pista extra: " + ui.extra_counter + " veces" 
                                 + "\n\t Personajes: " + characters.characters_counter + " veces";
             File.AppendAllLines(path_res, new String[] { text_result });
-        }*/
+        }
 
     }
 

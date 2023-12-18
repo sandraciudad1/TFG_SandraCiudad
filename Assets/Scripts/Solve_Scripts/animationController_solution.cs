@@ -12,6 +12,10 @@ public class animationController_solution : MonoBehaviour
 
     public bool _canStart;
     public bool drop;
+    public bool correct_anim;
+    public bool finish_correct;
+    public bool incorrect_anim;
+    public bool finish_incorrect;
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +23,10 @@ public class animationController_solution : MonoBehaviour
         animator = GetComponent<Animator>();
         _canStart = false;
         drop = false;
-
+        correct_anim = false;
+        incorrect_anim = false;
+        finish_correct = false;
+        finish_incorrect = false;
     }
 
     // Update is called once per frame
@@ -31,6 +38,28 @@ public class animationController_solution : MonoBehaviour
             StartCoroutine(wait_drop());
         }
 
+
+        if (correct_anim == true)
+        {
+            if (animator.GetBool("correct") == false && drop == true && finish_correct == false)
+            {
+                animator.SetBool("correct", true);
+                StartCoroutine(wait_correct());
+            }
+        } 
+        else if (incorrect_anim == true)
+        {
+            if (animator.GetBool("incorrect") == false && drop == true && finish_incorrect == false)
+            {
+                animator.SetBool("incorrect", true);
+                StartCoroutine(wait_incorrect());
+            }
+        }
+
+        
+
+        
+
     }
 
 
@@ -38,6 +67,18 @@ public class animationController_solution : MonoBehaviour
     {
         yield return new WaitForSeconds(1.2f);
         drop = true;
-        animator.SetBool("drop", false);
     }
+
+    IEnumerator wait_correct()
+    {
+        yield return new WaitForSeconds(3f);
+        finish_correct = true;
+    }
+
+    IEnumerator wait_incorrect()
+    {
+        yield return new WaitForSeconds(3f);
+        finish_incorrect = true;
+    }
+
 }
