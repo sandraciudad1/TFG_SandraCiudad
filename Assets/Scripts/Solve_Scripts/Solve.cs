@@ -60,23 +60,43 @@ public class Solve : MonoBehaviour
     public bool anim;
     public bool _story;
     public bool wait;
-    public bool solution;
+    public int solution;
+    public bool acusar;
+
+
+    public string month;
+    public string day;
+    public string year;
+    public string hour;
+    public string _min;
+    public string actual_date;
 
     private DateTime tiempo1, tiempo2;
 
     public int count;
+    public int weapon_counter;
+    public int reason_counter;
+    public int place_counter;
+    public int extra_counter;
+    public int characters_counter;
 
     [SerializeField]
     private TextMeshProUGUI correct_solution;
     [SerializeField]
     private TextMeshProUGUI incorrect_solution;
 
-    Vector3 player_infront_pos = new Vector3(-10f, 0.7f, 6f);
+    Vector3 player_infront_pos = new Vector3(-10f, 0f, 6f);
     Quaternion player_infront_rot = Quaternion.Euler(0f, 270f, 0f);
 
+    [SerializeField]
+    private Image win;
+    [SerializeField]
+    private Image lose;
+
+    public bool save;
 
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         //acusar_btn.gameObject.SetActive(false);
         count = 0;
@@ -85,23 +105,28 @@ public class Solve : MonoBehaviour
         anim = false;
         _story = false;
         wait = false;
-
+        save = false;
     }
 
     // Update is called once per frame
     public void Update()
     {
-        Debug.Log(solution);
-        Story s = GameObject.Find("story").GetComponent<Story>();
-        if (s != null)
+        if((win.gameObject.activeInHierarchy || lose.gameObject.activeInHierarchy) && save == false)
         {
-            if (solution == true)
+            saveResults();
+            saveTimeResults();
+            save = true;
+        }
+
+
+        if (acusar == false)
+        {
+            if (name == "Giovanni")
             {
-                s.solution = true;
-            } 
-            else if (solution == false)
+                solution = 1;
+            } else if (name == "Xavier" || name == "Emma" || name == "Gustavo" || name == "Gertrud" || name == "Alessandro")
             {
-                s.solution = false;
+                solution = -1;
             }
         }
         
@@ -109,18 +134,25 @@ public class Solve : MonoBehaviour
         Player player = GameObject.Find("Player").GetComponent<Player>();
         if (_weapon.activeInHierarchy == true && _place.activeInHierarchy == true && _extra.activeInHierarchy == true && _reason.activeInHierarchy == true && count == 0)
         {
+            tiempo1 = DateTime.Now;
+            month = DateTime.Now.ToString("MM");
+            day = DateTime.Now.ToString("dd");
+            year = DateTime.Now.ToString("yyyy");
+            hour = DateTime.Now.ToString("HH");
+            _min = DateTime.Now.ToString("mm");
+            actual_date = day + "_" + month + "_" + year + "__" + hour + "_" + _min;
 
             if (player != null)
             {
                 if (player._doingTest == false && player._isPressed == true && player._canMove == true)
                 {
-                    tiempo1 = DateTime.Now;
                     background.gameObject.SetActive(true);
                     solve_text.gameObject.SetActive(true);
                     player._canMove = false;
+                    count += 1;
                 }
             }
-            count += 1;
+           
 
         }
 
@@ -186,6 +218,8 @@ public class Solve : MonoBehaviour
 
     public void solve_btn_pressed()
     {
+        _Giovanni.SetActive(true);
+        knife.SetActive(true);
         background.gameObject.SetActive(true);
         buttons.SetActive(true);
     }
@@ -198,6 +232,7 @@ public class Solve : MonoBehaviour
         bg_gertrud.color = Color.white;
         bg_gustavo.color = Color.white;
         bg_alessandro.color = Color.white;
+        name = "";
     }
 
     public void Xavier_pressed()
@@ -206,6 +241,11 @@ public class Solve : MonoBehaviour
         bg_xavier.color = Color.red;
         acusar_btn.gameObject.SetActive(true);
         name = "Xavier";
+        animationController_solution anim = GameObject.Find("Giovanni").GetComponent<animationController_solution>();
+        if (anim != null)
+        {
+            anim.solution = false;
+        }
     }
 
     public void Giovanni_pressed()
@@ -214,11 +254,10 @@ public class Solve : MonoBehaviour
         bg_giovanni.color = Color.red;
         acusar_btn.gameObject.SetActive(true);
         name = "Giovanni";
-        solution = true;
-        Story s = GameObject.Find("story").GetComponent<Story>();
-        if (s != null)
+        animationController_solution anim = GameObject.Find("Giovanni").GetComponent<animationController_solution>();
+        if (anim != null)
         {
-            s.solution = true;
+            anim.solution = true;
         }
     }
 
@@ -228,6 +267,11 @@ public class Solve : MonoBehaviour
         bg_emma.color = Color.red;
         acusar_btn.gameObject.SetActive(true);
         name = "Emma";
+        animationController_solution anim = GameObject.Find("Giovanni").GetComponent<animationController_solution>();
+        if (anim != null)
+        {
+            anim.solution = false;
+        }
     }
 
     public void Gertrud_pressed()
@@ -236,6 +280,11 @@ public class Solve : MonoBehaviour
         bg_gertrud.color = Color.red;
         acusar_btn.gameObject.SetActive(true);
         name = "Gertrud";
+        animationController_solution anim = GameObject.Find("Giovanni").GetComponent<animationController_solution>();
+        if (anim != null)
+        {
+            anim.solution = false;
+        }
     }
 
     public void Gustavo_pressed()
@@ -244,6 +293,11 @@ public class Solve : MonoBehaviour
         bg_gustavo.color = Color.red;
         acusar_btn.gameObject.SetActive(true);
         name = "Gustavo";
+        animationController_solution anim = GameObject.Find("Giovanni").GetComponent<animationController_solution>();
+        if (anim != null)
+        {
+            anim.solution = false;
+        }
     }
 
     public void Alessandro_pressed()
@@ -252,6 +306,11 @@ public class Solve : MonoBehaviour
         bg_alessandro.color = Color.red;
         acusar_btn.gameObject.SetActive(true);
         name = "Alessandro";
+        animationController_solution anim = GameObject.Find("Giovanni").GetComponent<animationController_solution>();
+        if (anim != null)
+        {
+            anim.solution = false;
+        }
     }
 
     public void ok_bodega_pressed()
@@ -281,45 +340,31 @@ public class Solve : MonoBehaviour
     }
 
 
+    public void saveTimeResults()
+    {
+        tiempo2 = DateTime.Now;
+        string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Solution/Time_" + actual_date + ".txt";
+        string text = (tiempo2 - tiempo1).Hours + " horas " + (tiempo2 - tiempo1).Minutes + " minutos " + (tiempo2 - tiempo1).Seconds + " segundos";
+        File.AppendAllLines(path, new String[] { text });
+    }
+
+    public void saveResults()
+    {
+        string path_res = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Solution/Results_" + actual_date + ".txt";
+        string text_result = "Número de veces que se ha consultado información \n\t Arma: " + weapon_counter + " veces" + "\n\t Lugar: " + place_counter + " veces" + "\n\t Motivo: " + reason_counter + " veces" + "\n\t Pista extra: " + extra_counter + " veces"
+                            + "\n\t Personajes: " + characters_counter + " veces";
+        File.AppendAllLines(path_res, new String[] { text_result });
+    }
+
     public void acusar_btn_pressed()
     {
         buttons.SetActive(false);
         acusar_btn.gameObject.SetActive(false);
 
-        if (name == "Giovanni")
-        {
-            solution = true;
-            Update();
-        }
-        else
-        {
-            solution = false;
-            Update();
-        }
-
-        _Giovanni.SetActive(true);
-        knife.SetActive(true);
         solve_btn.gameObject.SetActive(false);
 
         bodega_msg.gameObject.SetActive(true);
         ok_bodega_msg.gameObject.SetActive(true);
-        
-
-        tiempo2 = DateTime.Now;
-        string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Solution/Time.txt";
-        string text = (tiempo2 - tiempo1).Hours + " horas " + (tiempo2 - tiempo1).Minutes + " minutos " + (tiempo2 - tiempo1).Seconds + " segundos";
-        File.AppendAllLines(path, new String[] { text });
-
-        UI_Manager ui = GameObject.Find("Inventry").GetComponent<UI_Manager>();
-        charactersInfo characters = GameObject.Find("Characters_info").GetComponent<charactersInfo>();
-        if (ui != null && characters != null)
-        {
-            string path_res = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Solution/Results.txt";
-            string text_result = "Número de veces que se ha consultado información \n\t Arma: " + ui.weapon_counter + " veces" + "\n\t Lugar: " + ui.place_counter + " veces" + "\n\t Motivo: " + ui.reason_counter + " veces" + "\n\t Pista extra: " + ui.extra_counter + " veces" 
-                                + "\n\t Personajes: " + characters.characters_counter + " veces";
-            File.AppendAllLines(path_res, new String[] { text_result });
-        }
-
     }
 
 

@@ -36,9 +36,10 @@ public class Story : MonoBehaviour
         
     }
 
-    private void Update()
+    public void Update()
     {
-        Debug.Log("solution " + solution);
+        
+        
     }
 
     public void startIntroduction()
@@ -108,22 +109,21 @@ public class Story : MonoBehaviour
         }
         else if (count == 12)
         {
-            Solve solve = GameObject.Find("Solve").GetComponent<Solve>();
             animationController_solution anim = GameObject.Find("Giovanni").GetComponent<animationController_solution>();
-            if (solve != null && anim != null)
+            if (anim != null)
             {
-
-                Debug.Log(solve.solution);
-                if(solution == true)
+                if (anim.solution == true)
                 {
                     correct.gameObject.SetActive(true);
                     anim.correct_anim = true;
-                } else if (solution == false)
+                }
+                else if (anim.solution == false)
                 {
                     incorrect.gameObject.SetActive(true);
                     anim.incorrect_anim = true;
                 }
             }
+            
         }
         else if (count > 12)
         {
@@ -132,6 +132,8 @@ public class Story : MonoBehaviour
             giovanni_dialog.SetActive(false);
         }
     }
+
+
 
     public void defaultValues()
     {

@@ -79,7 +79,6 @@ public class Television : MonoBehaviour
             {
                 //caras._canStart = true;
                 caras.canStart();
-                next = true;
             }
             check = false;
         }

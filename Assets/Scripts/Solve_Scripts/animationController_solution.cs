@@ -10,12 +10,18 @@ public class animationController_solution : MonoBehaviour
 {
     Animator animator;
 
+    [SerializeField]
+    private Image win;
+    [SerializeField]
+    private Image lose;
+
     public bool _canStart;
     public bool drop;
     public bool correct_anim;
     public bool finish_correct;
     public bool incorrect_anim;
     public bool finish_incorrect;
+    public bool solution;
 
     // Start is called before the first frame update
     void Start()
@@ -30,8 +36,10 @@ public class animationController_solution : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
+        Debug.Log("sol " + solution);
+
         if (_canStart == true && drop == false && animator.GetBool("drop") == false)
         {
             animator.SetBool("drop", true);
@@ -39,20 +47,22 @@ public class animationController_solution : MonoBehaviour
         }
 
 
-        if (correct_anim == true)
+        if (incorrect_anim == true)
         {
             if (animator.GetBool("correct") == false && drop == true && finish_correct == false)
             {
                 animator.SetBool("correct", true);
                 StartCoroutine(wait_correct());
+                
             }
         } 
-        else if (incorrect_anim == true)
+        else if (correct_anim == true)
         {
             if (animator.GetBool("incorrect") == false && drop == true && finish_incorrect == false)
             {
                 animator.SetBool("incorrect", true);
                 StartCoroutine(wait_incorrect());
+                
             }
         }
 
@@ -71,13 +81,15 @@ public class animationController_solution : MonoBehaviour
 
     IEnumerator wait_correct()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(3.2f);
+        win.gameObject.SetActive(true);
         finish_correct = true;
     }
 
     IEnumerator wait_incorrect()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(3.2f);
+        lose.gameObject.SetActive(true);
         finish_incorrect = true;
     }
 

@@ -29,13 +29,13 @@ public class animationEffects : MonoBehaviour
     public bool finish_introduction;
 
     //positions and rotations for stroop animation
-    Vector3 target_pos_stroop = new Vector3(13.37f, 0.7f, -9.29f);
+    Vector3 target_pos_stroop = new Vector3(13.37f, 0f, -9.29f);
     Quaternion target_rot_stroop = Quaternion.Euler(0f, 0f, 0f);
     Vector3 final_pos_stroop = new Vector3(13.358f, 1.31f, -8.092f);
 
     //positions and rotations for init animation
-    Vector3 target_pos_init = new Vector3(-2.59f, 0.7f, 23.088f);
-    Vector3 target_pos2_init = new Vector3(-1.423f, 0.7f, 27.7f);
+    Vector3 target_pos_init = new Vector3(-2.59f, 0f, 23.088f);
+    Vector3 target_pos2_init = new Vector3(-1.423f, 0f, 27.7f);
     Quaternion target_rot_init = Quaternion.Euler(0f, 10f, 0f);
 
     //rotations for door

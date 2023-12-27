@@ -84,7 +84,6 @@ public class Caras_test : MonoBehaviour
     public bool _canStart;
 
     public string value;
-    public bool pressed;
     public bool start_timer;
     public string text_result;
     public float stop;
@@ -110,7 +109,6 @@ public class Caras_test : MonoBehaviour
         //_canStart = false;
         isrunning = false;
         count = 1;
-        pressed = false;
         start_timer = false;
         //nextTest();
         finish = false;
@@ -132,17 +130,17 @@ public class Caras_test : MonoBehaviour
         nextTest();
     }
 
-    void Update()
+    public void Update()
     {
-
         if (showCard == true && finish == false)
         {
             showCard_caras();
             finish = true;
         }
 
-        if (count > 2 && time == false)
+        if (count > 6 && time == false)
         {
+            saveTimeResults();
             img1.gameObject.SetActive(false);
             img2.gameObject.SetActive(false);
             img3.gameObject.SetActive(false);
@@ -152,10 +150,10 @@ public class Caras_test : MonoBehaviour
             finish_btn_caras.gameObject.SetActive(true);
             timer_text.gameObject.SetActive(false);
             //finish = true;
-            saveTimeResults();
+            
             time = true;
         }
-        else if (count <= 2 && _canStart == true)
+        else if (count <= 6 && _canStart == true)
         {
             remaining_time = Math.Abs(remaining_time);
             float timer = Math.Abs(Time.deltaTime);
@@ -167,17 +165,26 @@ public class Caras_test : MonoBehaviour
             seconds = Math.Abs(seconds);
             timer_text.text = string.Format("{0:00}:{1:00}", minutes, seconds);
 
-            if (pressed == true)
-            {
-                img1.interactable = false;
-                img2.interactable = false;
-                img3.interactable = false;
-            }
+            
 
-            if(minutes == 0 && seconds == 0)
+            if (minutes == 0 && seconds == 0)
             {
-                //nextTest();
+                if (red_cross1.gameObject.activeInHierarchy)
+                {
+                    value = "Izquierda";
+                } else if (red_cross2.gameObject.activeInHierarchy)
+                {
+                    value = "Centro";
+                } else if (red_cross3.gameObject.activeInHierarchy)
+                {
+                    value = "Derecha";
+                } else
+                {
+                    value = "";
+                }
+
                 saveTestsResults();
+                
             }
         }
     }
@@ -198,7 +205,6 @@ public class Caras_test : MonoBehaviour
 
     public void showCard_caras()
     {
-        //coroutine con tiempo de apagado de pantalla
         show_cards show = GameObject.Find("Cards").GetComponent<show_cards>();
         if (show != null)
         {
@@ -229,7 +235,6 @@ public class Caras_test : MonoBehaviour
         red_cross3.gameObject.SetActive(false);
         remaining_time = 6;
         
-        pressed = false;
         value = "";
     }
 
@@ -244,7 +249,6 @@ public class Caras_test : MonoBehaviour
 
     public void saveTestsResults()
     {
-        
         string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Caras/Results_" + actual_date + ".txt";
         if (count > 0)
         {
@@ -263,26 +267,26 @@ public class Caras_test : MonoBehaviour
 
     public void firstClicked()
     {
+        img1.interactable = false;
+        img2.interactable = false;
+        img3.interactable = false;
         red_cross1.gameObject.SetActive(true);
-        value = "Izquierda";
-        saveTestsResults();
-        pressed = true;
     }
 
     public void secondClicked()
     {
+        img1.interactable = false;
+        img2.interactable = false;
+        img3.interactable = false;
         red_cross2.gameObject.SetActive(true);
-        value = "Centro";
-        saveTestsResults();
-        pressed = true;
     }
 
     public void thirdClicked()
     {
+        img1.interactable = false;
+        img2.interactable = false;
+        img3.interactable = false;
         red_cross3.gameObject.SetActive(true);
-        value = "Derecha";
-        saveTestsResults();
-        pressed = true;
     }
 
 

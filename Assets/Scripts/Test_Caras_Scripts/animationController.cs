@@ -22,16 +22,16 @@ public class animationController : MonoBehaviour
     private GameObject _screen;
 
     //player in sofa position
-    Vector3 player_remoteControl_pos = new Vector3(-10.1f, 0.7f, -0.12f);
+    Vector3 player_remoteControl_pos = new Vector3(-10.1f, 0f, -0.12f);
     Quaternion player_remoteControl_rot = Quaternion.Euler(0f, 180f, 0f);
 
     //player arriving to tv position
-    Vector3 player_left_caras_pos = new Vector3(-8.43f, 0.7f, -0.12f);
-    Vector3 player_straight_caras_pos = new Vector3(-8.43f, 0.7f, -3.74f);
-    Vector3 player_right_caras_pos = new Vector3(-11.44f, 0.7f, -8.3f);
+    Vector3 player_left_caras_pos = new Vector3(-8.43f, 0f, -0.12f);
+    Vector3 player_straight_caras_pos = new Vector3(-8.43f, 0f, -3.74f);
+    Vector3 player_right_caras_pos = new Vector3(-11.44f, 0f, -8.3f);
     Quaternion player_final_pos_rotation = Quaternion.Euler(-2.5f, 180f, 0f);
 
-    Vector3 final_pos = new Vector3(-11.44f, 0.7f, -5.726f);
+    Vector3 final_pos = new Vector3(-11.44f, 0f, -5.726f);
     Quaternion final_rot = Quaternion.Euler(0.00f, 180f, 0f);
 
     public bool clicked;
@@ -98,7 +98,7 @@ public class animationController : MonoBehaviour
             }
         }
 
-        float step = Time.deltaTime;
+        float step = Time.deltaTime * 2;
         Player player = GameObject.Find("Player").GetComponent<Player>();
         if (player != null && clicked == true && remoteControl_pos == false)
         {

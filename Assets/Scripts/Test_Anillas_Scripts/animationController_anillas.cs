@@ -11,11 +11,11 @@ public class animationController_anillas : MonoBehaviour
     Animator animator;
 
     //player movements
-    Vector3 player_anillas_pos = new Vector3(4.093f, 0.7f, 2.79f);
+    Vector3 player_anillas_pos = new Vector3(4.093f, 0f, 2.79f);
     Quaternion player_anillas_rot = Quaternion.Euler(0f, 176.3f, 0f);
 
-    Vector3 player_final_pos = new Vector3(4.119f, 0.7f, 1.931f);
-    Vector3 player_return_pos = new Vector3(3.773f, 0.7f, 3.294f);
+    Vector3 player_final_pos = new Vector3(4.119f, 0f, 1.931f);
+    Vector3 player_return_pos = new Vector3(3.773f, 0f, 3.294f);
 
     [SerializeField]
     private GameObject _particles;

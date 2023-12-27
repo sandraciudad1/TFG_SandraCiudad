@@ -15,7 +15,7 @@ public class animationController_nback : MonoBehaviour
     private GameObject _particles;
 
     //player in sofa position
-    Vector3 player_cardDeck_pos = new Vector3(7f, 0.7f, -24f);
+    Vector3 player_cardDeck_pos = new Vector3(7f, 0f, -24f);
     Quaternion player_cardDeck_rot = Quaternion.Euler(0f, 270f, 0f);
 
     Quaternion initial_rot = Quaternion.Euler(0f, 270f, 0f);
