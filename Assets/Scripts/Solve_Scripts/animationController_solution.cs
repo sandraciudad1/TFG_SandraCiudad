@@ -14,6 +14,7 @@ public class animationController_solution : MonoBehaviour
     private Image win;
     [SerializeField]
     private Image lose;
+    public AudioSource audio;
 
     public bool _canStart;
     public bool drop;
@@ -22,6 +23,7 @@ public class animationController_solution : MonoBehaviour
     public bool incorrect_anim;
     public bool finish_incorrect;
     public bool solution;
+    public bool finish_game;
 
     // Start is called before the first frame update
     void Start()
@@ -33,12 +35,12 @@ public class animationController_solution : MonoBehaviour
         incorrect_anim = false;
         finish_correct = false;
         finish_incorrect = false;
+        finish_game = false;
     }
 
     // Update is called once per frame
     public void Update()
     {
-        Debug.Log("sol " + solution);
 
         if (_canStart == true && drop == false && animator.GetBool("drop") == false)
         {
@@ -67,7 +69,10 @@ public class animationController_solution : MonoBehaviour
         }
 
         
-
+        if((finish_correct == true || finish_incorrect == true) && finish_game == false)
+        {
+            StartCoroutine(wait_finish());
+        }
         
 
     }
@@ -82,15 +87,24 @@ public class animationController_solution : MonoBehaviour
     IEnumerator wait_correct()
     {
         yield return new WaitForSeconds(3.2f);
-        win.gameObject.SetActive(true);
-        finish_correct = true;
+        lose.gameObject.SetActive(true);
+        finish_incorrect = true;
     }
 
     IEnumerator wait_incorrect()
     {
         yield return new WaitForSeconds(3.2f);
-        lose.gameObject.SetActive(true);
-        finish_incorrect = true;
+        win.gameObject.SetActive(true);
+        finish_correct = true;
+    }
+
+    IEnumerator wait_finish()
+    {
+        yield return new WaitForSeconds(2f);
+        //Time.timeScale = 0f;
+        audio = GetComponent<AudioSource>();
+        audio.Stop();
+        finish_game = true;
     }
 
 }

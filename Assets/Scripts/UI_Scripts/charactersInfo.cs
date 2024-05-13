@@ -44,6 +44,24 @@ public class charactersInfo : MonoBehaviour
 
     public Image image;
 
+    [SerializeField] private Button soundXavier;
+    [SerializeField] private Button soundBianca;
+    [SerializeField] private Button soundGiovanni;
+    [SerializeField] private Button soundEmma;
+    [SerializeField] private Button soundGertrud;
+    [SerializeField] private Button soundGustavo;
+    [SerializeField] private Button soundAlessandro;
+
+    public AudioSource audioSource;
+    public AudioClip audXavier;
+    public AudioClip audBianca;
+    public AudioClip audGiovanni;
+    public AudioClip audEmma;
+    public AudioClip audGertrud;
+    public AudioClip audGustavo;
+    public AudioClip audAlessandro;
+
+    public int chatBtnCounter = 0;
 
     public void showInfo()
     {
@@ -106,14 +124,32 @@ public class charactersInfo : MonoBehaviour
         }
     }
 
+    public void resetSoundButtons()
+    {
+        soundXavier.gameObject.SetActive(false);
+        soundBianca.gameObject.SetActive(false);
+        soundGiovanni.gameObject.SetActive(false);
+        soundEmma.gameObject.SetActive(false);
+        soundGertrud.gameObject.SetActive(false);
+        soundGustavo.gameObject.SetActive(false);
+        soundAlessandro.gameObject.SetActive(false);
+    }
+
     public void XavierInfo()
     {
+        Solve solve = GameObject.Find("Solve").GetComponent<Solve>();
+        if (solve != null)
+        {
+            solve.Xavier_counter += 1;
+        }
         _buttonsCharacters.SetActive(false);
+        resetSoundButtons();
+        soundXavier.gameObject.SetActive(true);
         _info.SetActive(true);
         name.text = "Xavier";
         relation.text = "Marido de la víctima";
         relation.color = Color.black;
-        description.text = "Xavier es licenciado en negocios y finanzas que trabaja en una gran empresa con prestigio a nivel " +
+        description.text = "Xavier es licenciado en negocios y finanzas y trabaja en una gran empresa con prestigio a nivel " +
                             "internacional. Sus logros empresariales le obligan a viajar constantemente, por lo que apenas pasa" +
                             "tiempo con su familia, lo que le ocasiona más de un problema familiar, especialmente con Bianca. " +
                             "\n\n Es una persona a la que le encanta pasar tiempo en familia, aunque en su escaso tiempo libre " +
@@ -123,7 +159,14 @@ public class charactersInfo : MonoBehaviour
 
     public void BiancaInfo()
     {
+        Solve solve = GameObject.Find("Solve").GetComponent<Solve>();
+        if (solve != null)
+        {
+            solve.Bianca_counter += 1;
+        }
         _buttonsCharacters.SetActive(false);
+        resetSoundButtons();
+        soundBianca.gameObject.SetActive(true);
         _info.SetActive(true);
         name.text = "Bianca";
         relation.text = "Víctima";
@@ -138,7 +181,14 @@ public class charactersInfo : MonoBehaviour
 
     public void GiovanniInfo()
     {
+        Solve solve = GameObject.Find("Solve").GetComponent<Solve>();
+        if (solve != null)
+        {
+            solve.Giovanni_counter += 1;
+        }
         _buttonsCharacters.SetActive(false);
+        resetSoundButtons();
+        soundGiovanni.gameObject.SetActive(true);
         _info.SetActive(true);
         name.text = "Giovanni";
         relation.text = "Hijo de la víctima";
@@ -154,7 +204,14 @@ public class charactersInfo : MonoBehaviour
 
     public void EmmaInfo()
     {
+        Solve solve = GameObject.Find("Solve").GetComponent<Solve>();
+        if (solve != null)
+        {
+            solve.Emma_counter += 1;
+        }
         _buttonsCharacters.SetActive(false);
+        resetSoundButtons();
+        soundEmma.gameObject.SetActive(true);
         _info.SetActive(true);
         name.text = "Emma";
         relation.text = "Hija de la víctima";
@@ -169,10 +226,17 @@ public class charactersInfo : MonoBehaviour
 
     public void GertrudInfo()
     {
+        Solve solve = GameObject.Find("Solve").GetComponent<Solve>();
+        if (solve != null)
+        {
+            solve.Gertrud_counter += 1;
+        }
         _buttonsCharacters.SetActive(false);
+        resetSoundButtons();
+        soundGertrud.gameObject.SetActive(true);
         _info.SetActive(true);
         name.text = "Gertrud";
-        relation.text = "Limpiadora de la víctima";
+        relation.text = "Personal de limpieza";
         relation.color = Color.black;
         description.text = "Gertrud es una señora de avanzada edad, que durante toda su vida ha trabajado en la mansión de los Walton como " +
                             "encargada de la limpieza y en ocasiones ayudante de cocina." +
@@ -183,10 +247,17 @@ public class charactersInfo : MonoBehaviour
 
     public void GustavoInfo()
     {
+        Solve solve = GameObject.Find("Solve").GetComponent<Solve>();
+        if (solve != null)
+        {
+            solve.Gustavo_counter += 1;
+        }
         _buttonsCharacters.SetActive(false);
+        resetSoundButtons();
+        soundGustavo.gameObject.SetActive(true);
         _info.SetActive(true);
         name.text = "Gustavo";
-        relation.text = "Cocinero de la víctima";
+        relation.text = "Cocinero";
         relation.color = Color.black;
         description.text = "Gustavo es un hombre de familia humilde que trabaja desde hace 15 años en la mansión de los Walton como cocinero. " +
                             "Los largos turnos de trabajo lo obligan a hospedarse allí, por lo que tiene una muy buena relación con la familia, " +
@@ -197,17 +268,72 @@ public class charactersInfo : MonoBehaviour
 
     public void AlessandroInfo()
     {
+        Solve solve = GameObject.Find("Solve").GetComponent<Solve>();
+        if (solve != null)
+        {
+            solve.Alessandro_counter += 1;
+        }
         _buttonsCharacters.SetActive(false);
+        resetSoundButtons();
+        soundAlessandro.gameObject.SetActive(true);
         _info.SetActive(true);
         name.text = "Alessandro";
-        relation.text = "Vigilante de la víctima";
+        relation.text = "Personal de seguridad";
         relation.color = Color.black;
         description.text = "Alessandro es un apasionado del deporte y la defensa personal. Es vigilante de seguridad y ha sido contratado" +
                             "por la familia Walton para mantener la seguridad en la mansión. Su misión es vigilar la mansión tanto por dentro " +
                             "como por fuera, a excepción de la bodega, cuya puerta debe estar siempre cerrada para conservar la temperatura" +
                             "y no estropear el vino." +
-                            "\n\n Mantiene una relación amorosa con Giovanni, aunque Xavier y Emma no son capaces de aceptarla.";
+                            "\n\n Mantiene una relación amorosa con Giovanni, aunque Xavier y Bianca no son capaces de aceptarla.";
         image.sprite = Alessandro;
     }
 
+    public void soundXavierBtn()
+    {
+        chatBtnCounter++;
+        audioSource.clip = audXavier;
+        audioSource.Play();
+    }
+
+    public void soundBiancaBtn()
+    {
+        chatBtnCounter++;
+        audioSource.clip = audBianca;
+        audioSource.Play();
+    }
+
+    public void soundGiovanniBtn()
+    {
+        chatBtnCounter++;
+        audioSource.clip = audGiovanni;
+        audioSource.Play();
+    }
+
+    public void soundEmmaBtn()
+    {
+        chatBtnCounter++;
+        audioSource.clip = audEmma;
+        audioSource.Play();
+    }
+
+    public void soundGertrudBtn()
+    {
+        chatBtnCounter++;
+        audioSource.clip = audGertrud;
+        audioSource.Play();
+    }
+
+    public void soundGustavoBtn()
+    {
+        chatBtnCounter++;
+        audioSource.clip = audGustavo;
+        audioSource.Play();
+    }
+
+    public void soundAlessandroBtn()
+    {
+        chatBtnCounter++;
+        audioSource.clip = audAlessandro;
+        audioSource.Play();
+    }
 }

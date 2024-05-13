@@ -94,7 +94,7 @@ public class Stroop_test : MonoBehaviour
     public void Update()
     {
 
-        if (count > 4 && time == false)
+        if (count > 10 && time == false)
         {
             title_color1_txt.gameObject.SetActive(false);
             title_color2_txt.gameObject.SetActive(false);
@@ -108,7 +108,7 @@ public class Stroop_test : MonoBehaviour
             saveTimeResults();
             time = true;
         }
-        else if (count <= 4 && start == true)
+        else if (count <= 10 && start == true)
         {
             if ((color1_dd.value == 0 && color2_dd.value == 0 && color3_dd.value == 0) && restart == true)
             {

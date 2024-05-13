@@ -28,7 +28,7 @@ public class animationController : MonoBehaviour
     //player arriving to tv position
     Vector3 player_left_caras_pos = new Vector3(-8.43f, 0f, -0.12f);
     Vector3 player_straight_caras_pos = new Vector3(-8.43f, 0f, -3.74f);
-    Vector3 player_right_caras_pos = new Vector3(-11.44f, 0f, -8.3f);
+    Vector3 player_right_caras_pos = new Vector3(-11.44f, 0f, -8f);
     Quaternion player_final_pos_rotation = Quaternion.Euler(-2.5f, 180f, 0f);
 
     Vector3 final_pos = new Vector3(-11.44f, 0f, -5.726f);
@@ -242,7 +242,7 @@ public class animationController : MonoBehaviour
 
     IEnumerator wait_animation_caras()
     {
-        yield return new WaitForSeconds(4.5f);
+        yield return new WaitForSeconds(3.5f);
         start_moving = true;
     }
 

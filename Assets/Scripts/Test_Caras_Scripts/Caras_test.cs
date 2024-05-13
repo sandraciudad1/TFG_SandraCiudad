@@ -9,51 +9,41 @@ using System.Threading;
 
 public class Caras_test : MonoBehaviour
 {
-    [SerializeField]
-    public GameObject _canvasCaras;
-    [SerializeField]
-    public GameObject _background;
-    [SerializeField]
-    private Button finish_btn_caras;
-    [SerializeField]
-    private Image bar_fill;
+    [SerializeField] public GameObject _canvasCaras;
+    [SerializeField] public GameObject _background;
+    [SerializeField] private GameObject finish_btn_caras;
+    [SerializeField] private Image bar_fill;
 
-    [SerializeField]
-    private Sprite caras11;
-    [SerializeField]
-    private Sprite caras12; 
-    [SerializeField]
-    private Sprite caras13;
-    [SerializeField]
-    private Sprite caras21;
-    [SerializeField]
-    private Sprite caras22;
-    [SerializeField]
-    private Sprite caras23;
-    [SerializeField]
-    private Sprite caras31;
-    [SerializeField]
-    private Sprite caras32;
-    [SerializeField]
-    private Sprite caras33;
-    [SerializeField]
-    private Sprite caras41;
-    [SerializeField]
-    private Sprite caras42;
-    [SerializeField]
-    private Sprite caras43;
-    [SerializeField]
-    private Sprite caras51;
-    [SerializeField]
-    private Sprite caras52;
-    [SerializeField]
-    private Sprite caras53;
-    [SerializeField]
-    private Sprite caras61;
-    [SerializeField]
-    private Sprite caras62;
-    [SerializeField]
-    private Sprite caras63;
+    [SerializeField] private Sprite caras11;
+    [SerializeField] private Sprite caras12; 
+    [SerializeField] private Sprite caras13;
+    [SerializeField] private Sprite caras21;
+    [SerializeField] private Sprite caras22;
+    [SerializeField] private Sprite caras23;
+    [SerializeField] private Sprite caras31;
+    [SerializeField] private Sprite caras32;
+    [SerializeField] private Sprite caras33;
+    [SerializeField] private Sprite caras41;
+    [SerializeField] private Sprite caras42;
+    [SerializeField] private Sprite caras43;
+    [SerializeField] private Sprite caras51;
+    [SerializeField] private Sprite caras52;
+    [SerializeField] private Sprite caras53;
+    [SerializeField] private Sprite caras61;
+    [SerializeField] private Sprite caras62;
+    [SerializeField] private Sprite caras63;
+    [SerializeField] private Sprite caras71;
+    [SerializeField] private Sprite caras72;
+    [SerializeField] private Sprite caras73;
+    [SerializeField] private Sprite caras81;
+    [SerializeField] private Sprite caras82;
+    [SerializeField] private Sprite caras83;
+    [SerializeField] private Sprite caras91;
+    [SerializeField] private Sprite caras92;
+    [SerializeField] private Sprite caras93;
+    [SerializeField] private Sprite caras101;
+    [SerializeField] private Sprite caras102;
+    [SerializeField] private Sprite caras103;
 
 
     [SerializeField]
@@ -69,6 +59,12 @@ public class Caras_test : MonoBehaviour
     public Image red_cross1;
     public Image red_cross2;
     public Image red_cross3;
+    public Image tick1;
+    public Image tick2;
+    public Image tick3;
+    [SerializeField] private GameObject pressed1;
+    [SerializeField] private GameObject pressed2;
+    [SerializeField] private GameObject pressed3;
 
     private int count;
     public DateTime tiempo1, tiempo2;
@@ -85,7 +81,7 @@ public class Caras_test : MonoBehaviour
 
     public string value;
     public bool start_timer;
-    public string text_result;
+    public string text_result="";
     public float stop;
 
     [SerializeField] TextMeshProUGUI timer_text;
@@ -103,6 +99,11 @@ public class Caras_test : MonoBehaviour
 
     public bool time;
     public string actual_date;
+    private bool saveTime = false;
+    private int clickCounter=1;
+    private bool clickCara = false;
+    private bool izq = false, cen=false, der=false;
+    private bool saveResults = false;
 
     public void Start()
     {
@@ -113,11 +114,8 @@ public class Caras_test : MonoBehaviour
         //nextTest();
         finish = false;
         time = false;
-
-    }
-
-    public void canStart()
-    {
+        remaining_time = 31;
+        //canStart();
         tiempo1 = DateTime.Now;
         month = DateTime.Now.ToString("MM");
         day = DateTime.Now.ToString("dd");
@@ -126,69 +124,86 @@ public class Caras_test : MonoBehaviour
         _min = DateTime.Now.ToString("mm");
         actual_date = day + "_" + month + "_" + year + "__" + hour + "_" + _min;
 
+    }
+
+    public void canStart()
+    {
+        
+
         _canStart = true;
+        remaining_time = 31;
         nextTest();
     }
 
     public void Update()
     {
+        
         if (showCard == true && finish == false)
         {
             showCard_caras();
             finish = true;
         }
 
-        if (count > 6 && time == false)
+        if (_canStart == true)
         {
-            saveTimeResults();
-            img1.gameObject.SetActive(false);
-            img2.gameObject.SetActive(false);
-            img3.gameObject.SetActive(false);
-            red_cross1.gameObject.SetActive(false);
-            red_cross2.gameObject.SetActive(false);
-            red_cross3.gameObject.SetActive(false);
-            finish_btn_caras.gameObject.SetActive(true);
-            timer_text.gameObject.SetActive(false);
-            //finish = true;
-            
-            time = true;
-        }
-        else if (count <= 6 && _canStart == true)
-        {
-            remaining_time = Math.Abs(remaining_time);
-            float timer = Math.Abs(Time.deltaTime);
-            remaining_time -= timer;
-            
-            minutes = Mathf.FloorToInt(remaining_time / 60);
-            seconds = Mathf.FloorToInt(remaining_time % 60);
-            minutes = Math.Abs(minutes);
-            seconds = Math.Abs(seconds);
+            remaining_time -= Time.deltaTime;
+            remaining_time = Mathf.Max(0f, remaining_time);
+
+            int minutes = Mathf.FloorToInt(remaining_time / 60);
+            int seconds = Mathf.FloorToInt(remaining_time % 60);
             timer_text.text = string.Format("{0:00}:{1:00}", minutes, seconds);
 
-            
-
-            if (minutes == 0 && seconds == 0)
+            if (count > 10 || (minutes <= 0 && seconds <= 0))
             {
-                if (red_cross1.gameObject.activeInHierarchy)
-                {
-                    value = "Izquierda";
-                } else if (red_cross2.gameObject.activeInHierarchy)
-                {
-                    value = "Centro";
-                } else if (red_cross3.gameObject.activeInHierarchy)
-                {
-                    value = "Derecha";
-                } else
-                {
-                    value = "";
-                }
+                saveTimeResults();
+                img1.gameObject.SetActive(false);
+                img2.gameObject.SetActive(false);
+                img3.gameObject.SetActive(false);
+                finish_btn_caras.gameObject.SetActive(true);
+                timer_text.gameObject.SetActive(false);
 
-                saveTestsResults();
-                
+                time = true;
             }
+
+            if (time == true)
+            {
+                saveTestsResults();
+                time = false;
+            }
+
         }
+
+
+        if(img1.interactable == false && clickCounter <= 10 && clickCara == false)
+        {
+            if (pressed3.activeInHierarchy)
+            {
+                value = "Derecha";
+            }
+            else if (pressed2.activeInHierarchy)
+            {
+                value = "Centro";
+            }
+            else if (pressed1.activeInHierarchy)
+            {
+                value = "Izquierda";
+            }
+            
+            showCorrectOption(value);
+            text_result += "ronda " + clickCounter + ": " + value + "\n";
+            Debug.Log(text_result);
+            
+            
+            clickCounter++;
+
+            clickCara = true;
+        }
+
+        
+
+
     }
-       
+
 
     public void finishCaras()
     {
@@ -233,9 +248,15 @@ public class Caras_test : MonoBehaviour
         red_cross1.gameObject.SetActive(false);
         red_cross2.gameObject.SetActive(false);
         red_cross3.gameObject.SetActive(false);
-        remaining_time = 6;
-        
-        value = "";
+        tick1.gameObject.SetActive(false);
+        tick2.gameObject.SetActive(false);
+        tick3.gameObject.SetActive(false);
+        remaining_time = 31;
+        pressed1.SetActive(false);
+        pressed2.SetActive(false);
+        pressed3.SetActive(false);
+        clickCara = false;
+        //value = "";
     }
 
     public void saveTimeResults()
@@ -243,7 +264,7 @@ public class Caras_test : MonoBehaviour
         tiempo2 = DateTime.Now;
         string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Caras/Time_" + actual_date + ".txt";
         string text = (tiempo2 - tiempo1).Hours + " horas " + (tiempo2 - tiempo1).Minutes + " minutos " + (tiempo2 - tiempo1).Seconds + " segundos";
-
+        
         File.AppendAllLines(path, new String[] { text });
     }
 
@@ -252,43 +273,88 @@ public class Caras_test : MonoBehaviour
         string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Caras/Results_" + actual_date + ".txt";
         if (count > 0)
         {
-            text_result = "ronda " + count + ": " + value;
+            
             File.AppendAllLines(path, new String[] { text_result });
-            nextTest();
         }
     }
 
     public void UpdateProgress()
     {
-        float amount = (float)count / 6;
+        float amount = (float)count / 10;
         bar_fill.fillAmount = amount;
     }
 
 
     public void firstClicked()
     {
-        img1.interactable = false;
-        img2.interactable = false;
-        img3.interactable = false;
-        red_cross1.gameObject.SetActive(true);
+        pressed1.SetActive(true);
+        notInteractable();
     }
 
     public void secondClicked()
     {
-        img1.interactable = false;
-        img2.interactable = false;
-        img3.interactable = false;
-        red_cross2.gameObject.SetActive(true);
+        pressed2.SetActive(true);
+        notInteractable(); 
     }
 
     public void thirdClicked()
     {
+        pressed3.SetActive(true);
+        notInteractable();
+    }
+
+    public void notInteractable()
+    {
         img1.interactable = false;
         img2.interactable = false;
         img3.interactable = false;
-        red_cross3.gameObject.SetActive(true);
     }
 
+    void showCorrectOption(String value)
+    {
+        if (clickCounter == 1 || clickCounter == 5 || clickCounter == 6 || clickCounter == 9) { correctDer(value); }
+        else if (clickCounter == 2 || clickCounter == 3 || clickCounter == 4 || clickCounter == 8) { correctCen(value); }
+        else if (clickCounter == 7 || clickCounter == 10) { correctIzq(value); }
+    }
+
+    public void correctDer(String value)
+    {
+        tick3.gameObject.SetActive(true);
+        if (value.Equals("Centro"))
+        {
+            red_cross2.gameObject.SetActive(true);
+        }
+        else if (value.Equals("Izquierda"))
+        {
+            red_cross1.gameObject.SetActive(true);
+        }
+    }
+
+    public void correctCen(String value)
+    {
+        tick2.gameObject.SetActive(true);
+        if (value.Equals("Derecha"))
+        {
+            red_cross3.gameObject.SetActive(true);
+        }
+        else if (value.Equals("Izquierda"))
+        {
+            red_cross1.gameObject.SetActive(true);
+        }
+    }
+
+    public void correctIzq(String value)
+    {
+        tick1.gameObject.SetActive(true);
+        if (value.Equals("Derecha"))
+        {
+            red_cross3.gameObject.SetActive(true);
+        }
+        else if (value.Equals("Centro"))
+        {
+            red_cross2.gameObject.SetActive(true);
+        }
+    }
 
     public void testOptions()
     {
@@ -324,17 +390,42 @@ public class Caras_test : MonoBehaviour
             img2.image.sprite = caras62;
             img3.image.sprite = caras63;
         }
+        else if (count == 7)
+        {
+            img1.image.sprite = caras71;
+            img2.image.sprite = caras72;
+            img3.image.sprite = caras73;
+        }
+        else if (count == 8)
+        {
+            img1.image.sprite = caras81;
+            img2.image.sprite = caras82;
+            img3.image.sprite = caras83;
+        }
+        else if (count == 9)
+        {
+            img1.image.sprite = caras91;
+            img2.image.sprite = caras92;
+            img3.image.sprite = caras93;
+        }
+        else if (count == 10)
+        {
+            img1.image.sprite = caras101;
+            img2.image.sprite = caras102;
+            img3.image.sprite = caras103;
+        }
 
 
     }
-
+    
 
     public void nextTest()
     {
         UpdateProgress();
         count = count + 1;
-        defaultValues();
         testOptions();
+        //saveTestsResults(clickCounter, value);
+        defaultValues();
     }
 
 

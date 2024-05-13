@@ -31,6 +31,15 @@ public class anillas : MonoBehaviour
     public bool next;
     public bool start;
 
+    [SerializeField] private Button soundBtn1;
+    [SerializeField] private Button soundBtn2;
+    [SerializeField] private Button soundBtn3;
+    [SerializeField] private Button soundBtn4;
+    [SerializeField] private Button soundBtn5;
+    [SerializeField] private Button soundBtn6;
+    [SerializeField] private TextMeshProUGUI skipText;
+    [SerializeField] private TextMeshProUGUI s;
+
     private void Start()
     {
         count = 1;
@@ -88,27 +97,45 @@ public class anillas : MonoBehaviour
         if (count == 1)
         {
             text1.gameObject.SetActive(true);
+            soundBtn1.gameObject.SetActive(true);
+            skipText.gameObject.SetActive(true);
+            s.gameObject.SetActive(true);
         }
         else if (count == 2)
         {
             text2.gameObject.SetActive(true);
+            soundBtn2.gameObject.SetActive(true);
+            skipText.gameObject.SetActive(true);
+            s.gameObject.SetActive(true);
         }
         else if (count == 3)
         {
             text3.gameObject.SetActive(true);
+            soundBtn3.gameObject.SetActive(true);
+            skipText.gameObject.SetActive(true);
+            s.gameObject.SetActive(true);
         }
         else if (count == 4)
         {
             text4.gameObject.SetActive(true);
+            soundBtn4.gameObject.SetActive(true);
+            skipText.gameObject.SetActive(true);
+            s.gameObject.SetActive(true);
         }
         else if (count == 5)
         {
             text5.gameObject.SetActive(true);
             _objetive_pos.gameObject.SetActive(true);
+            soundBtn5.gameObject.SetActive(true);
+            skipText.gameObject.SetActive(true);
+            s.gameObject.SetActive(true);
         }
         else if (count == 6)
         {
             text6.gameObject.SetActive(true);
+            soundBtn6.gameObject.SetActive(true);
+            skipText.gameObject.SetActive(true);
+            s.gameObject.SetActive(true);
         }
         else if (count > 6)
         {
@@ -131,6 +158,14 @@ public class anillas : MonoBehaviour
         text5.gameObject.SetActive(false);
         text6.gameObject.SetActive(false);
         _objetive_pos.gameObject.SetActive(false);
+        soundBtn1.gameObject.SetActive(false);
+        soundBtn2.gameObject.SetActive(false);
+        soundBtn3.gameObject.SetActive(false);
+        soundBtn4.gameObject.SetActive(false);
+        soundBtn5.gameObject.SetActive(false);
+        soundBtn6.gameObject.SetActive(false);
+        skipText.gameObject.SetActive(false);
+        s.gameObject.SetActive(false);
     }
 
     public void nextText()

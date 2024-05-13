@@ -20,6 +20,17 @@ public class typewriter_caras : MonoBehaviour
 	public bool _finishWritting = false;
 	bool pressed = false;
 
+	public AudioSource audioSource;
+	public AudioClip caras1;
+	public AudioClip caras2;
+	public AudioClip caras3;
+	public AudioClip caras4;
+	public AudioClip caras5;
+	public AudioClip caras6;
+	public AudioClip preparado;
+
+	public int carasBtnCounter = 0;
+
 	public void Start()
 	{
 		_tmpProText = GetComponent<TMP_Text>()!;
@@ -32,15 +43,67 @@ public class typewriter_caras : MonoBehaviour
 		}
 	}
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-			pressed = true;
-        }
-    }
+	public void Update()
+	{
 
-    IEnumerator TypeWriterTMP()
+		if (Input.GetKeyDown(KeyCode.S))
+		{
+			pressed = true;
+		}
+
+	}
+
+
+	public void soundClicked1()
+	{
+		carasBtnCounter++;
+		audioSource.clip = caras1;
+		audioSource.Play();
+	}
+
+	public void soundClicked2()
+	{
+		carasBtnCounter++;
+		audioSource.clip = caras2;
+		audioSource.Play();
+	}
+
+	public void soundClicked3()
+	{
+		carasBtnCounter++;
+		audioSource.clip = caras3;
+		audioSource.Play();
+	}
+
+	public void soundClicked4()
+	{
+		carasBtnCounter++;
+		audioSource.clip = caras4;
+		audioSource.Play();
+	}
+
+	public void soundClicked5()
+	{
+		carasBtnCounter++;
+		audioSource.clip = caras5;
+		audioSource.Play();
+	}
+
+	public void soundClicked6()
+	{
+		carasBtnCounter++;
+		audioSource.clip = caras6;
+		audioSource.Play();
+	}
+
+	public void soundClicked7()
+	{
+		carasBtnCounter++;
+		audioSource.clip = preparado;
+		audioSource.Play();
+	}
+
+	IEnumerator TypeWriterTMP()
 	{
 		_tmpProText.text = leadingCharBeforeDelay ? leadingChar : "";
 

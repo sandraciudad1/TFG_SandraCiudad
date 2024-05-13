@@ -20,6 +20,16 @@ public class typewriter_anillas : MonoBehaviour
 	public bool _finishWritting = false;
 	bool pressed = false;
 
+	public AudioSource audioSource;
+	public AudioClip anillas1;
+	public AudioClip anillas2;
+	public AudioClip anillas3;
+	public AudioClip anillas4;
+	public AudioClip anillas5;
+	public AudioClip preparado;
+
+	public int anillasBtnCounter = 0;
+
 	public void Start()
 	{
 		_tmpProText = GetComponent<TMP_Text>()!;
@@ -32,12 +42,57 @@ public class typewriter_anillas : MonoBehaviour
 		}
 	}
 
-	private void Update()
+	public void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.Space))
+
+		if (Input.GetKeyDown(KeyCode.S))
 		{
 			pressed = true;
 		}
+
+	}
+
+
+	public void soundClicked1()
+	{
+		anillasBtnCounter++;
+		audioSource.clip = anillas1;
+		audioSource.Play();
+	}
+
+	public void soundClicked2()
+	{
+		anillasBtnCounter++;
+		audioSource.clip = anillas2;
+		audioSource.Play();
+	}
+
+	public void soundClicked3()
+	{
+		anillasBtnCounter++;
+		audioSource.clip = anillas3;
+		audioSource.Play();
+	}
+
+	public void soundClicked4()
+	{
+		anillasBtnCounter++;
+		audioSource.clip = anillas4;
+		audioSource.Play();
+	}
+
+	public void soundClicked5()
+	{
+		anillasBtnCounter++;
+		audioSource.clip = anillas5;
+		audioSource.Play();
+	}
+
+	public void soundClicked6()
+	{
+		anillasBtnCounter++;
+		audioSource.clip = preparado;
+		audioSource.Play();
 	}
 
 	IEnumerator TypeWriterTMP()

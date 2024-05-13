@@ -20,6 +20,16 @@ public class typewriter_nback : MonoBehaviour
 	public bool _finishWritting = false;
 	bool pressed = false;
 
+	public AudioSource audioSource;
+	public AudioClip cartas1;
+	public AudioClip cartas2;
+	public AudioClip cartas3;
+	public AudioClip cartas4;
+	public AudioClip cartas5;
+	public AudioClip preparado;
+
+	public int cartasBtnCounter = 0;
+
 	public void Start()
 	{
 		_tmpProText = GetComponent<TMP_Text>()!;
@@ -32,12 +42,57 @@ public class typewriter_nback : MonoBehaviour
 		}
 	}
 
-	private void Update()
+	public void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.Space))
+
+		if (Input.GetKeyDown(KeyCode.S))
 		{
 			pressed = true;
 		}
+
+	}
+
+
+	public void soundClicked1()
+	{
+		cartasBtnCounter++;
+		audioSource.clip = cartas1;
+		audioSource.Play();
+	}
+
+	public void soundClicked2()
+	{
+		cartasBtnCounter++;
+		audioSource.clip = cartas2;
+		audioSource.Play();
+	}
+
+	public void soundClicked3()
+	{
+		cartasBtnCounter++;
+		audioSource.clip = cartas3;
+		audioSource.Play();
+	}
+
+	public void soundClicked4()
+	{
+		cartasBtnCounter++;
+		audioSource.clip = cartas4;
+		audioSource.Play();
+	}
+
+	public void soundClicked5()
+	{
+		cartasBtnCounter++;
+		audioSource.clip = cartas5;
+		audioSource.Play();
+	}
+
+	public void soundClicked6()
+	{
+		cartasBtnCounter++;
+		audioSource.clip = preparado;
+		audioSource.Play();
 	}
 
 	IEnumerator TypeWriterTMP()

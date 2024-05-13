@@ -103,7 +103,7 @@ public class Nback_test : MonoBehaviour
             _hasFinished = true;
         }
 
-        if (count > 5 && time == false)
+        if (count > 20 && time == false)
         {
             card.gameObject.SetActive(false);
             finish_btn_nback.gameObject.SetActive(true);
@@ -112,7 +112,7 @@ public class Nback_test : MonoBehaviour
             saveTimeResults();
             time = true;
         }
-        else if (count <= 5 && _canStart == true)
+        else if (count <= 20 && _canStart == true)
         {
             remaining_time = Math.Abs(remaining_time);
             float timer = Math.Abs(Time.deltaTime);

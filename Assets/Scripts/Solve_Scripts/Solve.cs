@@ -16,6 +16,21 @@ public class Solve : MonoBehaviour
     private GameObject _extra;
     [SerializeField]
     private GameObject _reason;
+    [SerializeField]
+    private GameObject _killer;
+
+
+    [SerializeField]
+    private GameObject bg_weapon;
+    [SerializeField]
+    private GameObject bg_place;
+    [SerializeField]
+    private GameObject bg_extra;
+    [SerializeField]
+    private GameObject bg_reason;
+    [SerializeField]
+    private GameObject bg_killer;
+
 
     [SerializeField]
     private Image background;
@@ -79,6 +94,14 @@ public class Solve : MonoBehaviour
     public int place_counter;
     public int extra_counter;
     public int characters_counter;
+    public int Xavier_counter;
+    public int Bianca_counter;
+    public int Giovanni_counter;
+    public int Emma_counter;
+    public int Gertrud_counter;
+    public int Gustavo_counter;
+    public int Alessandro_counter;
+
 
     [SerializeField]
     private TextMeshProUGUI correct_solution;
@@ -94,6 +117,27 @@ public class Solve : MonoBehaviour
     private Image lose;
 
     public bool save;
+    public int counter_solve;
+    [SerializeField]
+    private Button close_btn_solution;
+    [SerializeField]
+    private GameObject msg_canvas;
+    [SerializeField]
+    private GameObject error_window;
+    [SerializeField]
+    private Button ok_errorMsg_btn;
+
+    public int coches;
+    public int lamparas;
+    public int ordenadores;
+    public int aire_acondicionado;
+    public int reflectantes;
+    public int otros;
+    public int total_counter;
+
+    [SerializeField] private Button soundBtn1;
+    [SerializeField] private TextMeshProUGUI skip;
+    [SerializeField] private TextMeshProUGUI s;
 
     // Start is called before the first frame update
     public void Start()
@@ -111,6 +155,19 @@ public class Solve : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
+        clickControl cc = GameObject.Find("Solve").GetComponent<clickControl>();
+        if (cc != null)
+        {
+            coches = cc.coches;
+            lamparas = cc.lamparas;
+            ordenadores = cc.ordenadores;
+            aire_acondicionado = cc.aire_acondicionado;
+            reflectantes = cc.reflectantes;
+            otros = cc.otros;
+            total_counter = coches + lamparas + ordenadores + aire_acondicionado + reflectantes + otros;
+        }
+
+
         if((win.gameObject.activeInHierarchy || lose.gameObject.activeInHierarchy) && save == false)
         {
             saveResults();
@@ -148,6 +205,9 @@ public class Solve : MonoBehaviour
                 {
                     background.gameObject.SetActive(true);
                     solve_text.gameObject.SetActive(true);
+                    soundBtn1.gameObject.SetActive(true);
+                    skip.gameObject.SetActive(true);
+                    s.gameObject.SetActive(true);
                     player._canMove = false;
                     count += 1;
                 }
@@ -179,6 +239,18 @@ public class Solve : MonoBehaviour
 
         if (anim == true && _story == false)
         {
+            _weapon.gameObject.SetActive(false);
+            _place.gameObject.SetActive(false);
+            _extra.gameObject.SetActive(false);
+            _reason.gameObject.SetActive(false);
+            _killer.gameObject.SetActive(false);
+
+            bg_weapon.gameObject.SetActive(false);
+            bg_place.gameObject.SetActive(false);
+            bg_extra.gameObject.SetActive(false);
+            bg_reason.gameObject.SetActive(false);
+            bg_killer.gameObject.SetActive(false);
+
             StartCoroutine(wait_anim());
             Story story = GameObject.Find("story").GetComponent<Story>();
             if (story != null && wait == true)
@@ -212,16 +284,53 @@ public class Solve : MonoBehaviour
         solve_text.gameObject.SetActive(false);
         ok_solve_btn.gameObject.SetActive(false);
         solve_btn.gameObject.SetActive(true);
-        
+        soundBtn1.gameObject.SetActive(true);
+        skip.gameObject.SetActive(false);
+        s.gameObject.SetActive(false);
     }
-
 
     public void solve_btn_pressed()
     {
-        _Giovanni.SetActive(true);
-        knife.SetActive(true);
-        background.gameObject.SetActive(true);
-        buttons.SetActive(true);
+        counter_solve += 1;
+        Player player = GameObject.Find("Player").GetComponent<Player>();
+        if (player != null)
+        {
+
+            if (player._isPressed == false)
+            {
+                msg_canvas.SetActive(true);
+                error_window.SetActive(true);
+                ok_errorMsg_btn.gameObject.SetActive(true);
+            } 
+            else
+            {
+                close_btn_solution.gameObject.SetActive(true);
+                _Giovanni.SetActive(true);
+                knife.SetActive(true);
+                background.gameObject.SetActive(true);
+                buttons.SetActive(true);
+                player._isPressed = false;
+            }
+        }
+    }
+
+    public void errorMsg_btn_click()
+    {
+        msg_canvas.SetActive(false);
+        error_window.SetActive(false);
+        ok_errorMsg_btn.gameObject.SetActive(false);
+    }
+
+    public void close_btn_clicked()
+    {
+        Player player = GameObject.Find("Player").GetComponent<Player>();
+        if (player != null)
+        {
+            player._isPressed = true;
+        }
+        buttons.SetActive(false);
+        close_btn_solution.gameObject.SetActive(false);
+        background.gameObject.SetActive(false);
     }
 
     public void reset_values()
@@ -334,10 +443,6 @@ public class Solve : MonoBehaviour
         }
     }
 
-    public void check_solution()
-    {
-        
-    }
 
 
     public void saveTimeResults()
@@ -351,8 +456,15 @@ public class Solve : MonoBehaviour
     public void saveResults()
     {
         string path_res = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Solution/Results_" + actual_date + ".txt";
-        string text_result = "Número de veces que se ha consultado información \n\t Arma: " + weapon_counter + " veces" + "\n\t Lugar: " + place_counter + " veces" + "\n\t Motivo: " + reason_counter + " veces" + "\n\t Pista extra: " + extra_counter + " veces"
-                            + "\n\t Personajes: " + characters_counter + " veces";
+        string text_result = "Número de veces que se ha consultado información \n\t Arma: " + weapon_counter + " veces" + "\n\t Lugar: " + place_counter + " veces" + "\n\t Motivo: " + reason_counter + " veces" + "\n\t Pista extra: " + extra_counter + " veces" +
+                            
+                            "\n\t Personajes: " + characters_counter + " veces" + "\n\t\t Bianca: " + Bianca_counter + " veces" + "\n\t\t Xavier: " + Xavier_counter + " veces" + "\n\t\t Giovanni: " + Giovanni_counter + " veces" + "\n\t\t Emma: " + 
+                            Emma_counter + " veces" + "\n\t\t Gertrud: " + Gertrud_counter + " veces" + "\n\t\t Gustavo: " + Gustavo_counter + " veces" + "\n\t\t Alessandro: " + Alessandro_counter + " veces" + 
+                            
+                            "\n\n Número de veces que se ha presionado el botón de solucionar: " + counter_solve + " veces" + 
+                            
+                            "\n\n Se han presionado " + total_counter + " objetos no relacionados con las pistas, de los cuales: " + "\n\t Coches: " + coches + "\n\t Lámparas: " + lamparas + "\n\t Ordenadores: " + ordenadores + 
+                            "\n\t Aire acondicionado: " + aire_acondicionado + "\n\t Objetos que reflejan o desprenden una pequeña luz: " + reflectantes +"\n\t Otros: " + otros;
         File.AppendAllLines(path_res, new String[] { text_result });
     }
 

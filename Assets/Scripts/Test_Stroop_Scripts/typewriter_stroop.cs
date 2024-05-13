@@ -20,6 +20,16 @@ public class typewriter_stroop : MonoBehaviour
 	public bool _finishWritting = false;
 	bool pressed = false;
 
+	public AudioSource audioSource;
+	public AudioClip stroop1;
+	public AudioClip stroop2;
+	public AudioClip stroop3;
+	public AudioClip stroop4;
+	public AudioClip stroop5;
+	public AudioClip preparado;
+
+	public int stroopBtnCounter = 0;
+
 
 	public void Start()
 	{
@@ -33,12 +43,57 @@ public class typewriter_stroop : MonoBehaviour
 		}
 	}
 
-	private void Update()
+	public void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.Space))
+
+		if (Input.GetKeyDown(KeyCode.S))
 		{
 			pressed = true;
 		}
+
+	}
+
+
+	public void soundClicked1()
+	{
+		stroopBtnCounter++;
+		audioSource.clip = stroop1;
+		audioSource.Play();
+	}
+
+	public void soundClicked2()
+	{
+		stroopBtnCounter++;
+		audioSource.clip = stroop2;
+		audioSource.Play();
+	}
+
+	public void soundClicked3()
+	{
+		stroopBtnCounter++;
+		audioSource.clip = stroop3;
+		audioSource.Play();
+	}
+
+	public void soundClicked4()
+	{
+		stroopBtnCounter++;
+		audioSource.clip = stroop4;
+		audioSource.Play();
+	}
+
+	public void soundClicked5()
+	{
+		stroopBtnCounter++;
+		audioSource.clip = stroop5;
+		audioSource.Play();
+	}
+
+	public void soundClicked6()
+	{
+		stroopBtnCounter++;
+		audioSource.clip = preparado;
+		audioSource.Play();
 	}
 
 	IEnumerator TypeWriterTMP()

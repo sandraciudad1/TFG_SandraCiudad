@@ -1,0 +1,23 @@
+Número de veces que se ha consultado información 
+	 Arma: 0 veces
+	 Lugar: 0 veces
+	 Motivo: 0 veces
+	 Pista extra: 0 veces
+	 Personajes: 1 veces
+		 Bianca: 0 veces
+		 Xavier: 0 veces
+		 Giovanni: 0 veces
+		 Emma: 0 veces
+		 Gertrud: 0 veces
+		 Gustavo: 0 veces
+		 Alessandro: 0 veces
+
+ Número de veces que se ha presionado el botón de solucionar: 0 veces
+
+ Se han presionado 9 objetos no relacionados con las pistas, de los cuales: 
+	 Coches: 0
+	 Lámparas: 0
+	 Ordenadores: 1
+	 Aire acondicionado: 0
+	 Objetos que reflejan o desprenden una pequeña luz: 0
+	 Otros: 8

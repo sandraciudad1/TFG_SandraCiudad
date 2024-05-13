@@ -1,2 +1,0 @@
-ronda 1: Derecha
-ronda 2: Centro

@@ -1,0 +1,20 @@
+La carta 1 no ha sido presionada. ERROR.
+La carta 2 no ha sido presionada. ERROR.
+La carta 3 ha sido presionada. ERROR.
+La carta 4 no ha sido presionada. ACIERTO.
+La carta 5 no ha sido presionada. ERROR.
+La carta 6 ha sido presionada. ERROR.
+La carta 7 no ha sido presionada. ERROR.
+La carta 8 no ha sido presionada. ERROR.
+La carta 9 no ha sido presionada. ERROR.
+La carta 10 ha sido presionada. ACIERTO.
+La carta 11 no ha sido presionada. ERROR.
+La carta 12 no ha sido presionada. ERROR.
+La carta 13 no ha sido presionada. ERROR.
+La carta 14 no ha sido presionada. ERROR.
+La carta 15 no ha sido presionada. ACIERTO.
+La carta 16 no ha sido presionada. ERROR.
+La carta 17 no ha sido presionada. ACIERTO.
+La carta 18 no ha sido presionada. ACIERTO.
+La carta 19 no ha sido presionada. ERROR.
+La carta 20 no ha sido presionada. ERROR.

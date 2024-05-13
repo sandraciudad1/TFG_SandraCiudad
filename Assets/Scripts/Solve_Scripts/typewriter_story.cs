@@ -20,6 +20,23 @@ public class typewriter_story : MonoBehaviour
 	public bool _finishWritting = false;
 	bool pressed = false;
 
+	public AudioSource audioSource;
+	public AudioClip story1;
+	public AudioClip story2;
+	public AudioClip story3;
+	public AudioClip story4;
+	public AudioClip story5;
+	public AudioClip story6;
+	public AudioClip story7;
+	public AudioClip story8;
+	public AudioClip story9;
+	public AudioClip story10;
+	public AudioClip story11;
+	public AudioClip storyCorrect;
+	public AudioClip storyIncorrect;
+
+	public int storyBtnCounter = 0;
+
 	public void Start()
 	{
 		_tmpProText = GetComponent<TMP_Text>()!;
@@ -32,15 +49,109 @@ public class typewriter_story : MonoBehaviour
 		}
 	}
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-			pressed = true;
-        }
-    }
+	public void Update()
+	{
 
-    IEnumerator TypeWriterTMP()
+		if (Input.GetKeyDown(KeyCode.S))
+		{
+			pressed = true;
+		}
+
+	}
+
+
+	public void soundClicked1()
+	{
+		storyBtnCounter++;
+		audioSource.clip = story1;
+		audioSource.Play();
+	}
+
+	public void soundClicked2()
+	{
+		storyBtnCounter++;
+		audioSource.clip = story2;
+		audioSource.Play();
+	}
+
+	public void soundClicked3()
+	{
+		storyBtnCounter++;
+		audioSource.clip = story3;
+		audioSource.Play();
+	}
+
+	public void soundClicked4()
+	{
+		storyBtnCounter++;
+		audioSource.clip = story4;
+		audioSource.Play();
+	}
+
+	public void soundClicked5()
+	{
+		storyBtnCounter++;
+		audioSource.clip = story5;
+		audioSource.Play();
+	}
+
+	public void soundClicked6()
+	{
+		storyBtnCounter++;
+		audioSource.clip = story6;
+		audioSource.Play();
+	}
+
+	public void soundClicked7()
+	{
+		storyBtnCounter++;
+		audioSource.clip = story7;
+		audioSource.Play();
+	}
+
+	public void soundClicked8()
+	{
+		storyBtnCounter++;
+		audioSource.clip = story8;
+		audioSource.Play();
+	}
+
+	public void soundClicked9()
+	{
+		storyBtnCounter++;
+		audioSource.clip = story9;
+		audioSource.Play();
+	}
+
+	public void soundClicked10()
+	{
+		storyBtnCounter++;
+		audioSource.clip = story10;
+		audioSource.Play();
+	}
+
+	public void soundClicked11()
+	{
+		storyBtnCounter++;
+		audioSource.clip = story11;
+		audioSource.Play();
+	}
+
+	public void soundClickedCorrect()
+	{
+		storyBtnCounter++;
+		audioSource.clip = storyCorrect;
+		audioSource.Play();
+	}
+
+	public void soundClickedIncorrect()
+	{
+		storyBtnCounter++;
+		audioSource.clip = storyIncorrect;
+		audioSource.Play();
+	}
+
+	IEnumerator TypeWriterTMP()
 	{
 		_tmpProText.text = leadingCharBeforeDelay ? leadingChar : "";
 

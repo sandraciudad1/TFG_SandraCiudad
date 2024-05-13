@@ -20,6 +20,11 @@ public class typewriter_solve : MonoBehaviour
 	public bool _finishWritting = false;
 	bool pressed = false;
 
+	public AudioSource audioSource;
+	public AudioClip solve1;
+
+	public int solveBtnCounter = 0;
+
 	public void Start()
 	{
 		_tmpProText = GetComponent<TMP_Text>()!;
@@ -32,15 +37,25 @@ public class typewriter_solve : MonoBehaviour
 		}
 	}
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-			pressed = true;
-        }
-    }
+	public void Update()
+	{
 
-    IEnumerator TypeWriterTMP()
+		if (Input.GetKeyDown(KeyCode.S))
+		{
+			pressed = true;
+		}
+
+	}
+
+
+	public void soundClicked1()
+	{
+		solveBtnCounter++;
+		audioSource.clip = solve1;
+		audioSource.Play();
+	}
+
+	IEnumerator TypeWriterTMP()
 	{
 		_tmpProText.text = leadingCharBeforeDelay ? leadingChar : "";
 

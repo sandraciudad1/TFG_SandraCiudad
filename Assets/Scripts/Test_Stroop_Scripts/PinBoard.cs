@@ -28,7 +28,16 @@ public class PinBoard : MonoBehaviour
     public int count;
     public bool skip;
 
-    Vector3 final_pos = new Vector3(13.358f, 1.31f, -8.092f);
+    Vector3 final_pos = new Vector3(13.358f, 1.31f, -9.092f);
+
+    [SerializeField] private Button soundBtn1;
+    [SerializeField] private Button soundBtn2;
+    [SerializeField] private Button soundBtn3;
+    [SerializeField] private Button soundBtn4;
+    [SerializeField] private Button soundBtn5;
+    [SerializeField] private Button soundBtn6;
+    [SerializeField] private TextMeshProUGUI skipText;
+    [SerializeField] private TextMeshProUGUI s;
 
 
     public void Start()
@@ -62,13 +71,18 @@ public class PinBoard : MonoBehaviour
         if (count == 1)
         {
             text1.gameObject.SetActive(true);
+            soundBtn1.gameObject.SetActive(true);
+            skipText.gameObject.SetActive(true);
+            s.gameObject.SetActive(true);
 
         }
         else if (count == 2)
         {
             text1.gameObject.SetActive(false);
             text2.gameObject.SetActive(true);
-
+            soundBtn2.gameObject.SetActive(true);
+            skipText.gameObject.SetActive(true);
+            s.gameObject.SetActive(true);
         }
         else if (count == 3)
         {
@@ -76,19 +90,30 @@ public class PinBoard : MonoBehaviour
             stroop_example_1.gameObject.SetActive(true);
             stroop_example_2.gameObject.SetActive(true);
             stroop_example_3.gameObject.SetActive(true);
+            soundBtn3.gameObject.SetActive(true);
+            skipText.gameObject.SetActive(true);
+            s.gameObject.SetActive(true);
         }
         else if (count == 4)
         {
             text4.gameObject.SetActive(true);
-
+            soundBtn4.gameObject.SetActive(true);
+            skipText.gameObject.SetActive(true);
+            s.gameObject.SetActive(true);
         }
         else if (count == 5)
         {
             text5.gameObject.SetActive(true);
+            soundBtn5.gameObject.SetActive(true);
+            skipText.gameObject.SetActive(true);
+            s.gameObject.SetActive(true);
         }
         else if (count == 6)
         {
             text6.gameObject.SetActive(true);
+            soundBtn6.gameObject.SetActive(true);
+            skipText.gameObject.SetActive(true);
+            s.gameObject.SetActive(true);
         }
         else if (count > 6)
         {
@@ -118,6 +143,14 @@ public class PinBoard : MonoBehaviour
         stroop_example_3.gameObject.SetActive(false);
         _arrowButton.gameObject.SetActive(false);
         skip = false;
+        soundBtn1.gameObject.SetActive(false);
+        soundBtn2.gameObject.SetActive(false);
+        soundBtn3.gameObject.SetActive(false);
+        soundBtn4.gameObject.SetActive(false);
+        soundBtn5.gameObject.SetActive(false);
+        soundBtn6.gameObject.SetActive(false);
+        skipText.gameObject.SetActive(false);
+        s.gameObject.SetActive(false);
     }
 
     public void nextText()

@@ -1,6 +1,0 @@
-Número de veces que se ha consultado información 
-	 Arma: 2 veces
-	 Lugar: 0 veces
-	 Motivo: 0 veces
-	 Pista extra: 1 veces
-	 Personajes: 0 veces
