@@ -105,6 +105,8 @@ public class Caras_test : MonoBehaviour
     private bool izq = false, cen=false, der=false;
     private bool saveResults = false;
 
+    [SerializeField] GameObject naxtRoundCaras;
+
     public void Start()
     {
         //_canStart = false;
@@ -153,28 +155,10 @@ public class Caras_test : MonoBehaviour
             int seconds = Mathf.FloorToInt(remaining_time % 60);
             timer_text.text = string.Format("{0:00}:{1:00}", minutes, seconds);
 
-            if (count > 10 || (minutes <= 0 && seconds <= 0))
-            {
-                saveTimeResults();
-                img1.gameObject.SetActive(false);
-                img2.gameObject.SetActive(false);
-                img3.gameObject.SetActive(false);
-                finish_btn_caras.gameObject.SetActive(true);
-                timer_text.gameObject.SetActive(false);
-
-                time = true;
-            }
-
-            if (time == true)
-            {
-                saveTestsResults();
-                time = false;
-            }
-
         }
 
 
-        if(img1.interactable == false && clickCounter <= 10 && clickCara == false)
+        if (img1.interactable == false && clickCounter <= 10 && clickCara == false)
         {
             if (pressed3.activeInHierarchy)
             {
@@ -188,18 +172,30 @@ public class Caras_test : MonoBehaviour
             {
                 value = "Izquierda";
             }
-            
+
             showCorrectOption(value);
             text_result += "ronda " + clickCounter + ": " + value + "\n";
-            Debug.Log(text_result);
-            
-            
             clickCounter++;
-
             clickCara = true;
         }
 
-        
+        if (clickCounter > 10 && saveResults==false)
+        {
+            seconds = 0;
+            naxtRoundCaras.gameObject.SetActive(false);
+            img1.gameObject.SetActive(false);
+            img2.gameObject.SetActive(false);
+            img3.gameObject.SetActive(false);
+            finish_btn_caras.gameObject.SetActive(true);
+            timer_text.gameObject.SetActive(false);
+            saveTimeResults();
+            saveTestsResults();
+            saveResults = true;
+        }
+
+
+
+
 
 
     }

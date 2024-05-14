@@ -21,9 +21,9 @@ public class Stroop_test : MonoBehaviour
     [SerializeField]
     private Sprite pb_postit;
 
-    public TextMeshProUGUI color1_txt;
-    public TextMeshProUGUI color2_txt;
-    public TextMeshProUGUI color3_txt;
+    public String color1_txt;
+    public String color2_txt;
+    public String color3_txt;
 
     public TextMeshProUGUI title_color1_txt;
     public TextMeshProUGUI title_color2_txt;
@@ -34,7 +34,7 @@ public class Stroop_test : MonoBehaviour
     public TMP_Dropdown color3_dd;
 
     
-    private int count;
+    private int count=0;
     public DateTime tiempo1, tiempo2;
 
     public string month;
@@ -45,39 +45,23 @@ public class Stroop_test : MonoBehaviour
 
     public bool _hasfinish_stoop;
 
+    [SerializeField] GameObject arrowBtn;
     [SerializeField] TextMeshProUGUI timer_text;
     public float remaining_time;
     private int minutes;
     private int seconds;
 
     public bool next;
-    public bool restart;
+    public bool restart=true;
     private bool start;
     public bool time;
 
     public string actual_date;
+    public float timer = 0;
 
     //initialize variable count
     public void Start()
     {
-        count = 1;
-        remaining_time = 6;
-
-        next = false;
-        restart = true;
-        time = false;
-    }
-
-    public void canStart()
-    {
-        start = true;
-        count = 1;
-        remaining_time = 6;
-
-        start = false;
-        next = false;
-        restart = true;
-
         tiempo1 = DateTime.Now;
         month = DateTime.Now.ToString("MM");
         day = DateTime.Now.ToString("dd");
@@ -85,17 +69,27 @@ public class Stroop_test : MonoBehaviour
         hour = DateTime.Now.ToString("HH");
         _min = DateTime.Now.ToString("mm");
         actual_date = day + "_" + month + "_" + year + "__" + hour + "_" + _min;
+        
+        next = true;
+        time = false;
+        //nextTest();
+    }
 
+    public void canStart()
+    {
+        restart = true;
         start = true;
-        Update();
+        //nextTest();
+        testOptions();
     }
 
     //checks if there are more tests to continue or not
     public void Update()
     {
 
-        if (count > 10 && time == false)
+        if (count >= 10 && time == false)
         {
+            arrowBtn.gameObject.SetActive(false);
             title_color1_txt.gameObject.SetActive(false);
             title_color2_txt.gameObject.SetActive(false);
             title_color3_txt.gameObject.SetActive(false);
@@ -104,81 +98,57 @@ public class Stroop_test : MonoBehaviour
             color3_dd.gameObject.SetActive(false);
             timer_text.gameObject.SetActive(false);
             _background.sprite = pb_clean;
+            arrowBtn.gameObject.SetActive(false);
             finish_btn.gameObject.SetActive(true);
             saveTimeResults();
             time = true;
         }
-        else if (count <= 10 && start == true)
+        else if (start == true)
         {
-            if ((color1_dd.value == 0 && color2_dd.value == 0 && color3_dd.value == 0) && restart == true)
-            {
-                title_color1_txt.gameObject.SetActive(true);
-                title_color2_txt.gameObject.SetActive(true);
-                title_color3_txt.gameObject.SetActive(true);
+            timer += Time.deltaTime; 
+            remaining_time = timer; 
 
-                remaining_time = Math.Abs(remaining_time);
-                float timer = Math.Abs(Time.deltaTime);
-                remaining_time -= timer;
-
-                minutes = Mathf.FloorToInt(remaining_time / 60);
-                seconds = Mathf.FloorToInt(remaining_time % 60);
-                minutes = Math.Abs(minutes);
-                seconds = Math.Abs(seconds);
-                timer_text.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-
-                if (minutes == 0 && seconds == 0)
-                {
-                    restart = false;
-                    title_color1_txt.gameObject.SetActive(false);
-                    title_color2_txt.gameObject.SetActive(false);
-                    title_color3_txt.gameObject.SetActive(false);
-                    color1_dd.gameObject.SetActive(true);
-                    color2_dd.gameObject.SetActive(true);
-                    color3_dd.gameObject.SetActive(true);
-                    selectColors();
-                    next = true;
-
-
-                }
-            }
-
-            if ((color1_dd.value != 0 && color2_dd.value != 0 && color3_dd.value != 0) && next == true)
-            {
-                saveTestsResults();
-                nextTest();
-                next = false;
-
-            }
+            int minutes = Mathf.FloorToInt(remaining_time / 60);
+            int seconds = Mathf.FloorToInt(remaining_time % 60);
+            minutes = Mathf.Abs(minutes);
+            seconds = Mathf.Abs(seconds);
+            timer_text.text = string.Format("{0:00}:{1:00}", minutes, seconds);
         }
+
+        if ((color1_dd.value != 0 && color2_dd.value != 0 && color3_dd.value != 0))
+        {
+            selectColors();
+            arrowBtn.gameObject.SetActive(true);
+
+        }
+        
 
     }
 
 
-
-    //Method for edit labels with color selectec in each dropdown
     public void selectColors()
     {
         color1_dd.onValueChanged.AddListener(delegate
         {
             if (color1_dd.value == 1)
             {
-                color1_txt.text = "ROJO";
+                color1_txt = "ROJO";
             } else if (color1_dd.value == 2)
             {
-                color1_txt.text = "NARANJA";
+                color1_txt = "NARANJA";
             }
             else if (color1_dd.value == 3)
             {
-                color1_txt.text = "AMARILLO";
+                color1_txt= "AMARILLO";
             } else if (color1_dd.value == 4)
             {
-                color1_txt.text = "VERDE";
+                color1_txt= "VERDE";
             } else if (color1_dd.value == 5)
             {
-                color1_txt.text = "AZUL";
+                color1_txt= "AZUL";
             } else if (color1_dd.value == 6)
             {
-                color1_txt.text = "MORADO";
+                color1_txt= "MORADO";
             }
         });
 
@@ -186,27 +156,27 @@ public class Stroop_test : MonoBehaviour
         {
             if (color2_dd.value == 1)
             {
-                color2_txt.text = "ROJO";
+                color2_txt = "ROJO";
             }
             else if (color2_dd.value == 2)
             {
-                color2_txt.text = "NARANJA";
+                color2_txt = "NARANJA";
             }
             else if (color2_dd.value == 3)
             {
-                color2_txt.text = "AMARILLO";
+                color2_txt = "AMARILLO";
             }
             else if (color2_dd.value == 4)
             {
-                color2_txt.text = "VERDE";
+                color2_txt = "VERDE";
             }
             else if (color2_dd.value == 5)
             {
-                color2_txt.text = "AZUL";
+                color2_txt = "AZUL";
             }
             else if (color2_dd.value == 6)
             {
-                color2_txt.text = "MORADO";
+                color2_txt = "MORADO";
             }
         });
 
@@ -214,34 +184,32 @@ public class Stroop_test : MonoBehaviour
         {
             if (color3_dd.value == 1)
             {
-                color3_txt.text = "ROJO";
+                color3_txt = "ROJO";
             }
             else if (color3_dd.value == 2)
             {
-                color3_txt.text = "NARANJA";
+                color3_txt = "NARANJA";
             }
             else if (color3_dd.value == 3)
             {
-                color3_txt.text = "AMARILLO";
+                color3_txt = "AMARILLO";
             }
             else if (color3_dd.value == 4)
             {
-                color3_txt.text = "VERDE";
+                color3_txt = "VERDE";
             }
             else if (color3_dd.value == 5)
             {
-                color3_txt.text = "AZUL";
+                color3_txt = "AZUL";
             }
             else if (color3_dd.value == 6)
             {
-                color3_txt.text = "MORADO";
+                color3_txt = "MORADO";
             }
         });        
     }
 
 
-
-    //Method for finish test
     public void finishStroop()
     {
         show_cards show = GameObject.Find("Cards").GetComponent<show_cards>();
@@ -249,7 +217,6 @@ public class Stroop_test : MonoBehaviour
         {
             show.show_weapon_card();
         }
-        //_hasfinish_stoop = true;
 
         Player player = GameObject.Find("Player").GetComponent<Player>();
         if (player != null)
@@ -273,23 +240,15 @@ public class Stroop_test : MonoBehaviour
     }
 
 
-    //Method for restore default values in dropdown and labels
     public void defaultValues()
     {
-        color1_dd.gameObject.SetActive(false);
-        color2_dd.gameObject.SetActive(false);
-        color3_dd.gameObject.SetActive(false);   
-        color1_txt.text = " ";
-        color2_txt.text = " ";
-        color3_txt.text = " ";
-        title_color1_txt.gameObject.SetActive(true);
-        title_color2_txt.gameObject.SetActive(true);
-        title_color3_txt.gameObject.SetActive(true);
-        //cambiar el fondo a con postits
+        arrowBtn.gameObject.SetActive(false);
+        color1_txt = " ";
+        color2_txt = " ";
+        color3_txt = " ";
         _background.sprite = pb_postit;
         color1_dd.value = 0; color2_dd.value = 0; color3_dd.value = 0;
-        timer_text.gameObject.SetActive(true);
-        remaining_time = 6;
+        next = true;
     }
 
 
@@ -302,25 +261,24 @@ public class Stroop_test : MonoBehaviour
         File.AppendAllLines(path, new String[] { text });
     }
 
-    //Method for saving test results in .txt file
     public void saveTestsResults()
     {
 
         string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Stroop/Results_" + actual_date + ".txt";
-        string text = color1_txt.text + ", " + color2_txt.text + ", " + color3_txt.text;
+        string text = color1_txt + ", " + color2_txt + ", " + color3_txt;
         File.AppendAllLines(path, new String[] { text });
-        //nextTest();
     }
 
 
     public void UpdateProgress()
     {
+        count++;
         float amount = (float)count / 10;
         bar_fill.fillAmount = amount;
     }
 
 
-    //method that defines all tests labels and colors
+    
     public void testOptions()
     {
         Color red = Color.HSVToRGB(0 / 360f, 100 / 100f, 100 / 100f);
@@ -330,9 +288,14 @@ public class Stroop_test : MonoBehaviour
         Color blue = Color.HSVToRGB(215 / 360f, 100 / 100f, 100 / 100f);
         Color purple = Color.HSVToRGB(279 / 360f, 100 / 100f, 100 / 100f);
 
+        if (count == 0)
+        {
+            title_color1_txt.text = "VERDE"; title_color1_txt.color = orange;
+            title_color2_txt.text = "AZUL"; title_color2_txt.color = red;
+            title_color3_txt.text = "MORADO"; title_color3_txt.color = yellow;
+        }
         if (count == 1)
         {
-            
             title_color1_txt.text = "AZUL"; title_color1_txt.color = orange;
             title_color2_txt.text = "AMARILLO"; title_color2_txt.color = blue;
             title_color3_txt.text = "MORADO"; title_color3_txt.color = red;
@@ -391,8 +354,9 @@ public class Stroop_test : MonoBehaviour
     //method to change test
     public void nextTest()
     {
+        saveTestsResults();
         UpdateProgress();
-        count = count + 1;
+        //count = count + 1;
         defaultValues();
         testOptions();
         restart = true;
