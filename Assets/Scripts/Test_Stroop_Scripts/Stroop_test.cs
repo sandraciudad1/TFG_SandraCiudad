@@ -73,6 +73,7 @@ public class Stroop_test : MonoBehaviour
         next = true;
         time = false;
         //nextTest();
+        testOptions();
     }
 
     public void canStart()
@@ -80,7 +81,7 @@ public class Stroop_test : MonoBehaviour
         restart = true;
         start = true;
         //nextTest();
-        testOptions();
+        
     }
 
     //checks if there are more tests to continue or not
@@ -101,6 +102,7 @@ public class Stroop_test : MonoBehaviour
             arrowBtn.gameObject.SetActive(false);
             finish_btn.gameObject.SetActive(true);
             saveTimeResults();
+            removeFirst();
             time = true;
         }
         else if (start == true)
@@ -130,84 +132,59 @@ public class Stroop_test : MonoBehaviour
     {
         color1_dd.onValueChanged.AddListener(delegate
         {
-            if (color1_dd.value == 1)
-            {
-                color1_txt = "ROJO";
-            } else if (color1_dd.value == 2)
-            {
-                color1_txt = "NARANJA";
-            }
-            else if (color1_dd.value == 3)
-            {
-                color1_txt= "AMARILLO";
-            } else if (color1_dd.value == 4)
-            {
-                color1_txt= "VERDE";
-            } else if (color1_dd.value == 5)
-            {
-                color1_txt= "AZUL";
-            } else if (color1_dd.value == 6)
-            {
-                color1_txt= "MORADO";
-            }
+            UpdateColorText(1, color1_dd.value);
         });
 
         color2_dd.onValueChanged.AddListener(delegate
         {
-            if (color2_dd.value == 1)
-            {
-                color2_txt = "ROJO";
-            }
-            else if (color2_dd.value == 2)
-            {
-                color2_txt = "NARANJA";
-            }
-            else if (color2_dd.value == 3)
-            {
-                color2_txt = "AMARILLO";
-            }
-            else if (color2_dd.value == 4)
-            {
-                color2_txt = "VERDE";
-            }
-            else if (color2_dd.value == 5)
-            {
-                color2_txt = "AZUL";
-            }
-            else if (color2_dd.value == 6)
-            {
-                color2_txt = "MORADO";
-            }
+            UpdateColorText(2, color2_dd.value);
         });
 
         color3_dd.onValueChanged.AddListener(delegate
         {
-            if (color3_dd.value == 1)
-            {
-                color3_txt = "ROJO";
-            }
-            else if (color3_dd.value == 2)
-            {
-                color3_txt = "NARANJA";
-            }
-            else if (color3_dd.value == 3)
-            {
-                color3_txt = "AMARILLO";
-            }
-            else if (color3_dd.value == 4)
-            {
-                color3_txt = "VERDE";
-            }
-            else if (color3_dd.value == 5)
-            {
-                color3_txt = "AZUL";
-            }
-            else if (color3_dd.value == 6)
-            {
-                color3_txt = "MORADO";
-            }
-        });        
+            UpdateColorText(3, color3_dd.value);
+        });
     }
+
+    private void UpdateColorText(int colorNumber, int colorIndex)
+    {
+        string colorName = "";
+        switch (colorIndex)
+        {
+            case 1:
+                colorName = "ROJO";
+                break;
+            case 2:
+                colorName = "NARANJA";
+                break;
+            case 3:
+                colorName = "AMARILLO";
+                break;
+            case 4:
+                colorName = "VERDE";
+                break;
+            case 5:
+                colorName = "AZUL";
+                break;
+            case 6:
+                colorName = "MORADO";
+                break;
+        }
+
+        switch (colorNumber)
+        {
+            case 1:
+                color1_txt = colorName;
+                break;
+            case 2:
+                color2_txt = colorName;
+                break;
+            case 3:
+                color3_txt = colorName;
+                break;
+        }
+    }
+
 
 
     public void finishStroop()
@@ -268,6 +245,23 @@ public class Stroop_test : MonoBehaviour
         string text = color1_txt + ", " + color2_txt + ", " + color3_txt;
         File.AppendAllLines(path, new String[] { text });
     }
+
+    public void removeFirst()
+    {
+        string path = "C:/Users/sandr.LAPTOP-GVVQRNIB/Documents/GitHub/TFG_SandraCiudad/Assets/Results/Stroop/Results_" + actual_date + ".txt";
+
+        if (File.Exists(path))
+        {
+            string[] lines = File.ReadAllLines(path);
+            if (lines.Length >= 2)
+            {
+                string[] newLines = new string[lines.Length - 1];
+                Array.Copy(lines, 1, newLines, 0, newLines.Length);
+                File.WriteAllLines(path, newLines);
+            }
+        }
+    }
+
 
 
     public void UpdateProgress()
