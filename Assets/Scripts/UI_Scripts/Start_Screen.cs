@@ -16,15 +16,11 @@ public class Start_Screen : MonoBehaviour
     [SerializeField]
     private Button _arrowButton;
     [SerializeField]
-    private Image _clipboardImage;
-    [SerializeField]
     private Image _newspaper;
-    [SerializeField]
-    private GameObject _killer;
-    [SerializeField]
-    private GameObject _bgKiller;
-    [SerializeField]
-    private GameObject _textDialog;
+
+    public GameObject _killer;
+    public GameObject _bgKiller;
+    public GameObject _textDialog;
 
     public TextMeshProUGUI text1;
     public TextMeshProUGUI text2;
@@ -32,20 +28,49 @@ public class Start_Screen : MonoBehaviour
     public TextMeshProUGUI text4;
     public TextMeshProUGUI text5;
 
-    public int count;
+    public GameObject _info_btn;
+    public GameObject _info_msg;
+
+    private int count;
+    public bool init_animation;
+    public bool show_info;
+
+    [SerializeField] private Button soundBtn1;
+    [SerializeField] private Button soundBtn2;
+    [SerializeField] private Button soundBtn3;
+    [SerializeField] private Button soundBtn4;
+    [SerializeField] private Button soundBtn5;
+    [SerializeField] private TextMeshProUGUI skip;
+    [SerializeField] private TextMeshProUGUI s;
 
     public void startGame()
     {
-        count = 0;
+        //count = 0;
+        init_animation = false;
 
         _startBtn.SetActive(false);
+        _info_btn.SetActive(false);
+        _info_msg.SetActive(false);
+        
+
+        _introBackground.SetActive(true);
+        _newspaper.gameObject.SetActive(true);
+        _arrowButton.gameObject.SetActive(true);
+        
+
+        /*
         //show player info
         _killer.SetActive(true);
         _bgKiller.SetActive(true);
-        _textDialog.SetActive(true);
-        /*_introBackground.SetActive(true);
-        _newspaper.gameObject.SetActive(true);
-        _arrowButton.gameObject.SetActive(true);*/
+        //_textDialog.SetActive(true);
+
+        Player player = GameObject.Find("Player").GetComponent<Player>();
+        if (player != null)
+        {
+            player._isPressed = true;
+            player._doingTest = false;
+        }
+        */
     }
 
 
@@ -65,39 +90,87 @@ public class Start_Screen : MonoBehaviour
         if (count == 1)
         {
             text1.gameObject.SetActive(true);
-            
-        } else if (count == 2)
+            soundBtn1.gameObject.SetActive(true);
+            skip.gameObject.SetActive(true);
+            s.gameObject.SetActive(true);
+        } 
+        else if (count == 2)
         {
             text2.gameObject.SetActive(true);
-            
-        } else if (count == 3)
+            soundBtn2.gameObject.SetActive(true);
+            skip.gameObject.SetActive(true);
+            s.gameObject.SetActive(true);
+        } 
+        else if (count == 3)
         {
             text3.gameObject.SetActive(true);
-            _clipboardImage.gameObject.SetActive(true);
-        } else if (count == 4)
+            soundBtn3.gameObject.SetActive(true);
+            skip.gameObject.SetActive(true);
+            s.gameObject.SetActive(true);
+        } 
+        else if (count == 4)
         {
             text4.gameObject.SetActive(true);
-            
-        } else if (count == 5)
+            soundBtn4.gameObject.SetActive(true);
+            skip.gameObject.SetActive(true);
+            s.gameObject.SetActive(true);
+        } 
+        else if (count == 5)
         {
             text5.gameObject.SetActive(true);
-        } else if (count > 5)
+            soundBtn5.gameObject.SetActive(true);
+            skip.gameObject.SetActive(true);
+            s.gameObject.SetActive(true);
+        } 
+        else if (count > 5)
         {
             defaultValues();
             _arrowButton.gameObject.SetActive(false);
             _introBackground.gameObject.SetActive(false);
             _introBackground.SetActive(false);
 
-            //show player info
-            _killer.SetActive(true);
-            _bgKiller.SetActive(true);
-            _textDialog.SetActive(true);
+            init_animation = true;
+            animationEffects animation = GameObject.Find("Start_Screen").GetComponent<animationEffects>();
+            if (animation != null)
+            {
+                animation.init_player_movement = true;
+                animation.Update();
+            }
         }
     }
 
-    private void okClick()
+   
+
+    public void Update()
     {
-        _textDialog.SetActive(false);
+        animationEffects animation = GameObject.Find("Start_Screen").GetComponent<animationEffects>();
+        if (animation != null)
+        {
+            if(animation.finish_introduction == true)
+            {
+                _killer.SetActive(true);
+                _bgKiller.SetActive(true);
+                _info_btn.gameObject.SetActive(false);
+            }
+            
+        }
+    }
+
+    public void info_btn_click()
+    {
+        animationEffects animation = GameObject.Find("Start_Screen").GetComponent<animationEffects>();
+        if (animation != null)
+        {
+            animation.finish_introduction = true;
+        }
+        
+        _info_btn.gameObject.SetActive(false);
+        _info_msg.gameObject.SetActive(true);
+    }
+
+    public void info_msg_click()
+    {
+        _info_msg.SetActive(false);
         Player player = GameObject.Find("Player").GetComponent<Player>();
         if (player != null)
         {
@@ -108,13 +181,19 @@ public class Start_Screen : MonoBehaviour
     public void defaultValues()
     {
         _newspaper.gameObject.SetActive(false);
-        _clipboardImage.gameObject.SetActive(false);
         _arrowButton.gameObject.SetActive(false);
         text1.gameObject.SetActive(false);
         text2.gameObject.SetActive(false);
         text3.gameObject.SetActive(false);
         text4.gameObject.SetActive(false);
         text5.gameObject.SetActive(false);
+        soundBtn1.gameObject.SetActive(false);
+        soundBtn2.gameObject.SetActive(false);
+        soundBtn3.gameObject.SetActive(false);
+        soundBtn4.gameObject.SetActive(false);
+        soundBtn5.gameObject.SetActive(false);
+        skip.gameObject.SetActive(false);
+        s.gameObject.SetActive(false);
     }
 
     public void nextText()
@@ -123,5 +202,4 @@ public class Start_Screen : MonoBehaviour
         count += 1;
         selecText();
     }
-
 }

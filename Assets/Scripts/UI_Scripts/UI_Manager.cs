@@ -16,8 +16,6 @@ public class UI_Manager : MonoBehaviour
     [SerializeField]
     private GameObject _killer;
     [SerializeField]
-    private GameObject _date;
-    [SerializeField]
     private GameObject _extra;
 
     [SerializeField]
@@ -28,8 +26,6 @@ public class UI_Manager : MonoBehaviour
     private GameObject _bgplace;
     [SerializeField]
     private GameObject _bgkiller;
-    [SerializeField]
-    private GameObject _bgdate;
     [SerializeField]
     private GameObject _bgextra;
 
@@ -43,7 +39,6 @@ public class UI_Manager : MonoBehaviour
     private Button ok_errorMsg_btn;
 
     public bool possible;
-
 
     public void check()
     {
@@ -79,6 +74,12 @@ public class UI_Manager : MonoBehaviour
 
     public void weaponClicked()
     {
+        Solve solve = GameObject.Find("Solve").GetComponent<Solve>();
+        if (solve != null)
+        {
+            solve.weapon_counter += 1;
+        }
+        
         check();
         if(possible == true)
         {
@@ -98,6 +99,12 @@ public class UI_Manager : MonoBehaviour
 
     public void reasonClicked()
     {
+        Solve solve = GameObject.Find("Solve").GetComponent<Solve>();
+        if (solve != null)
+        {
+            solve.reason_counter += 1;
+        }
+
         check();
         if (possible == true)
         {
@@ -115,6 +122,25 @@ public class UI_Manager : MonoBehaviour
         _bgplace.SetActive(true);
     }
 
+    public void placeClicked()
+    {
+        Solve solve = GameObject.Find("Solve").GetComponent<Solve>();
+        if (solve != null)
+        {
+            solve.place_counter += 1;
+        }
+
+        check();
+        if (possible == true)
+        {
+            show_cards show = GameObject.Find("Cards").GetComponent<show_cards>();
+            if (show != null)
+            {
+                show.show_place_card();
+            }
+        }
+    }
+
 
     public void extraCollected()
     {
@@ -122,10 +148,26 @@ public class UI_Manager : MonoBehaviour
         _bgextra.SetActive(true);
     }
 
-    public void dateCollected()
+    public void extraClicked()
     {
-        _date.SetActive(true);
-        _bgdate.SetActive(true);
+        Solve solve = GameObject.Find("Solve").GetComponent<Solve>();
+        if (solve != null)
+        {
+            solve.extra_counter += 1;
+        }
+
+        check();
+        if (possible == true)
+        {
+            show_cards show = GameObject.Find("Cards").GetComponent<show_cards>();
+            if (show != null)
+            {
+                show.show_extra_card();
+            }
+        }
     }
+
+
+    
 
 }
